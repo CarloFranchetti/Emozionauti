@@ -112,7 +112,7 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                }.position(x:500,y:1100)
+                }.position(x:500,y:900)
                     // .padding(20)
                     
                     
