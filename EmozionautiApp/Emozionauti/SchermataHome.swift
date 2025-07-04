@@ -20,6 +20,7 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                 Image("pianeta")
                     .resizable()
+                    .position(x:450,y:1300)
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
             VStack(alignment: .center, spacing:70){
@@ -96,7 +97,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background( Color(red:12/255,green:10/255,blue:96/255))
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     NavigationLink(destination:ParentAccessView()){
@@ -110,14 +111,16 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                }.position(x:400,y:900)
-                    .padding(20)
-                
-                
-            }
+                }.position(x:500,y:1100)
+                    // .padding(20)
+                    
+                    
+                }
+            
+            
         }
     }
-    }
+}
 
 #Preview{
     ContentView()
