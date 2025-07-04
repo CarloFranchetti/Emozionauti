@@ -14,8 +14,6 @@
 		1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ContentView.swift,
-				EmozionautiApp.swift,
 				Info.plist,
 				SchermataHome.swift,
 				SchermataIcona.swift,
