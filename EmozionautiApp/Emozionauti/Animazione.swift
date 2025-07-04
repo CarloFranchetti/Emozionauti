@@ -12,10 +12,11 @@ import SwiftUI
 
 
 
-struct Animazione: View {
+struct Animazione<Minigioco: View>: View {
     var coloreEmozione: Color
     var coloreOmbra: Color
     var text: String
+    var minigioco: () -> Minigioco
     var body: some View {
         NavigationStack{
             ZStack {
@@ -32,7 +33,7 @@ struct Animazione: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                     Spacer()
-                    NavigationLink(destination: Minigioco()){
+                    NavigationLink(destination: minigioco()){
                         Text("Avanti")
                             .foregroundColor(Color(sfondoBlu))
                             .font(.custom("Mitr-Regular",size:50))
