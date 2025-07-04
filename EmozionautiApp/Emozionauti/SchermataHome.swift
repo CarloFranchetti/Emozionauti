@@ -85,9 +85,7 @@ struct SchermataHome: View {
                 }.position(x:400,y:650)
                     .padding(20)
                 HStack{
-                    Button(action:{
-                        
-                    }){
+                    NavigationLink(destination: DiaryStatsView()){
                         Image(systemName: "book.fill")
                             .resizable()
                             .scaledToFit()
@@ -99,9 +97,7 @@ struct SchermataHome: View {
                             .padding(80)
                         
                     }
-                    Button(action:{
-                        
-                    }){
+                    NavigationLink(destination:ParentAccessView()){
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
@@ -112,7 +108,7 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                }.position(x:400,y:1100)
+                }.position(x:400,y:900)
                     .padding(20)
                 
                 
