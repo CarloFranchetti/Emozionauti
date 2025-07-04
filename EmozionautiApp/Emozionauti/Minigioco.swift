@@ -21,6 +21,6 @@ struct Minigioco: View {
 }
 
 #Preview {
-    Animazione()
+    ContentView()
 }
 
