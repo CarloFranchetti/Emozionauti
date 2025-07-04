@@ -122,6 +122,7 @@ struct SchermataHome: View {
     }
     }
 
+
 #Preview {
     SchermataHome()
 }
