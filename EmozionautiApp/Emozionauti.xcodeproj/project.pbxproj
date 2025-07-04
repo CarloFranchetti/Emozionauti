@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */ = {
+		1F6997382E17E34900677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		23C80CD32E13F460000321AD /* Emozionauti */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */,
+				1F6997382E17E34900677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */,
 			);
 			path = Emozionauti;
 			sourceTree = "<group>";
