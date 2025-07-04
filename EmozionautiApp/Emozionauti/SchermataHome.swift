@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+
 struct SchermataHome: View {
+    let coloriEmozioni:[String:Color]
     var body: some View {
         NavigationStack{
             ZStack{ // permette il colore dietro a tutto
@@ -21,67 +23,67 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
                 HStack{
-                    NavigationLink(destination: Animazione()){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia() })) {
                         Image("rabbia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .background(Color(red:255/255,green:102/255,blue:104/255))
+                            .background(coloriEmozioni["rabbia"])
                             .cornerRadius(20)
                             .padding(80)
                         
                     }
-                    .shadow(color: Color(red:202/255,green:37/255,blue:22/255), radius: 0, x: 5, y: 10)
+                    .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
                     
                         
-                    NavigationLink(destination: Animazione()){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...",minigioco:{MinigiocoFelicita()})){
                         Image("felicita")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .background(Color(red:70/255,green:239/255,blue:48/255))
+                            .background(coloriEmozioni["felicita"])
                             .cornerRadius(20)
                             .padding(80)
                     }
-                    .shadow(color:Color(red:12/255,green:165/255,blue:7/255),radius:0,x:5,y:10)
-                    NavigationLink(destination: Animazione()){
+                    .shadow(color:coloriEmozioni["felicitaombra"]!,radius:0,x:5,y:10)
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...",minigioco: {MinigiocoPaura()})){
                         Image("paura")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .background(Color(red:194/255,green:168/255,blue:230/255))
+                            .background(coloriEmozioni["paura"])
                             .cornerRadius(20)
                             .padding(80)
                         
                     }
-                    .shadow(color:Color(red:125/255,green:27/255,blue:191/255),radius:0,x:5,y:10)
+                    .shadow(color:coloriEmozioni["pauraombra"]!,radius:0,x:5,y:10)
                         
                 }.position(x:400,y:450)
                     .padding(20)
                 HStack{
-                    NavigationLink(destination: Animazione()){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["noia"]!,coloreOmbra: coloriEmozioni["noiaombra"]!, text:"Quando sei annoiato...", minigioco:{MinigiocoNoia()})){
                         Image("noia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .background(Color(red:171/255,green:173/255,blue:171/255))
+                            .background(coloriEmozioni["noia"])
                             .cornerRadius(20)
                             .padding(80)
                         
                     }
-                    .shadow(color:Color(red:66/255,green:64/255,blue:56/255),radius:0,x:5,y:10)
+                    .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
                       
                         
-                    NavigationLink(destination: Animazione()){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...", minigioco:{MinigiocoTristezza()})){
                         Image("tristezza")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .background(Color(red:123/255,green:206/255,blue:248/255))
+                            .background(coloriEmozioni["tristezza"])
                             .cornerRadius(20)
                             .padding(80)
                     }
-                    .shadow(color:Color(red:19/255,green:43/255,blue:137/255),radius:0,x:5,y:10)
+                    .shadow(color:coloriEmozioni["tristezzaombra"]!,radius:0,x:5,y:10)
                 }.position(x:400,y:650)
                     .padding(20)
                 HStack{
@@ -117,7 +119,8 @@ struct SchermataHome: View {
     }
     }
 
-
-#Preview {
-    SchermataHome()
+#Preview{
+    ContentView()
 }
+
+
