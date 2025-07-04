@@ -1,6 +1,6 @@
 # 🚀 Emozionauti
 
-![Logo Emozionauti](logoEmozionauti.png)
+![Logo Emozionauti](EmozionautiApp/logoEmozionauti.png)
 Emozionauti è un applicazione nativa IOS progettata per guidare i bambini in un viaggio interattivo alla scoperta delle emozioni, unendo gioco, narrazione e attività guidate per favorire la consapevolezza emotiva e la regolazione affettiva in modo sicuro, educativo e divertente.
 
 ## 🗂️ Struttura del progetto
