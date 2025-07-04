@@ -22,7 +22,8 @@ struct SchermataHome: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
-                HStack{
+            VStack(alignment: .center, spacing:70){
+                HStack(spacing:80){
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato...")){
                         Image("rabbia")
                             .resizable()
@@ -30,12 +31,12 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["rabbia"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
                     
-                        
+                    
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...")){
                         Image("felicita")
                             .resizable()
@@ -43,7 +44,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["felicita"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                     }
                     .shadow(color:coloriEmozioni["felicitaombra"]!,radius:0,x:5,y:10)
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...")){
@@ -53,14 +54,13 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["paura"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color:coloriEmozioni["pauraombra"]!,radius:0,x:5,y:10)
-                        
-                }.position(x:400,y:450)
-                    .padding(20)
-                HStack{
+                    
+                }
+                HStack(spacing: 80){
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["noia"]!,coloreOmbra: coloriEmozioni["noiaombra"]!, text:"Quando sei annoiato...")){
                         Image("noia")
                             .resizable()
@@ -68,12 +68,12 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["noia"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
-                      
-                        
+                    
+                    
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...")){
                         Image("tristezza")
                             .resizable()
@@ -81,11 +81,11 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["tristezza"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                     }
                     .shadow(color:coloriEmozioni["tristezzaombra"]!,radius:0,x:5,y:10)
-                }.position(x:400,y:650)
-                    .padding(20)
+                }
+            }
                 HStack{
                     NavigationLink(destination: DiaryStatsView()){
                         Image(systemName: "book.fill")
