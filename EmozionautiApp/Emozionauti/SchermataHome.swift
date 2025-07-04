@@ -31,7 +31,8 @@ struct SchermataHome: View {
                             .padding(80)
                         
                     }
-                    .shadow(color:Color(red:202/255,green:37/255,blue:22/255),radius:20,x:5,y:10)
+                    .shadow(color: Color(red:202/255,green:37/255,blue:22/255), radius: 0, x: 5, y: 10)
+                    
                         
                     NavigationLink(destination: Animazione()){
                         Image("felicita")
@@ -42,7 +43,7 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                    .shadow(color:Color(red:12/255,green:165/255,blue:7/255),radius:20,x:5,y:10)
+                    .shadow(color:Color(red:12/255,green:165/255,blue:7/255),radius:0,x:5,y:10)
                     NavigationLink(destination: Animazione()){
                         Image("paura")
                             .resizable()
@@ -53,7 +54,7 @@ struct SchermataHome: View {
                             .padding(80)
                         
                     }
-                    .shadow(color:Color(red:125/255,green:27/255,blue:191/255),radius:20,x:5,y:10)
+                    .shadow(color:Color(red:125/255,green:27/255,blue:191/255),radius:0,x:5,y:10)
                         
                 }.position(x:400,y:450)
                     .padding(20)
@@ -68,12 +69,10 @@ struct SchermataHome: View {
                             .padding(80)
                         
                     }
-                    .shadow(color:Color(red:66/255,green:64/255,blue:56/255),radius:20,x:5,y:10)
+                    .shadow(color:Color(red:66/255,green:64/255,blue:56/255),radius:0,x:5,y:10)
                       
                         
-                    Button(action:{
-                        
-                    }){
+                    NavigationLink(destination: Animazione()){
                         Image("tristezza")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -82,7 +81,7 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                    .shadow(color:Color(red:19/255,green:43/255,blue:137/255),radius:20,x:5,y:10)
+                    .shadow(color:Color(red:19/255,green:43/255,blue:137/255),radius:0,x:5,y:10)
                 }.position(x:400,y:650)
                     .padding(20)
                 HStack{
