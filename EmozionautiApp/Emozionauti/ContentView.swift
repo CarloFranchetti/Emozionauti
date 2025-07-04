@@ -1,24 +1,24 @@
-//
-//  ContentView.swift
-//  Emozionauti
-//
-//  Created by Carlo Franchetti on 01/07/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello!")
-        }
-        .padding()
-    }
-}
+    @State private var showSplash = true
 
-#Preview {
-    ContentView()
+    var body: some View {
+        ZStack {
+            if showSplash {
+                SchermataIcona()
+                    .transition(.opacity)
+            } else {
+                SchermataHome() // o ParentDashboardView()
+                    .transition(.opacity)
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                withAnimation {
+                    showSplash = false
+                }
+            }
+        }
+    }
 }
