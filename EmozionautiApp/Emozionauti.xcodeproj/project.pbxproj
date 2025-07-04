@@ -10,9 +10,22 @@
 		23C80CD12E13F460000321AD /* Emozionauti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emozionauti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 23C80CD02E13F460000321AD /* Emozionauti */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		23C80CD32E13F460000321AD /* Emozionauti */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */,
+			);
 			path = Emozionauti;
 			sourceTree = "<group>";
 		};
