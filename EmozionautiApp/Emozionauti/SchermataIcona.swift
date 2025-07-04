@@ -8,13 +8,6 @@ struct SchermataIcona: View {
     @State private var showProgress = true
     let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
 
-    var starScene: SKScene {
-        let scene = StarScene()
-        scene.size = UIScreen.main.bounds.size
-        scene.scaleMode = .resizeFill
-        return scene
-    }
-
     var body: some View {
         ZStack {
             // Sfondo con stelle animate
