@@ -16,7 +16,6 @@ struct Minigioco: View {
             .foregroundColor(.black)
             .multilineTextAlignment(.center)
         Spacer()
-
     }
 }
 

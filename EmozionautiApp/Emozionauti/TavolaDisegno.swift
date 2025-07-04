@@ -35,20 +35,23 @@ class TavolaDisegno: UIViewController ,PKCanvasViewDelegate{
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
     }
-    
+   /* func updateContentSize(for canvasView: PKCanvasView) {
+            // Calcola la dimensione minima necessaria per contenere il disegno
+            let drawingBounds = canvasView.drawing.bounds
+
+            // Aggiungi un padding extra
+            let padding: CGFloat = 20
+            let contentWidth = drawingBounds.width + padding
+            let contentHeight = drawingBounds.height + padding
+            canvasView.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        }
+
+   
     //Canvas
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        <#code#>
+        updateContentSize(for: canvasView)
     }
-    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        <#code#>
-    }
-    func canvasViewDidFinishRendering(_ canvasView: PKCanvasView) {
-        <#code#>
-    }
-    func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
-        <#code#>
-    }
+    */
     @IBAction func salvaDisegni(_ sender: Any) {
     }
     

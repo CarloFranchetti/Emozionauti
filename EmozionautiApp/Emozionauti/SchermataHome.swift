@@ -100,7 +100,8 @@ struct SchermataHome: View {
                             .padding()
                         
                     }
-                    NavigationLink(destination:ParentAccessView()){
+                    NavigationLink(destination:TavolaDisegnoWrapper()
+                        .edgesIgnoringSafeArea(.all) ){
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
