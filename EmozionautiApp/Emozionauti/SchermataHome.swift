@@ -21,7 +21,7 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
                 HStack{
-                    NavigationLink(destination: Animazione){
+                    NavigationLink(destination: Animazione()){
                         Image("rabbia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -33,7 +33,7 @@ struct SchermataHome: View {
                     }
                     .shadow(color:Color(red:202/255,green:37/255,blue:22/255),radius:20,x:5,y:10)
                         
-                    NavigationLink(destination: Animazione){
+                    NavigationLink(destination: Animazione()){
                         Image("felicita")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -43,7 +43,7 @@ struct SchermataHome: View {
                             .padding(80)
                     }
                     .shadow(color:Color(red:12/255,green:165/255,blue:7/255),radius:20,x:5,y:10)
-                    NavigationLink(destination: Animazione){
+                    NavigationLink(destination: Animazione()){
                         Image("paura")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -58,7 +58,7 @@ struct SchermataHome: View {
                 }.position(x:400,y:450)
                     .padding(20)
                 HStack{
-                    NavigationLink(destination: Animazione){
+                    NavigationLink(destination: Animazione()){
                         Image("noia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -71,9 +71,7 @@ struct SchermataHome: View {
                     .shadow(color:Color(red:66/255,green:64/255,blue:56/255),radius:20,x:5,y:10)
                       
                         
-                    Button(action:{
-                        
-                    }){
+                    NavigationLink(destination: Animazione()){
                         Image("tristezza")
                             .resizable()
                             .aspectRatio(contentMode: .fit)

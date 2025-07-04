@@ -16,6 +16,7 @@
 			membershipExceptions = (
 				ContentView.swift,
 				EmozionautiApp.swift,
+				Info.plist,
 				SchermataHome.swift,
 				SchermataIcona.swift,
 			);
@@ -23,25 +24,11 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		1F6996E22E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Copy Bundle Resources" phase from "Emozionauti" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 23C80CCF2E13F460000321AD /* Resources */;
-			membershipExceptions = (
-				ContentView.swift,
-				EmozionautiApp.swift,
-				SchermataHome.swift,
-				SchermataIcona.swift,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		23C80CD32E13F460000321AD /* Emozionauti */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1F6996E12E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Emozionauti" target */,
-				1F6996E22E17D90300677E44 /* Exceptions for "Emozionauti" folder in "Copy Bundle Resources" phase from "Emozionauti" target */,
 			);
 			path = Emozionauti;
 			sourceTree = "<group>";
