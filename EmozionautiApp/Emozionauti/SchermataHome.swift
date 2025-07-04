@@ -23,7 +23,7 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
                 HStack{
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato...")){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia() })) {
                         Image("rabbia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -36,7 +36,7 @@ struct SchermataHome: View {
                     .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
                     
                         
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...")){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...",minigioco:{MinigiocoFelicita()})){
                         Image("felicita")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -46,7 +46,7 @@ struct SchermataHome: View {
                             .padding(80)
                     }
                     .shadow(color:coloriEmozioni["felicitaombra"]!,radius:0,x:5,y:10)
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...")){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...",minigioco: {MinigiocoPaura()})){
                         Image("paura")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -61,7 +61,7 @@ struct SchermataHome: View {
                 }.position(x:400,y:450)
                     .padding(20)
                 HStack{
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["noia"]!,coloreOmbra: coloriEmozioni["noiaombra"]!, text:"Quando sei annoiato...")){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["noia"]!,coloreOmbra: coloriEmozioni["noiaombra"]!, text:"Quando sei annoiato...", minigioco:{MinigiocoNoia()})){
                         Image("noia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -74,7 +74,7 @@ struct SchermataHome: View {
                     .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
                       
                         
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...")){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...", minigioco:{MinigiocoTristezza()})){
                         Image("tristezza")
                             .resizable()
                             .aspectRatio(contentMode: .fit)

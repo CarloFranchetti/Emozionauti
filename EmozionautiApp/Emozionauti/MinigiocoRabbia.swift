@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Minigioco: View {
+struct MinigiocoRabbia: View {
     var body: some View {
         Text("Soffia sul vulcano fino a spegnerlo!")
             .font(.custom("Mitr-Regular",size:50))
