@@ -20,6 +20,7 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                 Image("pianeta")
                     .resizable()
+                    .position(x:450,y:1300)
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
                 HStack{
@@ -30,7 +31,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["rabbia"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
@@ -43,7 +44,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["felicita"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                     }
                     .shadow(color:coloriEmozioni["felicitaombra"]!,radius:0,x:5,y:10)
                     NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...",minigioco: {MinigiocoPaura()})){
@@ -53,7 +54,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["paura"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color:coloriEmozioni["pauraombra"]!,radius:0,x:5,y:10)
@@ -68,7 +69,7 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["noia"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
                     .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
@@ -81,11 +82,11 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background(coloriEmozioni["tristezza"])
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                     }
                     .shadow(color:coloriEmozioni["tristezzaombra"]!,radius:0,x:5,y:10)
-                }.position(x:400,y:650)
-                    .padding(20)
+                }
+            }
                 HStack{
                     NavigationLink(destination: DiaryStatsView()){
                         Image(systemName: "book.fill")
@@ -96,10 +97,10 @@ struct SchermataHome: View {
                             .frame(width: 100, height: 100)
                             .background( Color(red:12/255,green:10/255,blue:96/255))
                             .cornerRadius(20)
-                            .padding(80)
+                            .padding()
                         
                     }
-                    NavigationLink(destination:ParentAccessView()){
+                    NavigationLink(destination:DiaryStatsView()){
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
@@ -110,14 +111,16 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                }.position(x:400,y:900)
-                    .padding(20)
-                
-                
-            }
+                }.position(x:500,y:700)
+                    // .padding(20)
+                    
+                    
+                }
+            
+            
         }
     }
-    }
+
 
 #Preview{
     ContentView()
