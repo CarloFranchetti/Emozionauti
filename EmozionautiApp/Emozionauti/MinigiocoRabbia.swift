@@ -11,7 +11,7 @@ struct MinigiocoRabbia: View {
     @State var indicecorrente: Int =  0
     @State var conta: Int = 0
     @State var fineGioco: Bool = false
-    let coloriEmozioni:[String:Color]
+    let colore: Color
     let rilevatore = RilevaSoffio()
     var body: some View {
         let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]
@@ -52,7 +52,7 @@ struct MinigiocoRabbia: View {
                             .foregroundColor(.white)
                             .padding([.top],10)
                             .frame(width: 200, height: 50)
-                            .background(coloriEmozioni["rabbiaombra"])
+                            .background(colore)
                         
                     }
                 }

@@ -24,7 +24,7 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                     .position(x:430,y:1300)
                 HStack{
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia() })) {
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia(colore:coloriEmozioni["rabbiaombra"]!) })) {
                         Image("rabbia")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
