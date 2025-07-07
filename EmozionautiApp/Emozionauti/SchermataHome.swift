@@ -100,8 +100,7 @@ struct SchermataHome: View {
                             .padding()
                         
                     }
-                    NavigationLink(destination:TavolaDisegnoWrapper()
-                        .edgesIgnoringSafeArea(.all) ){
+                    NavigationLink(destination:DiaryStatsView()){
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
@@ -112,7 +111,7 @@ struct SchermataHome: View {
                             .cornerRadius(20)
                             .padding(80)
                     }
-                }.position(x:500,y:900)
+                }.position(x:500,y:700)
                     // .padding(20)
                     
                     
@@ -121,7 +120,7 @@ struct SchermataHome: View {
             
         }
     }
-}
+
 
 #Preview{
     ContentView()

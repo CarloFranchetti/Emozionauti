@@ -9,7 +9,7 @@ import SwiftUI
 struct EmozionautiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView1()
+            ContentView()
         }
     }
 }
