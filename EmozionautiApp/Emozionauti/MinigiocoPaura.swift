@@ -33,24 +33,31 @@ struct MinigiocoPaura: View {
                     .transition(.opacity)
             }
 
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 4), spacing: 20) {
-                ForEach(numbers, id: \.self) { number in
+            ZStack {
+                ForEach(Array(numbers.enumerated()), id: \.element) { index, number in
                     if !selectedNumbers.contains(number) {
+                        let angle = Double(index) / Double(numbers.count) * 2 * .pi
+                        let radius: CGFloat = 220 // distanza dal centro
+                        
+                        
+                        
                         Button(action: {
                             handleTap(number)
                         }) {
                             Text("\(number)")
-                                .font(.title)
-                                .frame(width: 160, height: 160)
-                                .background(Color.blue.opacity(0.9))
-                                .foregroundColor(.white)
+                                .font(Font.custom("Mitr-Regular", size: 100))
+                                .frame(width: 100, height: 100)
+                                .background(.white)
+                                .foregroundColor((Color(red: 117/255, green: 48/255, blue: 212/255)))
                                 .clipShape(Circle())
+                                //.shadow(radius: 4)
                         }
+                        .offset(x: cos(angle) * radius, y: sin(angle) * radius)
                     }
                 }
             }
-            .padding(.horizontal)
-
+            .frame(height: 650)
+            
             Spacer()
         }
         .padding()
