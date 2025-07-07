@@ -100,7 +100,7 @@ struct SchermataHome: View {
                             .padding()
                         
                     }
-                    NavigationLink(destination:DiaryStatsView()){
+                    NavigationLink(destination:ContentView1()){
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFit()
