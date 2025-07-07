@@ -79,8 +79,8 @@ struct MinigiocoRabbia: View {
     }
     
     func VulcanoAnimazione(){
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){ timer  in
-            if rilevatore.aggiornaVol() == true{
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true){ timer  in
+            if (rilevatore.aggiornaVol() == true && indicecorrente == 0) ||  indicecorrente == 1{
                 indicecorrente = (indicecorrente+1) % 2
                 if indicecorrente == 0{
                     conta+=1

@@ -16,6 +16,12 @@ struct MinigiocoFelicita: View {
             .padding(.top, 50)
             .foregroundColor(.black)
             .multilineTextAlignment(.center)
+        vectorImage[0]
+            .resizable()
+            .frame(width: 200, height: 200)
+        vectorImage[1]
+            .resizable()
+            .frame(width:200, height:200)
         
         Spacer()
 
