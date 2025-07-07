@@ -36,7 +36,7 @@ struct SchermataHome: View {
                     .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
                     
                         
-                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...",minigioco:{MinigiocoFelicita()})){
+                    NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...",minigioco:{MinigiocoFelicita(coloreFelicita: coloriEmozioni["felicitaombra"]!)})){
                         Image("felicita")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
