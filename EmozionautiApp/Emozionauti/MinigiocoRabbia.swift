@@ -31,7 +31,7 @@ struct MinigiocoRabbia: View {
                         .scaledToFit()
                         .padding([.bottom],0)
                         .frame(width: 800, height: 800)
-                        .position(x:400,y:400)
+                        .position(x:400,y:200)
                         .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true){ content,value in
                             content
                                 .scaleEffect(y:value.verticalTrasl, anchor: .bottom)
@@ -42,18 +42,16 @@ struct MinigiocoRabbia: View {
                         }}
                     Image("Vulcano3sf")
                         .resizable()
-                        .position(x:300,y:460)
+                        .position(x:300,y:260)
                         .scaledToFit()
                         .frame(width: 800, height: 800)
                     NavigationLink(destination:ContentView1()){
                             Text("Prosegui")
                             .font(.custom("Mitr-Regular",size:30))
-                            .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .padding([.top],10)
-                            .frame(width: 200, height: 50)
+                            .frame(width: 200, height: 200)
                             .background(colore)
-                        
+                            .position(x:400,y:550)
                     }
                 }
             }else{
@@ -79,8 +77,8 @@ struct MinigiocoRabbia: View {
     }
     
     func VulcanoAnimazione(){
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){ timer  in
-            if rilevatore.aggiornaVol() == true{
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true){ timer  in
+            if (rilevatore.aggiornaVol() == true && indicecorrente == 0) ||  indicecorrente == 1{
                 indicecorrente = (indicecorrente+1) % 2
                 if indicecorrente == 0{
                     conta+=1
