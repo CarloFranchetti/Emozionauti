@@ -8,18 +8,90 @@
 import SwiftUI
 
 struct MinigiocoRabbia: View {
+    @State var indicecorrente: Int =  0
+    @State var conta: Int = 0
+    @State var fineGioco: Bool = false
+    let rilevatore = RilevaSoffio()
     var body: some View {
-        Text("Soffia sul vulcano fino a spegnerlo!")
-            .font(.custom("Mitr-Regular",size:50))
-            .fontWeight(.bold)
-            .padding(.top, 50)
-            .foregroundColor(.black)
-            .multilineTextAlignment(.center)
-        Spacer()
+        let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]
+        let totaldur = 3.0
+        VStack{
+            Text("Soffia sul vulcano fino a spegnerlo!")
+                .font(.custom("Mitr-Regular",size:50))
+                .fontWeight(.bold)
+                .padding(.top, 50)
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+            
+            if fineGioco{
+                VStack{
+                    Image("BenFattoVulcano")
+                        .resizable()
+                        .scaledToFit()
+                        .padding([.bottom],0)
+                        .frame(width: 800, height: 800)
+                        .position(x:400,y:400)
+                        .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true){ content,value in
+                            content
+                                .scaleEffect(y:value.verticalTrasl, anchor: .bottom)
+                            .offset(y:value.yTrasl)}
+                    keyframes:{ _ in
+                        KeyframeTrack(\.verticalTrasl){
+                            SpringKeyframe(0.9, duration: totaldur * 0.30)
+                        }}
+                    Image("Vulcano3sf")
+                        .resizable()
+                        .position(x:300,y:460)
+                        .scaledToFit()
+                        .frame(width: 800, height: 800)
+                }
+            }else{
+                animazioneImmagini[indicecorrente]
+                    .resizable()
+                    .scaledToFit()
+                    .padding([.bottom],0)
+                    .position(x:400,y:460)
+                    .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true){ content,value in
+                        content
+                            .scaleEffect(y:value.verticalTrasl, anchor: .bottom)
+                        .offset(y:value.yTrasl)}
+                keyframes:{ _ in
+                    KeyframeTrack(\.verticalTrasl){
+                        SpringKeyframe(0.9, duration: totaldur * 0.30)
+                    }}
+            }
+            
+            
+            Spacer()
+        }.onAppear{VulcanoAnimazione()}
+        
+    }
+    
+    func VulcanoAnimazione(){
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){ timer  in
+            if rilevatore.aggiornaVol() == true{
+                indicecorrente = (indicecorrente+1) % 2
+                if indicecorrente == 0{
+                    conta+=1
+                }
+                if conta >= 3{
+                    timer.invalidate()
+                    fineGioco = true
+                }
+            }
+        }
     }
 }
+
+struct AnimazioneProps{
+    var yTrasl = 0.0
+    var verticalTrasl = 1.0
+}
+
+
 
 #Preview {
     ContentView()
 }
+
 
