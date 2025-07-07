@@ -17,7 +17,7 @@ struct MinigiocoRabbia: View {
         let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]
         let totaldur = 3.0
         VStack{
-            Text("Soffia sul vulcano fino a spegnerlo!")
+            Text("Soffia sul microfono per spegnere il vulcano!")
                 .font(.custom("Mitr-Regular",size:50))
                 .fontWeight(.bold)
                 .padding(.top, 50)
