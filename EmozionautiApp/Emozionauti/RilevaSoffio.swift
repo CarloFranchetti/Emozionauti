@@ -68,7 +68,7 @@ class RilevaSoffio: NSObject, ObservableObject{
       func aggiornaVol() -> Bool{
         registratore.updateMeters()
         let potenza = registratore.averagePower(forChannel: 0)
-         if potenza >= -30.0 && potenza<=0.0{
+          if potenza >= 70.0 {
              return true
          }
           else{
