@@ -60,7 +60,13 @@ struct CanvasView: UIViewRepresentable {
         toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
         // Make the canvas respond to tool changes
         toolPicker.addObserver(canvasView)
-        
+        if let window = UIApplication.shared.windows.first {
+                   // Prendi la tool picker condivisa
+                   let toolPicker = PKToolPicker.shared(for: window)
+                   context.coordinator.toolPicker = toolPicker
+                   toolPicker?.setVisible(toolPickerShows, forFirstResponder: canvasView)
+                   toolPicker?.addObserver(canvasView)
+               }
         // Make the canvas active -- first responder
         if toolPickerShows {
             canvasView.becomeFirstResponder()
@@ -84,28 +90,29 @@ struct CanvasView: UIViewRepresentable {
             }
         }
     }
-    class Coordinator: NSObject, PKCanvasViewDelegate {
-        var drawing: Binding<PKDrawing>
-        
-        init(drawing: Binding<PKDrawing>) {
-            self.drawing = drawing
-        }
-        
-        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            drawing.wrappedValue = canvasView.drawing
-        }
-    }
-    
     func makeCoordinator() -> Coordinator {
         Coordinator(drawing: $drawing)
     }
-}
+    class Coordinator: NSObject, PKCanvasViewDelegate {
+            var drawing: Binding<PKDrawing>
+            var toolPicker: PKToolPicker?
+
+            init(drawing: Binding<PKDrawing>) {
+                self.drawing = drawing
+            }
+
+            func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+                drawing.wrappedValue = canvasView.drawing
+            }
+        }
     
+    
+}
     
     struct ContentView1: View {
         @State private var drawing = PKDrawing()
         @State private var toolPickerShows = true
-        
+        @State private var navigateHome = false
         var body: some View {
             NavigationStack {
                 CanvasView(toolPickerShows: $toolPickerShows,drawing: $drawing)
@@ -115,18 +122,52 @@ struct CanvasView: UIViewRepresentable {
                                 .font(.headline)
                                 .foregroundColor(.blue)
                         }
-                    }
-                    .toolbar {
-                        // ...
-
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Salva disegno",systemImage:"xmark.circle") {
-                                drawing.saveToPhotoLibrary()
-                            }
-                        }
-                    }
-                
+                            Button(action: {
+                                                           drawing.saveToPhotoLibrary()
+                                                           toolPickerShows = false
+                                                           navigateHome = true  // attiva la navigazione
+                                                       }) {
+                                                           Image(systemName: "xmark.circle")
+                                                       }
+                                                   }
+                                               }
+                                           
+                NavigationLink(destination: SchermataHome(coloriEmozioni: ContentView().colori),
+                                                          isActive: $navigateHome) {
+                                               EmptyView()
+                }
             }
         }
     }
+
+/*
+struct ContentView1: View {
+    @State private var drawing = PKDrawing()
+    @State private var toolPickerShows = true
+    @Environment(\.dismiss) var dismiss  // 👈 Per tornare indietro
+    
+    var body: some View {
+        CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Disegno")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button (action:{
+                        drawing.saveToPhotoLibrary()
+                        toolPickerShows = false
+                        dismiss() // 👈 Torna alla SchermataHome
+                    }){
+                        Image(systemName: "xmark.circle")
+                         
+                    }
+                }
+            }
+    }
+}*/
 

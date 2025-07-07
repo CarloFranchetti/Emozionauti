@@ -18,10 +18,12 @@ struct SchermataHome: View {
                 Image("sfondo")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .padding()
                 Image("pianeta")
                     .resizable()
-                    .position(x:400,y:1100)
                     .aspectRatio(contentMode: .fill)
+                    .padding()
+                    .position(x:400,y:1100)
                 VStack(alignment: .center, spacing:70){
                     HStack(spacing:80){
                         NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia(colore:coloriEmozioni["rabbiaombra"]!) })) {
