@@ -16,7 +16,6 @@ struct MinigiocoRabbia: View {
             .foregroundColor(.black)
             .multilineTextAlignment(.center)
         Spacer()
-
     }
 }
 
