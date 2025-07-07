@@ -27,7 +27,7 @@ struct SchermataIcona: View {
                     .foregroundColor(.white)
 
                 if showProgress {
-                    ProgressView(value: progress)
+                    ProgressView(value: min(progress, 1.0))
                         .progressViewStyle(.linear)
                         .frame(width: 500)
                         .tint(.yellow)
