@@ -33,7 +33,6 @@ struct MinigiocoPaura: View {
                     .transition(.opacity)
                 NavigationLink(destination:ContentView1()){
                         Text("Prosegui")
-                        .font(.custom("Mitr-Regular",size:30))
                         .foregroundColor(.white)
                         .frame(width: 200, height: 200)
                         .background(.black)
