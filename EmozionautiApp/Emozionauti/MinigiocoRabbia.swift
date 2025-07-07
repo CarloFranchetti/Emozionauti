@@ -11,6 +11,7 @@ struct MinigiocoRabbia: View {
     @State var indicecorrente: Int =  0
     @State var conta: Int = 0
     @State var fineGioco: Bool = false
+    let colore: Color
     let rilevatore = RilevaSoffio()
     var body: some View {
         let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]
@@ -44,6 +45,16 @@ struct MinigiocoRabbia: View {
                         .position(x:300,y:460)
                         .scaledToFit()
                         .frame(width: 800, height: 800)
+                    NavigationLink(destination:ContentView1()){
+                            Text("Prosegui")
+                            .font(.custom("Mitr-Regular",size:30))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding([.top],10)
+                            .frame(width: 200, height: 50)
+                            .background(colore)
+                        
+                    }
                 }
             }else{
                 animazioneImmagini[indicecorrente]
