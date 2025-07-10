@@ -16,6 +16,8 @@ struct MinigiocoTristezza: View {
     @State var messaggio: String = "Pausa"
     @State var player: AVAudioPlayer?
     @State var fine: Bool = false
+    @State var song: String
+    @State var image: String
     var body: some View {
         if !fine{
             Text("Balla via la tristezza!")
@@ -38,7 +40,7 @@ struct MinigiocoTristezza: View {
                 Text(messaggio)
                     .font(.custom("Mitr-Regular",size:30))
             }
-            GifImage("dancingAlien")
+            GifImage(image)
             Spacer()
         }
         else{
@@ -66,7 +68,7 @@ struct MinigiocoTristezza: View {
         messaggio = play ? "Balliamo!":"Pausa";
         if play {
             if player == nil{
-                if let urlString = Bundle.main.path(forResource: "songysong", ofType:"mp3"){
+                if let urlString = Bundle.main.path(forResource: song, ofType:"mp3"){
                     do{
                         try AVAudioSession.sharedInstance().setMode(.default)
                         try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
@@ -79,7 +81,7 @@ struct MinigiocoTristezza: View {
                 }
             }
             player?.play()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 240) {
                            play = false
                            player?.stop()
                            fine = true

@@ -74,7 +74,7 @@ struct SchermataHome: View {
                         .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
                         
                         
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...", minigioco:{MinigiocoTristezza(coloreTriste: coloriEmozioni["tristezzaombra"]!)})){
+                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...", minigioco:{MinigiocoTristezza(coloreTriste: coloriEmozioni["tristezzaombra"]!, song: "songysong" , image: "dancingAlien21")})){
                             Image("tristezza")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

@@ -120,13 +120,14 @@ struct CanvasView: UIViewRepresentable {
                         // ...
 
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Salva disegno",systemImage:"xmark.circle") {
-                                drawing.saveToPhotoLibrary()
+                            Button("Salva disegno",systemImage:"square.and.arrow.down.fill") {
+
                             }
                         }
                     }
                 
             }
+            
         }
     }
 
