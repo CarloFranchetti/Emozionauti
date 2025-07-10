@@ -2,7 +2,10 @@ import SwiftUI
 import AudioToolbox
 
 struct MinigiocoFelicita: View {
+    @EnvironmentObject var navManager: NavigationManager
+
     var coloreFelicita: Color
+    var coloreFelicitaOmbra: Color
     let vectorImage = [Image("astronauta1"),
                        Image("astronauta2"),
                        Image("astronauta3"),
@@ -89,6 +92,15 @@ struct MinigiocoFelicita: View {
                 messaggio = "Ben fatto!"
                 coloreMex = .green
                 playSuccessSound()
+                Button(action: {navManager.currentView = .canvas}) {
+                    Text("Avanti")
+                        .font(.custom("Mitr-Regular", size: 36))
+                        .foregroundColor(.white)
+                        .frame(width: 300, height: 100)
+                        .background(coloreFelicita)
+                        .cornerRadius(25)
+                        .shadow(color: coloreFelicitaOmbra, radius: 0, x: 10, y: 10)
+                }
 
             }else{
                 messaggio = "Oops, Riprova!"

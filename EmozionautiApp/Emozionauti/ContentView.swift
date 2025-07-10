@@ -41,7 +41,7 @@ struct ContentView: View {
                             nextView: .minigiocoFelicita
                         )
                     case .minigiocoFelicita:
-                        MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!)
+                    MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!)
                     case .animazionePaura:
                         Animazione(
                             coloreEmozione: colori["paura"]!,
@@ -68,7 +68,7 @@ struct ContentView: View {
                             nextView: .minigiocoTristezza
                         )
                     case .minigiocoTristezza:
-                        MinigiocoTristezza()
+                    MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!, song: "songysong", image:"dancingAlien")
                     case .canvas:
                         ContentView1()
                     case .diario:
