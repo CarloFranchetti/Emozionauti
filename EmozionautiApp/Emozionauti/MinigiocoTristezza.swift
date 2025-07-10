@@ -36,8 +36,10 @@ struct MinigiocoTristezza: View {
             Text(messaggio)
                 .font(.custom("Mitr-Regular",size:30))
         }
-        
+        GifImage("dancingAlien")
         Spacer()
+        
+ 
     }
     
     func playMusic(){
