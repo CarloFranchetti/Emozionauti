@@ -17,14 +17,80 @@ struct ContentView: View {
     ]
 
     var body: some View {
-        ZStack {
-            if navManager.showHome {
-                NavigationStack {
-                    SchermataHome(coloriEmozioni: colori)
+        NavigationStack {
+            ZStack {
+                switch navManager.currentView {
+                    case .splash:
+                        SchermataIcona()
+                    case .home:
+                        SchermataHome(coloriEmozioni: colori)
+                    case .animazioneRabbia:
+                        Animazione(
+                            coloreEmozione: colori["rabbia"]!,
+                            coloreOmbra: colori["rabbiaombra"]!,
+                            text: "Quando ti senti arrabbiato...",
+                            nextView: .minigiocoRabbia
+                        )
+                    case .minigiocoRabbia:
+                        MinigiocoRabbia(colore: colori["rabbiaombra"]!)
+                    case .animazioneFelicita:
+                        Animazione(
+                            coloreEmozione: colori["felicita"]!,
+                            coloreOmbra: colori["felicitaombra"]!,
+                            text: "Quando ti senti felice...",
+                            nextView: .minigiocoFelicita
+                        )
+                    case .minigiocoFelicita:
+                        MinigiocoFelicita()
+                    case .animazionePaura:
+                        Animazione(
+                            coloreEmozione: colori["paura"]!,
+                            coloreOmbra: colori["pauraombra"]!,
+                            text: "Quando hai paura...",
+                            nextView: .minigiocoPaura
+                        )
+                    case .minigiocoPaura:
+                        MinigiocoPaura()
+                    case .animazioneNoia:
+                        Animazione(
+                            coloreEmozione: colori["noia"]!,
+                            coloreOmbra: colori["noiaombra"]!,
+                            text: "Quando sei annoiato...",
+                            nextView: .minigiocoNoia
+                        )
+                    case .minigiocoNoia:
+                        MinigiocoNoia()
+                    case .animazioneTristezza:
+                        Animazione(
+                            coloreEmozione: colori["tristezza"]!,
+                            coloreOmbra: colori["tristezzaombra"]!,
+                            text: "Quando ti senti triste...",
+                            nextView: .minigiocoTristezza
+                        )
+                    case .minigiocoTristezza:
+                        MinigiocoTristezza()
+                    case .canvas:
+                        ContentView1()
+                    case .diario:
+                        DiaryStatsView()
                 }
-            } else {
-                SchermataIcona()
             }
+            .toolbar {
+                // Aggiungi il pulsante back solo se serve
+                if navManager.showBackButton {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            navManager.goBack()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                                Text("Indietro")
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarBackButtonHidden(true) // Nasconde il back automatico
         }
         .environmentObject(navManager)
     }
