@@ -120,7 +120,7 @@ struct ContentView1: View {
                     .foregroundColor(.blue)
             }
 
-  }
+  
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     drawing.saveToPhotoLibrary()
