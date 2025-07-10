@@ -1,16 +1,10 @@
-//
-//  MinigiocoTristezza.swift
-//  Emozionauti
-//
-//  Created by Studente on 04/07/25.
-//
-
 import SwiftUI
 import AVFoundation
 
 
 
 struct MinigiocoTristezza: View {
+    @EnvironmentObject var navManager: NavigationManager
     var coloreTriste: Color
     @State var play: Bool = false
     @State var messaggio: String = "Pausa"
@@ -22,6 +16,12 @@ struct MinigiocoTristezza: View {
         if !fine{
             Text("Balla via la tristezza!")
                 .font(.custom("Mitr-Regular",size:50))
+
+
+    var body: some View {
+        VStack(spacing: 40) {
+            Text("Balla via la tristezza!")
+                .font(.custom("Mitr-Regular", size: 50))
                 .fontWeight(.bold)
                 .padding(.top, 50)
                 .foregroundColor(.black)
@@ -91,8 +91,4 @@ struct MinigiocoTristezza: View {
         }
     }
     
-}
-
-#Preview {
-    ContentView()
 }

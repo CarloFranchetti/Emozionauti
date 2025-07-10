@@ -1,43 +1,105 @@
-//
-//  ContentView.swift
-//  Emozionauti
-//
-//  Created by Carlo Franchetti on 01/07/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    let colori:[String:Color] = ["rabbia": Color(red:255/255,green:102/255,blue:104/255),                                                   "felicita": Color(red:70/255,green:239/255,blue:48/255),                                                   "paura":Color(red:194/255,green:168/255,blue:230/255),
-                                  "noia":Color(red:171/255,green:173/255,blue:171/255),
-                                  "tristezza":Color(red:123/255,green:206/255,blue:248/255),
-                                  "rabbiaombra":Color(red:202/255,green:37/255,blue:22/255),
-                                  "felicitaombra":Color(red:12/255,green:165/255,blue:7/255),
-                                  "pauraombra":Color(red:125/255,green:27/255,blue:191/255),
-                                  "noiaombra":Color(red:66/255,green:64/255,blue:56/255),
-                                  "tristezzaombra":Color(red:19/255,green:43/255,blue:137/255)]
-    @State private var showSplash = true
+    @StateObject var navManager = NavigationManager()
 
-        var body: some View {
+    let colori: [String: Color] = [
+        "rabbia": Color(red:255/255,green:102/255,blue:104/255),
+        "felicita": Color(red:70/255,green:239/255,blue:48/255),
+        "paura": Color(red:194/255,green:168/255,blue:230/255),
+        "noia": Color(red:171/255,green:173/255,blue:171/255),
+        "tristezza": Color(red:123/255,green:206/255,blue:248/255),
+        "rabbiaombra": Color(red:202/255,green:37/255,blue:22/255),
+        "felicitaombra": Color(red:12/255,green:165/255,blue:7/255),
+        "pauraombra": Color(red:125/255,green:27/255,blue:191/255),
+        "noiaombra": Color(red:66/255,green:64/255,blue:56/255),
+        "tristezzaombra": Color(red:19/255,green:43/255,blue:137/255)
+    ]
+
+    var body: some View {
+        NavigationStack {
             ZStack {
-                if showSplash {
-                    SchermataIcona()
-                        .transition(.opacity)
-                } else {
-                    SchermataHome(coloriEmozioni: colori)
-                        .transition(.opacity)
+                switch navManager.currentView {
+                    case .splash:
+                        SchermataIcona()
+                    case .home:
+                        SchermataHome(coloriEmozioni: colori)
+                    case .animazioneRabbia:
+                        Animazione(
+                            coloreEmozione: colori["rabbia"]!,
+                            coloreOmbra: colori["rabbiaombra"]!,
+                            text: "Quando ti senti arrabbiato...",
+                            nextView: .minigiocoRabbia
+                        )
+                    case .minigiocoRabbia:
+                        MinigiocoRabbia(colore: colori["rabbiaombra"]!)
+                    case .animazioneFelicita:
+                        Animazione(
+                            coloreEmozione: colori["felicita"]!,
+                            coloreOmbra: colori["felicitaombra"]!,
+                            text: "Quando ti senti felice...",
+                            nextView: .minigiocoFelicita
+                        )
+                    case .minigiocoFelicita:
+                        MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!)
+                    case .animazionePaura:
+                        Animazione(
+                            coloreEmozione: colori["paura"]!,
+                            coloreOmbra: colori["pauraombra"]!,
+                            text: "Quando hai paura...",
+                            nextView: .minigiocoPaura
+                        )
+                    case .minigiocoPaura:
+                        MinigiocoPaura()
+                    case .animazioneNoia:
+                        Animazione(
+                            coloreEmozione: colori["noia"]!,
+                            coloreOmbra: colori["noiaombra"]!,
+                            text: "Quando sei annoiato...",
+                            nextView: .minigiocoNoia
+                        )
+                    case .minigiocoNoia:
+                        MinigiocoNoia()
+                    case .animazioneTristezza:
+                        Animazione(
+                            coloreEmozione: colori["tristezza"]!,
+                            coloreOmbra: colori["tristezzaombra"]!,
+                            text: "Quando ti senti triste...",
+                            nextView: .minigiocoTristezza
+                        )
+                    case .minigiocoTristezza:
+                        MinigiocoTristezza()
+                    case .canvas:
+                        ContentView1()
+                    case .diario:
+                        DiaryStatsView()
+                    case .parentalControl:
+                        ParentAccessView()
+                    case .parentDashboard:
+                        ParentDashboardView()
+                    case .parentAccess:
+                        ParentAccessView()
+                    case .settings:
+                        SettingsView()
                 }
             }
-            .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                    withAnimation {
-                        showSplash = false
+            .toolbar {
+                // Aggiungi il pulsante back solo se serve
+                if navManager.showBackButton {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            navManager.goBack()
+                        } label: {
+                            HStack {
+                                Image(systemName: "chevron.left")
+                                Text("Indietro")
+                            }
+                        }
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true) // Nasconde il back automatico
         }
+        .environmentObject(navManager)
+    }
 }
-
-
-
-#Preview {}

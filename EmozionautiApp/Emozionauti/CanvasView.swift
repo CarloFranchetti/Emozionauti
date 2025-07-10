@@ -1,9 +1,3 @@
-//
-//  CanvasView.swift
-//  Emozionauti
-//
-//  Created by Studente on 07/07/25.
-//
 
 import SwiftUI
 import PencilKit
@@ -60,7 +54,13 @@ struct CanvasView: UIViewRepresentable {
         toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
         // Make the canvas respond to tool changes
         toolPicker.addObserver(canvasView)
-        
+        if let window = UIApplication.shared.windows.first {
+                   // Prendi la tool picker condivisa
+                   let toolPicker = PKToolPicker.shared(for: window)
+                   context.coordinator.toolPicker = toolPicker
+                   toolPicker?.setVisible(toolPickerShows, forFirstResponder: canvasView)
+                   toolPicker?.addObserver(canvasView)
+               }
         // Make the canvas active -- first responder
         if toolPickerShows {
             canvasView.becomeFirstResponder()
@@ -73,61 +73,68 @@ struct CanvasView: UIViewRepresentable {
         // Called when SwiftUI updates the view, (makeUIView(context:) called when creating the view.)
         // For example, called when toolPickerShows is toggled:
         // so hide or show tool picker
-        if drawing != canvasView.drawing {
-            canvasView.drawing = drawing
-            toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
+        canvasView.drawing = drawing
+
+        if toolPickerShows {
+            toolPicker.setVisible(true, forFirstResponder: canvasView)
             toolPicker.addObserver(canvasView)
-            if toolPickerShows {
-                canvasView.becomeFirstResponder()
-            } else {
-                canvasView.resignFirstResponder()
-            }
+            canvasView.becomeFirstResponder()
+        } else {
+            toolPicker.setVisible(false, forFirstResponder: canvasView)
+            toolPicker.removeObserver(canvasView)
+            canvasView.resignFirstResponder()
         }
     }
-    class Coordinator: NSObject, PKCanvasViewDelegate {
-        var drawing: Binding<PKDrawing>
-        
-        init(drawing: Binding<PKDrawing>) {
-            self.drawing = drawing
-        }
-        
-        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            drawing.wrappedValue = canvasView.drawing
-        }
-    }
-    
     func makeCoordinator() -> Coordinator {
         Coordinator(drawing: $drawing)
     }
+    class Coordinator: NSObject, PKCanvasViewDelegate {
+            var drawing: Binding<PKDrawing>
+            var toolPicker: PKToolPicker?
+
+            init(drawing: Binding<PKDrawing>) {
+                self.drawing = drawing
+            }
+
+            func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+                drawing.wrappedValue = canvasView.drawing
+            }
+        }
+    
+    
 }
     
-    
-    struct ContentView1: View {
-        @State private var drawing = PKDrawing()
-        @State private var toolPickerShows = true
-        
-        var body: some View {
-            NavigationStack {
-                CanvasView(toolPickerShows: $toolPickerShows,drawing: $drawing)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("Disegno")
-                                .font(.headline)
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    .toolbar {
-                        // ...
+struct ContentView1: View {
+    @EnvironmentObject var navManager: NavigationManager
+    @State private var drawing = PKDrawing()
+    @State private var toolPickerShows = true
 
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button("Salva disegno",systemImage:"square.and.arrow.down.fill") {
+    var body: some View {
+        VStack {
+            CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Disegno")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+            }
 
-                            }
-                        }
+  }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    drawing.saveToPhotoLibrary()
+                    toolPickerShows = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        navManager.currentView = .home
                     }
-                
+                }) {
+                    Image(systemName: "xmark.circle")
+                }
             }
             
         }
+        .navigationBarBackButtonHidden(true)
     }
+}
 

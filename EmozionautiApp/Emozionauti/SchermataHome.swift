@@ -1,20 +1,14 @@
-//
-//  SchermataHome.swift
-//  Emozionauti
-//
-//  Created by Studente on 01/07/25.
-//
-
 import SwiftUI
 
-
 struct SchermataHome: View {
-    let coloriEmozioni:[String:Color]
+    let coloriEmozioni: [String: Color]
+    @EnvironmentObject var navManager: NavigationManager
+
     var body: some View {
-        NavigationStack{
-            ZStack{ // permette il colore dietro a tutto
-                Color(red:12/255,green:10/255,blue:96/255)
-                    .ignoresSafeArea() //inserire valori tra 0.0 e 1.0 quindi dividere i valori per 255
+        NavigationStack { 
+            ZStack {
+                Color(red:12/255, green:10/255, blue:96/255)
+                    .ignoresSafeArea()
                 Image("sfondo")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -22,9 +16,28 @@ struct SchermataHome: View {
                     .resizable()
                     .position(x:400,y:1100)
                     .aspectRatio(contentMode: .fill)
-                VStack(alignment: .center, spacing:70){
-                    HStack(spacing:80){
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["rabbia"]!,coloreOmbra: coloriEmozioni["rabbiaombra"]!, text:"Quando ti senti arrabbiato..." ,minigioco:{ MinigiocoRabbia(colore:coloriEmozioni["rabbiaombra"]!) })) {
+                
+                Button {
+                    navManager.currentView = .parentalControl
+                } label: {
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .foregroundColor(.white)
+                        .frame(width: 80, height: 80)
+                        .background(Color(red:12/255,green:10/255,blue:96/255))
+                        .cornerRadius(20)
+                        .padding(80)
+                }
+                .position(x:790,y:60)
+                
+                VStack(alignment: .center, spacing:70) {
+                    HStack(spacing:80) {
+                        // RABBIA
+                        Button {
+                            navManager.currentView = .animazioneRabbia
+                        } label: {
                             Image("rabbia")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -32,12 +45,13 @@ struct SchermataHome: View {
                                 .background(coloriEmozioni["rabbia"])
                                 .cornerRadius(20)
                                 .padding()
-                            
                         }
                         .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
-                        
-                        
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["felicita"]!,coloreOmbra: coloriEmozioni["felicitaombra"]!, text:"Quando ti senti felice...",minigioco:{MinigiocoFelicita(coloreFelicita: coloriEmozioni["felicitaombra"]!)})){
+
+                        // FELICITÀ
+                        Button {
+                            navManager.currentView = .animazioneFelicita
+                        } label: {
                             Image("felicita")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -46,8 +60,12 @@ struct SchermataHome: View {
                                 .cornerRadius(20)
                                 .padding()
                         }
-                        .shadow(color:coloriEmozioni["felicitaombra"]!,radius:0,x:5,y:10)
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["paura"]!,coloreOmbra: coloriEmozioni["pauraombra"]!, text:"Quando hai paura...",minigioco: {MinigiocoPaura()})){
+                        .shadow(color: coloriEmozioni["felicitaombra"]!, radius: 0, x: 5, y: 10)
+
+                        // PAURA
+                        Button {
+                            navManager.currentView = .animazionePaura
+                        } label: {
                             Image("paura")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -55,13 +73,15 @@ struct SchermataHome: View {
                                 .background(coloriEmozioni["paura"])
                                 .cornerRadius(20)
                                 .padding()
-                            
                         }
-                        .shadow(color:coloriEmozioni["pauraombra"]!,radius:0,x:5,y:10)
-                        
+                        .shadow(color: coloriEmozioni["pauraombra"]!, radius: 0, x: 5, y: 10)
                     }
-                    HStack(spacing: 80){
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["noia"]!,coloreOmbra: coloriEmozioni["noiaombra"]!, text:"Quando sei annoiato...", minigioco:{MinigiocoNoia()})){
+
+                    HStack(spacing:80) {
+                        // NOIA
+                        Button {
+                            navManager.currentView = .animazioneNoia
+                        } label: {
                             Image("noia")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -69,12 +89,13 @@ struct SchermataHome: View {
                                 .background(coloriEmozioni["noia"])
                                 .cornerRadius(20)
                                 .padding()
-                            
                         }
-                        .shadow(color:coloriEmozioni["noiaombra"]!,radius:0,x:5,y:10)
-                        
-                        
-                        NavigationLink(destination: Animazione(coloreEmozione:coloriEmozioni["tristezza"]!,coloreOmbra: coloriEmozioni["tristezzaombra"]!, text:"Quando ti senti triste...", minigioco:{MinigiocoTristezza(coloreTriste: coloriEmozioni["tristezzaombra"]!, song: "songysong" , image: "dancingAlien21")})){
+                        .shadow(color: coloriEmozioni["noiaombra"]!, radius: 0, x: 5, y: 10)
+
+                        // TRISTEZZA
+                        Button {
+                            navManager.currentView = .animazioneTristezza
+                        } label: {
                             Image("tristezza")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -83,47 +104,12 @@ struct SchermataHome: View {
                                 .cornerRadius(20)
                                 .padding()
                         }
-                        .shadow(color:coloriEmozioni["tristezzaombra"]!,radius:0,x:5,y:10)
+                        .shadow(color: coloriEmozioni["tristezzaombra"]!, radius: 0, x: 5, y: 10)
                     }
-                }.position(x:400,y:500)
-            
-            HStack{
-                NavigationLink(destination: DiaryStatsView()){
-                    Image(systemName: "book.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .foregroundColor(.white)
-                        .frame(width: 100, height: 100)
-                        .background( Color(red:12/255,green:10/255,blue:96/255))
-                        .cornerRadius(20)
-                        .padding()
-                    
                 }
-                NavigationLink(destination:ContentView1()){
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .foregroundColor(.white)
-                        .frame(width: 100, height: 100)
-                        .background (Color(red:12/255,green:10/255,blue:96/255))
-                        .cornerRadius(20)
-                        .padding(80)
-                }
-            }.position(x:500,y:900)
-            // .padding(20)
-            
-            
+                .position(x:400,y:500)                            
             }
-        
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
-
-
-#Preview{
-    ContentView()
-}
-
-
