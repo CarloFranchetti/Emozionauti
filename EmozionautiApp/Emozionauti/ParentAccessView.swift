@@ -1,49 +1,66 @@
 import SwiftUI
+import LocalAuthentication
 
 struct ParentAccessView: View {
-    @State private var enteredPIN: String = ""
     @State private var accessGranted: Bool = false
     @State private var showError: Bool = false
-    
-    private let storedPINKey = "parentPIN"
-    private let defaultPIN = "4321"
+    @State private var authenticationAttempted = false
     
     var body: some View {
-        if accessGranted {
-            ParentDashboardView()
-        } else {
-            VStack(alignment: .center) {
-                Text("Area Genitori")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
+        Group {
+            if accessGranted {
+                ParentDashboardView()
+            } else {
+                VStack(spacing: 20) {
+                    Text("Area Genitori")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.top)
 
-                SecureField("Inserisci PIN (4 cifre)", text: $enteredPIN)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                    .frame(width: 200)
-                
-                Button("Accedi") {
-                    let savedPIN = UserDefaults.standard.string(forKey: storedPINKey) ?? defaultPIN
-                    if enteredPIN == savedPIN {
-                        accessGranted = true
-                        showError = false
-                    } else {
-                        showError = true
-                        enteredPIN = ""
+                    if showError {
+                        Text("Autenticazione fallita. Riprova.")
+                            .foregroundColor(.red)
+                    }
+
+                    Button("Riprova") {
+                        authenticate()
+                    }
+                    .buttonStyle(.borderedProminent)
+
+                    Spacer()
+                }
+                .padding()
+                .onAppear {
+                    // Avvia l'autenticazione solo una volta
+                    if !authenticationAttempted {
+                        authenticationAttempted = true
+                        authenticate()
                     }
                 }
-                .buttonStyle(.borderedProminent)
-
-                if showError {
-                    Text("PIN errato. Riprova.")
-                        .foregroundColor(.red)
-                        .font(.subheadline)
-                }
-
-                Spacer()
             }
-            .padding()
+        }
+    }
+
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+
+        // `.deviceOwnerAuthentication` = biometria + codice dispositivo
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            let reason = "Autenticati per accedere all'Area Genitori"
+
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, _ in
+                DispatchQueue.main.async {
+                    if success {
+                        accessGranted = true
+                    } else {
+                        showError = true
+                    }
+                }
+            }
+        } else {
+            // Biometria o codice non disponibili
+            showError = true
         }
     }
 }

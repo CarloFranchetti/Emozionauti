@@ -30,7 +30,7 @@ struct SchermataHome: View {
                         .cornerRadius(20)
                         .padding(80)
                 }
-                .position(x:790,y:60)
+                .position(x:770,y:60)
                 
                 VStack(alignment: .center, spacing:70) {
                     HStack(spacing:80) {

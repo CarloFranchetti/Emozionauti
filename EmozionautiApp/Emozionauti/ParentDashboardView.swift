@@ -8,18 +8,20 @@ struct ParentDashboardView: View {
             Section(header: Text("Strumenti")) {
                 Button {
                     navManager.currentView = .diario
-                } label: {
-                    Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
                 }
-
-                Button {
-                    navManager.currentView = .settings
-                } label: {
-                    Label("Impostazioni App", systemImage: "gearshape.fill")
+                label: {
+                    Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
                 }
             }
 
             Section {
+                Button {
+                    navManager.currentView = .home
+                } label: {
+                    Label("Reset emozioni", systemImage: "trash.fill")
+                        .foregroundColor(.red)
+                }
+
                 Button {
                     navManager.currentView = .home
                 } label: {

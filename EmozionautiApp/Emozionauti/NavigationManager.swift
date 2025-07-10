@@ -20,7 +20,7 @@ class NavigationManager: ObservableObject {
         case .canvas:
             currentView = .home
         case .diario:
-            currentView = .home
+            currentView = .parentDashboard
         default:
             break
         }
