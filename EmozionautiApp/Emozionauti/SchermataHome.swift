@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct SchermataHome: View {
+    @EnvironmentObject var navManager: NavigationManager
     let coloriEmozioni:[String:Color]
     var body: some View {
         NavigationStack{
@@ -100,7 +101,7 @@ struct SchermataHome: View {
                         .padding()
                     
                 }
-                NavigationLink(destination:ContentView1()){
+                NavigationLink(destination:ParentAccessView()){
                     Image(systemName: "person.fill")
                         .resizable()
                         .scaledToFit()

@@ -1,8 +1,5 @@
-//
-//  NavigationManager.swift
-//  Emozionauti
-//
-//  Created by Carlo Franchetti on 10/07/25.
-//
+import SwiftUI
 
-import Foundation
+class NavigationManager: ObservableObject {
+    @Published var showHome: Bool = false
+}

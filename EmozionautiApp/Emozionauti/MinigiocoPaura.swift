@@ -46,8 +46,6 @@ struct MinigiocoPaura: View {
                         let angle = Double(index) / Double(numbers.count) * 2 * .pi
                         let radius: CGFloat = 220 // distanza dal centro
                         
-                        
-                        
                         Button(action: {
                             handleTap(number)
                         }) {
