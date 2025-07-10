@@ -31,13 +31,23 @@ struct MinigiocoPaura: View {
                     .font(.title)
                     .bold()
                     .transition(.opacity)
-                NavigationLink(destination:ContentView1()){
-                        Text("Prosegui")
+                NavigationLink(destination: ContentView1()){
+                    Text("Avanti")
                         .foregroundColor(.white)
-                        .frame(width: 200, height: 200)
-                        .background(.black)
-                        .position(x:400,y:550)
-                }
+                        .font(.custom("Mitr-Regular",size:50))
+                }.background(.black)
+                    .cornerRadius( 25)
+                    .frame(width: 300, height: 100)
+                    .tint(Color.green)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(.white, lineWidth: 1)
+                    )
+                    .background(.red)
+                    .cornerRadius(25)
+                    .padding([.bottom,.trailing],50)
+                    .shadow(color:.brown, radius: 0, x: 10, y: 10)
+            
             }
 
             ZStack {
