@@ -1,31 +1,38 @@
-import SwiftUI
+import UIKit
 
-struct CalendarView: UIViewRepresentable {
-    let interval: DateInterval
-
-    func makeUIView(context: Context) -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-
+class CalendarView: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        createCalendar()
+        
+    }
+    func createCalendar() {
         let calendarView = UICalendarView()
         calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.calendar = Calendar(identifier: .gregorian)
-        calendarView.availableDateRange = interval
+        calendarView.calendar = .current
+        calendarView.locale = .current
+        calendarView.fontDesign = .rounded
+        calendarView.delegate = self
 
-        container.addSubview(calendarView)
+        view.addSubview(calendarView)
 
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: container.topAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            calendarView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),// aggiungi per altezza
+            calendarView.heightAnchor.constraint(equalToConstant: 300)
         ])
-
-        return container
     }
 
-    func updateUIView(_ uiView: UIView, context: Context) {
-        // No dynamic update needed
+}
+
+extension CalendarView: UICalendarViewDelegate {
+    func calendarView(_ calendarView: UICalendarView, decorationFor dateComponent: DateComponents)-> UICalendarView.Decoration? {
+        return nil
     }
 }
 
+#Preview{
+    CalendarView()
+}
