@@ -11,7 +11,7 @@ struct MinigiocoRabbia: View {
     @State var indicecorrente: Int =  0
     @State var conta: Int = 0
     @State var fineGioco: Bool = false
-    let colore: Color
+    var colore: Color
     let rilevatore = RilevaSoffio()
     var body: some View {
         let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]

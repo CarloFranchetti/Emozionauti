@@ -20,9 +20,7 @@ struct Animazione<Minigioco: View>: View {
     var body: some View {
         NavigationStack{
             ZStack {
-               // let sfondoEmozione = Color(red:255/255,green:102/255,blue:104/255)
                 let sfondoBlu = Color(red:12/255,green:10/255,blue:96/255)
-              //  let ombraEmozione = Color(red:205/255,green:41/255,blue:61/255)
                 Color(sfondoBlu)
                     .ignoresSafeArea()
                 VStack{
