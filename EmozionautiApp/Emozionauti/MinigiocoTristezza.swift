@@ -15,29 +15,48 @@ struct MinigiocoTristezza: View {
     @State var play: Bool = false
     @State var messaggio: String = "Pausa"
     @State var player: AVAudioPlayer?
+    @State var fine: Bool = false
     var body: some View {
-        Text("Balla via la tristezza!")
-            .font(.custom("Mitr-Regular",size:50))
-            .fontWeight(.bold)
-            .padding(.top, 50)
-            .foregroundColor(.black)
-            .multilineTextAlignment(.center)
-        HStack(){
-            Button(action:{ playMusic()
-            }){
-                Image(systemName: (play ? "speaker.fill": "speaker.slash.fill"))
+        if !fine{
+            Text("Balla via la tristezza!")
+                .font(.custom("Mitr-Regular",size:50))
+                .fontWeight(.bold)
+                .padding(.top, 50)
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+            HStack(){
+                Button(action:{ playMusic()
+                }){
+                    Image(systemName: (play ? "speaker.fill": "speaker.slash.fill"))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.white)
+                        .padding()
+                }.background (coloreTriste)
+                    .cornerRadius(100)
+                Text(messaggio)
+                    .font(.custom("Mitr-Regular",size:30))
+            }
+            GifImage("dancingAlien")
+            Spacer()
+        }
+        else{
+            VStack{
+                Text("ORA RIPOSIAMOCI!")
+                    .font(.custom("Modak", size:60))
+                    .padding([.horizontal],20)
+                    .foregroundColor(coloreTriste)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                Image("sleepingAstronaut")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.white)
-                    .padding()
-            }.background (coloreTriste)
-                .cornerRadius(100)
-            Text(messaggio)
-                .font(.custom("Mitr-Regular",size:30))
+                    .frame(width:300,height:300)
+            }
+            
         }
-        GifImage("dancingAlien")
-        Spacer()
+
         
  
     }
@@ -60,6 +79,11 @@ struct MinigiocoTristezza: View {
                 }
             }
             player?.play()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                           play = false
+                           player?.stop()
+                           fine = true
+            }
         }else{
             player?.pause();
         }
