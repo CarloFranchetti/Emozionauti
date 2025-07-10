@@ -1,26 +1,33 @@
 import SwiftUI
 
 struct ParentDashboardView: View {
+    @EnvironmentObject var navManager: NavigationManager
+
     var body: some View {
-        NavigationStack {
-            List {
-                Section(header: Text("Strumenti")) {
-                    NavigationLink(destination: DiaryStatsView()) {
-                        Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
-                    }
-                    NavigationLink(destination: SettingsView()) {
-                        Label("Impostazioni App", systemImage: "gearshape.fill")
-                    }
+        List {
+            Section(header: Text("Strumenti")) {
+                Button {
+                    navManager.currentView = .diario
+                } label: {
+                    Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
                 }
 
-                Section {
-                    NavigationLink(destination: ParentAccessView()) {
-                        Label("Esci", systemImage: "arrow.backward.circle")
-                            .foregroundColor(.red)
-                    }
+                Button {
+                    navManager.currentView = .settings
+                } label: {
+                    Label("Impostazioni App", systemImage: "gearshape.fill")
                 }
             }
-            .navigationTitle("Area Genitori")
+
+            Section {
+                Button {
+                    navManager.currentView = .home
+                } label: {
+                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.red)
+                }
+            }
         }
+        .navigationTitle("Area Genitori")
     }
 }

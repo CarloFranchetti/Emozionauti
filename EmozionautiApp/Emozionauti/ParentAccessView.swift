@@ -12,7 +12,7 @@ struct ParentAccessView: View {
         if accessGranted {
             ParentDashboardView()
         } else {
-            VStack(spacing: 20) {
+            VStack(alignment: .center) {
                 Text("Area Genitori")
                     .font(.largeTitle)
                     .fontWeight(.bold)

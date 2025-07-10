@@ -41,7 +41,7 @@ struct ContentView: View {
                             nextView: .minigiocoFelicita
                         )
                     case .minigiocoFelicita:
-                        MinigiocoFelicita()
+                        MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!)
                     case .animazionePaura:
                         Animazione(
                             coloreEmozione: colori["paura"]!,
@@ -73,6 +73,14 @@ struct ContentView: View {
                         ContentView1()
                     case .diario:
                         DiaryStatsView()
+                    case .parentalControl:
+                        ParentAccessView()
+                    case .parentDashboard:
+                        ParentDashboardView()
+                    case .parentAccess:
+                        ParentAccessView()
+                    case .settings:
+                        SettingsView()
                 }
             }
             .toolbar {

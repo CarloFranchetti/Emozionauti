@@ -16,7 +16,22 @@ struct SchermataHome: View {
                     .resizable()
                     .position(x:400,y:1100)
                     .aspectRatio(contentMode: .fill)
-
+                
+                Button {
+                    navManager.currentView = .parentalControl
+                } label: {
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .foregroundColor(.white)
+                        .frame(width: 80, height: 80)
+                        .background(Color(red:12/255,green:10/255,blue:96/255))
+                        .cornerRadius(20)
+                        .padding(80)
+                }
+                .position(x:790,y:60)
+                
                 VStack(alignment: .center, spacing:70) {
                     HStack(spacing:80) {
                         // RABBIA
@@ -92,38 +107,7 @@ struct SchermataHome: View {
                         .shadow(color: coloriEmozioni["tristezzaombra"]!, radius: 0, x: 5, y: 10)
                     }
                 }
-                .position(x:400,y:500)
-
-                HStack {
-                    Button {
-                        navManager.currentView = .diario
-                    } label: {
-                        Image(systemName: "book.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .foregroundColor(.white)
-                            .frame(width: 100, height: 100)
-                            .background(Color(red:12/255,green:10/255,blue:96/255))
-                            .cornerRadius(20)
-                            .padding()
-                    }
-
-                    Button {
-                        navManager.currentView = .canvas
-                    } label: {
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .foregroundColor(.white)
-                            .frame(width: 100, height: 100)
-                            .background(Color(red:12/255,green:10/255,blue:96/255))
-                            .cornerRadius(20)
-                            .padding(80)
-                    }
-                }
-                .position(x:500,y:900)
+                .position(x:400,y:500)                            
             }
             .navigationBarBackButtonHidden(true)
         }

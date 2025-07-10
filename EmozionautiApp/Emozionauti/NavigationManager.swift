@@ -18,7 +18,7 @@ class NavigationManager: ObservableObject {
         case .minigiocoTristezza:
             currentView = .animazioneTristezza
         case .canvas:
-            currentView = .home // oppure da quale minigioco è arrivato
+            currentView = .home
         case .diario:
             currentView = .home
         default:
@@ -28,7 +28,7 @@ class NavigationManager: ObservableObject {
 
     var showBackButton: Bool {
         switch currentView {
-        case .home, .splash, .canvas:
+        case .home, .splash, .canvas, .parentalControl:
             return false
         default:
             return true

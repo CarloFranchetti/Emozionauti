@@ -41,7 +41,7 @@ struct MinigiocoNoia: View {
 
             if showSuccess {
                 VStack(spacing: 10) {
-                    Text("🎉 Ben fatto! 🎉")
+                    Text("Ben fatto!")
                         .font(.title)
                         .foregroundColor(.green)
                         .transition(.opacity)

@@ -28,7 +28,7 @@ struct MinigiocoPaura: View {
 
             if showSuccess {
                 VStack(spacing: 20) {
-                    Text("🎉 Ben fatto! 🎉")
+                    Text("Ben fatto!")
                         .foregroundColor(.green)
                         .font(.title)
                         .bold()

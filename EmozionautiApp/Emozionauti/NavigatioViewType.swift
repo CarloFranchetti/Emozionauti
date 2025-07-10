@@ -4,6 +4,7 @@ import Foundation
 enum NavigationViewType {
     case splash
     case home
+    case parentalControl
     case animazioneRabbia
     case animazioneFelicita
     case animazionePaura
@@ -16,4 +17,7 @@ enum NavigationViewType {
     case minigiocoTristezza
     case canvas
     case diario
+    case parentDashboard
+    case parentAccess
+    case settings
 }
