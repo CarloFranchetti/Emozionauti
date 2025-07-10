@@ -120,6 +120,7 @@ struct ContentView1: View {
                     .foregroundColor(.blue)
             }
 
+  }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     drawing.saveToPhotoLibrary()
@@ -131,6 +132,7 @@ struct ContentView1: View {
                     Image(systemName: "xmark.circle")
                 }
             }
+            
         }
         .navigationBarBackButtonHidden(true)
     }
