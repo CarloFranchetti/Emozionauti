@@ -5,19 +5,21 @@
 //  Created by Studente on 10/07/25.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct EventsCalendarView: View {
     var body: some View {
-        NavigationStack {
-            ScrollView{
-                CalendarView(interval: DateInterval(start:.distantPast, end: .distantFuture))
-            }
+        GeometryReader{geometry in
+            NavigationStack {
+                CalendarView()
+                    .frame(maxWidth: .infinity,maxHeight: .infinity)
+                            .padding()
                     .navigationTitle("Calendar View")
-                    
+                
+                Spacer()
                 
                 
-            
+            }
         }
     }
 }
@@ -28,3 +30,4 @@ struct EventsCalendarView_Previews: PreviewProvider {
             
     }
 }
+*/
