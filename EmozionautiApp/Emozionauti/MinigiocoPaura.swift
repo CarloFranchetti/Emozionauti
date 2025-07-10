@@ -31,6 +31,13 @@ struct MinigiocoPaura: View {
                     .font(.title)
                     .bold()
                     .transition(.opacity)
+                NavigationLink(destination:ContentView1()){
+                        Text("Prosegui")
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 200)
+                        .background(.black)
+                        .position(x:400,y:550)
+                }
             }
 
             ZStack {
@@ -74,9 +81,9 @@ struct MinigiocoPaura: View {
 
             if nextNumber > 7 {
                 showSuccess = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    presentationMode.wrappedValue.dismiss()
-                }
+                //DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                   // presentationMode.wrappedValue.dismiss()
+               // }
             }
         } else {
             playErrorSound()
