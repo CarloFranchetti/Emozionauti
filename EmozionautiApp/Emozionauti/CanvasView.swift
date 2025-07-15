@@ -113,12 +113,13 @@ struct CanvasView: UIViewRepresentable {
         @State private var drawing = PKDrawing()
         @State private var toolPickerShows = true
         @State private var navigateHome = false
+        var emozione:String
         var body: some View {
             NavigationStack {
                 CanvasView(toolPickerShows: $toolPickerShows,drawing: $drawing)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
-                            Text("Disegno")
+                            Text("Disegna il motivo per cui sei \(emozione)")
                                 .font(.headline)
                                 .foregroundColor(.blue)
                         }
