@@ -19,5 +19,4 @@ enum NavigationViewType {
     case diario
     case parentDashboard
     case parentAccess
-    case settings
 }

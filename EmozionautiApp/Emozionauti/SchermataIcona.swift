@@ -37,7 +37,7 @@ struct SchermataIcona: View {
         }
         .onReceive(timer) { _ in
             if progress < 1.0 {
-                progress += 0.02
+                progress += 0.04
             } else {
                 navManager.currentView = .home
                 // Ferma il timer una volta completato

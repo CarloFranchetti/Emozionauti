@@ -2,7 +2,12 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
-
+    @StateObject private var diaryViewModel: DiaryViewModel
+    
+    init(diaryViewModel: DiaryViewModel) {
+            _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
+        }
+    
     let colori: [String: Color] = [
         "rabbia": Color(red:255/255,green:102/255,blue:104/255),
         "felicita": Color(red:70/255,green:239/255,blue:48/255),
@@ -24,6 +29,7 @@ struct ContentView: View {
                         SchermataIcona()
                     case .home:
                         SchermataHome(coloriEmozioni: colori)
+                            .environmentObject(diaryViewModel)
                     case .animazioneRabbia:
                         Animazione(
                             coloreEmozione: colori["rabbia"]!,
@@ -73,14 +79,15 @@ struct ContentView: View {
                         ContentView1()
                     case .diario:
                         DiaryStatsView()
+                            .environmentObject(diaryViewModel)
                     case .parentalControl:
                         ParentAccessView()
                     case .parentDashboard:
                         ParentDashboardView()
+                            .environmentObject(navManager)
+                            .environmentObject(diaryViewModel)
                     case .parentAccess:
                         ParentAccessView()
-                    case .settings:
-                        SettingsView()
                 }
             }
             .toolbar {
@@ -101,5 +108,6 @@ struct ContentView: View {
             .navigationBarBackButtonHidden(true) // Nasconde il back automatico
         }
         .environmentObject(navManager)
+        .environmentObject(diaryViewModel)
     }
 }

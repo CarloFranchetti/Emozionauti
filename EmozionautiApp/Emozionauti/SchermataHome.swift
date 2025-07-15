@@ -3,6 +3,8 @@ import SwiftUI
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
+    @EnvironmentObject var diaryViewModel: DiaryViewModel
+
 
     var body: some View {
         NavigationStack { 
@@ -16,7 +18,7 @@ struct SchermataHome: View {
                     .resizable()
                     .position(x:400,y:1100)
                     .aspectRatio(contentMode: .fill)
-                
+                //Pulsante impostazioni
                 Button {
                     navManager.currentView = .parentalControl
                 } label: {
@@ -30,12 +32,13 @@ struct SchermataHome: View {
                         .cornerRadius(20)
                         .padding(80)
                 }
-                .position(x:790,y:60)
+                .position(x:770,y:60)
                 
                 VStack(alignment: .center, spacing:70) {
                     HStack(spacing:80) {
                         // RABBIA
                         Button {
+                            diaryViewModel.recordEmotion("rabbia")
                             navManager.currentView = .animazioneRabbia
                         } label: {
                             Image("rabbia")
@@ -50,6 +53,7 @@ struct SchermataHome: View {
 
                         // FELICITÀ
                         Button {
+                            diaryViewModel.recordEmotion("felicità")
                             navManager.currentView = .animazioneFelicita
                         } label: {
                             Image("felicita")
@@ -64,6 +68,7 @@ struct SchermataHome: View {
 
                         // PAURA
                         Button {
+                            diaryViewModel.recordEmotion("paura")
                             navManager.currentView = .animazionePaura
                         } label: {
                             Image("paura")
@@ -80,6 +85,7 @@ struct SchermataHome: View {
                     HStack(spacing:80) {
                         // NOIA
                         Button {
+                            diaryViewModel.recordEmotion("noia")
                             navManager.currentView = .animazioneNoia
                         } label: {
                             Image("noia")
@@ -94,6 +100,7 @@ struct SchermataHome: View {
 
                         // TRISTEZZA
                         Button {
+                            diaryViewModel.recordEmotion("tristezza")
                             navManager.currentView = .animazioneTristezza
                         } label: {
                             Image("tristezza")

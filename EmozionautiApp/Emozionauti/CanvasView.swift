@@ -132,9 +132,9 @@ struct ContentView1: View {
                     Image(systemName: "xmark.circle")
                 }
             }
-            
         }
         .navigationBarBackButtonHidden(true)
     }
 }
+
 

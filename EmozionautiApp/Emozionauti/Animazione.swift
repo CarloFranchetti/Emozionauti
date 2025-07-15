@@ -35,8 +35,3 @@ struct Animazione: View {
         }
     }
 }
-    
-
-#Preview {
-    ContentView()
-}
