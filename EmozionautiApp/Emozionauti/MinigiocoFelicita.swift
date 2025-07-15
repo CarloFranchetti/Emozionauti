@@ -109,11 +109,5 @@ struct MinigiocoFelicita: View {
        func playErrorSound() {
            AudioServicesPlaySystemSound(1023) // Suono errore
        }
-
-}
-
-
-#Preview {
-    ContentView()
 }
 

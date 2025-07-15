@@ -3,11 +3,13 @@ import SwiftUI
 @main
 struct EmozionautiApp: App {
     @StateObject var navManager = NavigationManager()
+    @StateObject var diaryViewModel = DiaryViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(navManager) // 
+            ContentView(diaryViewModel: diaryViewModel)
+                .environmentObject(navManager)
+                .environmentObject(diaryViewModel)
         }
     }
 }
