@@ -138,6 +138,7 @@ struct ContentView1: View {
                     .foregroundColor(.blue)
             }
 
+  
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     disegni.aggiungi(disegno: drawing)

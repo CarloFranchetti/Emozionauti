@@ -32,7 +32,7 @@ struct MinigiocoPaura: View {
                         .foregroundColor(.green)
                         .font(.title)
                         .bold()
-
+                    Spacer();
                     Button(action: {
                         navManager.currentView = .canvas
                     }) {
