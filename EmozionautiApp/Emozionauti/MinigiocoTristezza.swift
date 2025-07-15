@@ -4,6 +4,7 @@ import AVFoundation
 struct MinigiocoTristezza: View {
     @EnvironmentObject var navManager: NavigationManager
     var coloreTriste: Color
+    var coloreTristeOmbra: Color
     @State var play: Bool = false
     @State var messaggio: String = "Pausa"
     @State var player: AVAudioPlayer?
@@ -25,6 +26,17 @@ struct MinigiocoTristezza: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 300, height: 300)
+                    Button(action: {
+                        navManager.currentView = .canvas
+                    }) {
+                        Text("Avanti")
+                            .font(.custom("Mitr-Regular", size: 30))
+                            .foregroundColor(.white)
+                            .frame(width: 250, height: 100)
+                            .background(coloreTriste)
+                            .cornerRadius(20)
+                            .padding(30)
+                    } .shadow(color: coloreTristeOmbra, radius: 0, x: 5, y: 10)
                 }
             } else {
                 VStack(spacing: 40) {
@@ -80,7 +92,7 @@ struct MinigiocoTristezza: View {
 
             player?.play()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 240) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 play = false
                 player?.stop()
                 fine = true

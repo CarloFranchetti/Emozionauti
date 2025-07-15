@@ -31,7 +31,8 @@ struct MinigiocoNoia: View {
 
     @State private var matches: [UUID: String] = [:]
     @State private var showSuccess = false
-
+    var coloreNoiaOmbra: Color
+    var coloreNoia: Color
     var body: some View {
         VStack(spacing: 20) {
             Text("Collega gli alieni a cosa li rende felici!")
@@ -45,18 +46,18 @@ struct MinigiocoNoia: View {
                         .font(.title)
                         .foregroundColor(.green)
                         .transition(.opacity)
-                    
+                    Spacer();
                     Button(action: {
                         navManager.currentView = .canvas
                     }) {
-                        Text("Prosegui")
+                        Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 24))
                             .foregroundColor(.white)
                             .padding()
                             .frame(width: 200)
-                            .background(Color.blue)
+                            .background(coloreNoia)
                             .cornerRadius(12)
-                    }
+                    }.shadow(color: coloreNoiaOmbra, radius: 0, x: 10, y: 10)
                 }
                 .padding(.bottom, 20)
             }

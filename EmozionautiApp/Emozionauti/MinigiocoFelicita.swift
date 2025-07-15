@@ -83,6 +83,7 @@ struct MinigiocoFelicita: View {
                 Text(messaggio)
                     .foregroundColor(coloreMex)
                     .font(.custom("Mitr-regular", size: 30))
+                Spacer();
                 if messaggio == "Ben fatto!"{
                     Button(action: {navManager.currentView = .canvas}) {
                         Text("Avanti")
@@ -91,8 +92,8 @@ struct MinigiocoFelicita: View {
                             .frame(width: 300, height: 100)
                             .background(coloreFelicita)
                             .cornerRadius(25)
-                            .shadow(color: coloreFelicitaOmbra, radius: 0, x: 10, y: 10)
-                    }
+                            
+                    }.shadow(color: coloreFelicitaOmbra, radius: 0, x: 10, y: 10)
                 }
             }
         }
