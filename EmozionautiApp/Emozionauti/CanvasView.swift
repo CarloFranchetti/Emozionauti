@@ -1,9 +1,3 @@
-//
-//  CanvasView.swift
-//  Emozionauti
-//
-//  Created by Studente on 07/07/25.
-//
 
 import SwiftUI
 import PencilKit
@@ -79,15 +73,16 @@ struct CanvasView: UIViewRepresentable {
         // Called when SwiftUI updates the view, (makeUIView(context:) called when creating the view.)
         // For example, called when toolPickerShows is toggled:
         // so hide or show tool picker
-        if drawing != canvasView.drawing {
-            canvasView.drawing = drawing
-            toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
+        canvasView.drawing = drawing
+
+        if toolPickerShows {
+            toolPicker.setVisible(true, forFirstResponder: canvasView)
             toolPicker.addObserver(canvasView)
-            if toolPickerShows {
-                canvasView.becomeFirstResponder()
-            } else {
-                canvasView.resignFirstResponder()
-            }
+            canvasView.becomeFirstResponder()
+        } else {
+            toolPicker.setVisible(false, forFirstResponder: canvasView)
+            toolPicker.removeObserver(canvasView)
+            canvasView.resignFirstResponder()
         }
     }
     func makeCoordinator() -> Coordinator {
@@ -109,66 +104,37 @@ struct CanvasView: UIViewRepresentable {
     
 }
     
-    struct ContentView1: View {
-        @State private var drawing = PKDrawing()
-        @State private var toolPickerShows = true
-        @State private var navigateHome = false
-        var emozione:String
-        var body: some View {
-            NavigationStack {
-                CanvasView(toolPickerShows: $toolPickerShows,drawing: $drawing)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("Disegna il motivo per cui sei \(emozione)")
-                                .font(.headline)
-                                .foregroundColor(.blue)
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button(action: {
-                                                           drawing.saveToPhotoLibrary()
-                                                           toolPickerShows = false
-                                                           navigateHome = true  // attiva la navigazione
-                                                       }) {
-                                                           Image(systemName: "xmark.circle")
-                                                       }
-                                                   }
-                                               }
-                                           
-                NavigationLink(destination: SchermataHome(coloriEmozioni: ContentView().colori),
-                                                          isActive: $navigateHome) {
-                                               EmptyView()
+struct ContentView1: View {
+    @EnvironmentObject var navManager: NavigationManager
+    @State private var drawing = PKDrawing()
+    @State private var toolPickerShows = true
+
+    var body: some View {
+        VStack {
+            CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Disegno")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+            }
+
+  
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    drawing.saveToPhotoLibrary()
+                    toolPickerShows = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        navManager.currentView = .home
+                    }
+                }) {
+                    Image(systemName: "xmark.circle")
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
+}
 
-/*
-struct ContentView1: View {
-    @State private var drawing = PKDrawing()
-    @State private var toolPickerShows = true
-    @Environment(\.dismiss) var dismiss  // 👈 Per tornare indietro
-    
-    var body: some View {
-        CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Disegno")
-                        .font(.headline)
-                        .foregroundColor(.blue)
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button (action:{
-                        drawing.saveToPhotoLibrary()
-                        toolPickerShows = false
-                        dismiss() // 👈 Torna alla SchermataHome
-                    }){
-                        Image(systemName: "xmark.circle")
-                         
-                    }
-                }
-            }
-    }
-}*/
 

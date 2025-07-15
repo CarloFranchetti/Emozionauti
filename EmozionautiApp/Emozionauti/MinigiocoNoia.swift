@@ -13,6 +13,7 @@ struct HappyItem: Identifiable, Hashable {
 }
 
 struct MinigiocoNoia: View {
+    @EnvironmentObject var navManager: NavigationManager
     
     let totalMatches = 3
     
@@ -30,7 +31,8 @@ struct MinigiocoNoia: View {
 
     @State private var matches: [UUID: String] = [:]
     @State private var showSuccess = false
-
+    var coloreNoiaOmbra: Color
+    var coloreNoia: Color
     var body: some View {
         VStack(spacing: 20) {
             Text("Collega gli alieni a cosa li rende felici!")
@@ -39,29 +41,42 @@ struct MinigiocoNoia: View {
                 .padding(.top)
 
             if showSuccess {
-                Text("🎉 Ben fatto! 🎉")
-                    .font(.title)
-                    .foregroundColor(.green)
-                    .transition(.opacity)
+                VStack(spacing: 10) {
+                    Text("Ben fatto!")
+                        .font(.title)
+                        .foregroundColor(.green)
+                        .transition(.opacity)
+                    Spacer();
+                    Button(action: {
+                        navManager.currentView = .canvas
+                    }) {
+                        Text("Avanti")
+                            .font(.custom("Mitr-Regular", size: 24))
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 200)
+                            .background(coloreNoia)
+                            .cornerRadius(12)
+                    }.shadow(color: coloreNoiaOmbra, radius: 0, x: 10, y: 10)
+                }
+                .padding(.bottom, 20)
             }
 
             HStack(spacing: 60) {
-                // Alieni (destinazioni)
+                // Alieni (trascinabili)
                 VStack(spacing: 60) {
                     ForEach(aliens) { alien in
-                        ZStack {
-                            Image(alien.imageName)
-                                .resizable()
-                                .frame(width: 180, height: 180)
-                                .padding()
-                        }
-                        .draggable(alien.imageName)
+                        Image(alien.imageName)
+                            .resizable()
+                            .frame(width: 180, height: 180)
+                            .padding()
+                            .draggable(alien.imageName)
                     }
                 }
 
                 Spacer()
 
-                // Oggetti (trascinabili)
+                // Oggetti (destinazioni)
                 VStack(spacing: 60) {
                     ForEach(items, id: \.self) { item in
                         Image(item.imageName)
@@ -70,7 +85,6 @@ struct MinigiocoNoia: View {
                             .padding()
                             .dropDestination(for: String.self) { dropped, _ in
                                 if let draggedAlienImage = dropped.first {
-                                    // Cerca l'alieno associato a questo oggetto (item)
                                     if let correctAlien = aliens.first(where: { $0.happyItemImageName == item.imageName }) {
                                         if draggedAlienImage == correctAlien.imageName {
                                             matches[item.id] = draggedAlienImage
@@ -104,10 +118,10 @@ struct MinigiocoNoia: View {
     }
 
     func playSuccessSound() {
-        AudioServicesPlaySystemSound(1104) // "Pop" sound
+        AudioServicesPlaySystemSound(1104)
     }
 
     func playErrorSound() {
-        AudioServicesPlaySystemSound(1023) // Error tone
+        AudioServicesPlaySystemSound(1023)
     }
 }

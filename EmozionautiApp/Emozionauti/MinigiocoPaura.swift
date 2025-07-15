@@ -2,7 +2,8 @@ import SwiftUI
 import AudioToolbox
 
 struct MinigiocoPaura: View {
-    @Environment(\.dismiss) var dismiss // ← Per tornare indietro
+    @EnvironmentObject var navManager: NavigationManager
+
     @State private var numbers = Array(1...7).shuffled()
     @State private var nextNumber = 1
     @State private var selectedNumbers: Set<Int> = []
@@ -26,38 +27,32 @@ struct MinigiocoPaura: View {
             }
 
             if showSuccess {
-                Text("🎉 Ben fatto! 🎉")
-                    .foregroundColor(.green)
-                    .font(.title)
-                    .bold()
-                    .transition(.opacity)
-                NavigationLink(destination: ContentView1()){
-                    Text("Avanti")
-                        .foregroundColor(.white)
-                        .font(.custom("Mitr-Regular",size:50))
-                }.background(.black)
-                    .cornerRadius( 25)
-                    .frame(width: 300, height: 100)
-                    .tint(Color.green)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 25)
-                            .stroke(.white, lineWidth: 1)
-                    )
-                    .background(.red)
-                    .cornerRadius(25)
-                    .padding([.bottom,.trailing],50)
-                    .shadow(color:.brown, radius: 0, x: 10, y: 10)
-            
+                VStack(spacing: 20) {
+                    Text("Ben fatto!")
+                        .foregroundColor(.green)
+                        .font(.title)
+                        .bold()
+                    Spacer();
+                    Button(action: {
+                        navManager.currentView = .canvas
+                    }) {
+                        Text("Avanti")
+                            .font(.custom("Mitr-Regular", size: 36))
+                            .foregroundColor(.white)
+                            .frame(width: 300, height: 100)
+                            .background(Color.green)
+                            .cornerRadius(25)
+                            .shadow(color: .brown, radius: 0, x: 10, y: 10)
+                    }
+                }
             }
 
             ZStack {
                 ForEach(Array(numbers.enumerated()), id: \.element) { index, number in
                     if !selectedNumbers.contains(number) {
                         let angle = Double(index) / Double(numbers.count) * 2 * .pi
-                        let radius: CGFloat = 220 // distanza dal centro
-                        
-                        
-                        
+                        let radius: CGFloat = 220
+
                         Button(action: {
                             handleTap(number)
                         }) {
@@ -65,23 +60,20 @@ struct MinigiocoPaura: View {
                                 .font(Font.custom("Mitr-Regular", size: 100))
                                 .frame(width: 100, height: 100)
                                 .background(.white)
-                                .foregroundColor((Color(red: 117/255, green: 48/255, blue: 212/255)))
+                                .foregroundColor(Color(red: 117/255, green: 48/255, blue: 212/255))
                                 .clipShape(Circle())
-                                //.shadow(radius: 4)
                         }
                         .offset(x: cos(angle) * radius, y: sin(angle) * radius)
                     }
                 }
             }
             .frame(height: 650)
-            
+
             Spacer()
         }
         .padding()
         .animation(.easeInOut, value: selectedNumbers)
     }
-
-    @Environment(\.presentationMode) var presentationMode
 
     func handleTap(_ number: Int) {
         if number == nextNumber {
@@ -91,9 +83,6 @@ struct MinigiocoPaura: View {
 
             if nextNumber > 7 {
                 showSuccess = true
-                //DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                   // presentationMode.wrappedValue.dismiss()
-               // }
             }
         } else {
             playErrorSound()
@@ -110,12 +99,12 @@ struct MinigiocoPaura: View {
         nextNumber = 1
         selectedNumbers = []
     }
-    
+
     func playSuccessSound() {
-        AudioServicesPlaySystemSound(1104) // Suono "pop"
+        AudioServicesPlaySystemSound(1104)
     }
 
     func playErrorSound() {
-        AudioServicesPlaySystemSound(1023) // Suono errore
+        AudioServicesPlaySystemSound(1023)
     }
 }

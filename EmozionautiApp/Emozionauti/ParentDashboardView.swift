@@ -1,26 +1,41 @@
 import SwiftUI
 
 struct ParentDashboardView: View {
-    var body: some View {
-        NavigationStack {
-            List {
-                Section(header: Text("Strumenti")) {
-                    NavigationLink(destination: DiaryStatsView()) {
-                        Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
-                    }
-                    NavigationLink(destination: SettingsView()) {
-                        Label("Impostazioni App", systemImage: "gearshape.fill")
-                    }
-                }
+    @EnvironmentObject var navManager: NavigationManager
+    @EnvironmentObject var diaryViewModel: DiaryViewModel
+    @State private var showResetAlert = false
 
-                Section {
-                    NavigationLink(destination: ParentAccessView()) {
-                        Label("Esci", systemImage: "arrow.backward.circle")
-                            .foregroundColor(.red)
-                    }
+    var body: some View {
+        List {
+            Section(header: Text("Strumenti")) {
+                Button {
+                    navManager.currentView = .diario
+                } label: {
+                    Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
                 }
             }
-            .navigationTitle("Area Genitori")
+
+            Section {
+                Button {
+                    diaryViewModel.resetStats() //
+                    showResetAlert = true
+                } label: {
+                    Label("Reset emozioni", systemImage: "trash.fill")
+                        .foregroundColor(.red)
+                }
+
+                Button {
+                    navManager.currentView = .home
+                } label: {
+                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.red)
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Area Genitori")
+        .alert("Emozioni resettate correttamente", isPresented: $showResetAlert) {
+            Button("OK", role: .cancel) { }
         }
     }
 }

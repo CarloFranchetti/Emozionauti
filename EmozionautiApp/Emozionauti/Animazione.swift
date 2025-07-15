@@ -1,62 +1,37 @@
-//
-//  Animazione.swift
-//  Emozionauti
-//
-//  Created by Studente on 04/07/25.
-//
-
-
 import SwiftUI
 
+struct Animazione: View {
+    @EnvironmentObject var navManager: NavigationManager
 
-
-
-
-struct Animazione<Minigioco: View>: View {
     var coloreEmozione: Color
     var coloreOmbra: Color
     var text: String
-    var minigioco: () -> Minigioco
+    var nextView: NavigationViewType
+
     var body: some View {
-        NavigationStack{
-            ZStack {
-               // let sfondoEmozione = Color(red:255/255,green:102/255,blue:104/255)
-                let sfondoBlu = Color(red:12/255,green:10/255,blue:96/255)
-              //  let ombraEmozione = Color(red:205/255,green:41/255,blue:61/255)
-                Color(sfondoBlu)
-                    .ignoresSafeArea()
-                VStack{
-                    Text(text)
-                        .font(.custom("Mitr-Regular",size:50))
-                        .fontWeight(.bold)
-                        .padding(.top, 100)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    Spacer()
-                    NavigationLink(destination: minigioco()){
-                        Text("Avanti")
-                            .foregroundColor(Color(sfondoBlu))
-                            .font(.custom("Mitr-Regular",size:50))
-                    }.background(Color(coloreEmozione))
-                        .cornerRadius( 25)
-                        .frame(width: 300, height: 100)
-                        .tint(Color.green)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color(coloreOmbra), lineWidth: 1)
-                        )
-                        .background(Color(coloreEmozione))
-                        .cornerRadius(25)
-                        .padding([.bottom,.trailing],50)
-                        .shadow(color: Color(coloreOmbra), radius: 0, x: 10, y: 10)
+        ZStack {
+            let sfondoBlu = Color(red: 12/255, green: 10/255, blue: 96/255)
+            Color(sfondoBlu)
+                .ignoresSafeArea()
+
+            VStack() {
+                Text(text)
+                    .font(.custom("Mitr-regular", size: 50))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Button(action: {
+                    navManager.currentView = nextView
+                }) {
+                    Text("Inizia il minigioco")
+                        .font(.custom("Mitr-regular", size: 50))
                 }
+                .padding()
+                .background(coloreOmbra)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
-            .edgesIgnoringSafeArea(.all)
         }
     }
-}
-    
-
-#Preview {
-    ContentView()
 }
