@@ -3,6 +3,23 @@ import SwiftUI
 import PencilKit
 import UIKit
 import Foundation
+
+class DisegniSalvatiModel: ObservableObject {
+    @Published var disegniSalvati: [Int:PKDrawing] = [:]
+    var index: Int = 0
+    
+    func aggiungi(disegno: PKDrawing){
+        disegniSalvati[index] = disegno
+        index+=1
+        
+    }
+    
+    func immaginiSalvate(scale: CGFloat = 1.0) -> [UIImage] {
+        return disegniSalvati.values.map { $0.image(from: $0.bounds, scale: scale) }
+    }
+
+}
+
 //@Model
 class DesignModel {
     private var drawingData: Data
@@ -108,6 +125,7 @@ struct ContentView1: View {
     @EnvironmentObject var navManager: NavigationManager
     @State private var drawing = PKDrawing()
     @State private var toolPickerShows = true
+    @EnvironmentObject var disegni: DisegniSalvatiModel
 
     var body: some View {
         VStack {
@@ -122,13 +140,13 @@ struct ContentView1: View {
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    drawing.saveToPhotoLibrary()
+                    disegni.aggiungi(disegno: drawing)
                     toolPickerShows = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         navManager.currentView = .home
                     }
                 }) {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "square.and.arrow.down.fill")
                 }
             }
         }

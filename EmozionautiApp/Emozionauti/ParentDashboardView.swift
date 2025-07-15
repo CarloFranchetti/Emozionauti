@@ -28,6 +28,13 @@ struct ParentDashboardView: View {
                     Label("Torna al menu principale", systemImage: "arrow.backward.circle")
                         .foregroundColor(.red)
                 }
+                
+                Button {
+                    navManager.currentView = .gallery
+                } label: {
+                    Label("Galleria", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.red)
+                }
             }
         }
         .navigationTitle("Area Genitori")

@@ -21,10 +21,10 @@ struct MinigiocoTristezza: View {
                         .foregroundColor(coloreTriste)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
-                    Image("sleepingAstronaut")
+                    Image("sleepingAstronaut2")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 300, height: 300)
+                        .frame(width: 700, height: 700)
                 }
             } else {
                 VStack(spacing: 40) {
@@ -80,7 +80,7 @@ struct MinigiocoTristezza: View {
 
             player?.play()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 240) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 play = false
                 player?.stop()
                 fine = true

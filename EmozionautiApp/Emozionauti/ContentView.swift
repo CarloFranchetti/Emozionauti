@@ -70,7 +70,7 @@ struct ContentView: View {
                     case .minigiocoTristezza:
                         MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!, song: "songysong", image: "dancingAlien")
                     case .canvas:
-                        ContentView1()
+                    ContentView1()
                     case .diario:
                         DiaryStatsView()
                     case .parentalControl:
@@ -79,6 +79,9 @@ struct ContentView: View {
                         ParentDashboardView()
                     case .parentAccess:
                         ParentAccessView()
+                    case .gallery:
+                        GalleriaView()
+                    
                 }
             }
             .toolbar {

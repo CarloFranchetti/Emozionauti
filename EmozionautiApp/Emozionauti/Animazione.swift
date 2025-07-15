@@ -13,7 +13,6 @@ struct Animazione: View {
             let sfondoBlu = Color(red: 12/255, green: 10/255, blue: 96/255)
             Color(sfondoBlu)
                 .ignoresSafeArea()
-
             VStack() {
                 Text(text)
                     .font(.custom("Mitr-regular", size: 50))
