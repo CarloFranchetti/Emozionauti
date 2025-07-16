@@ -85,7 +85,7 @@ struct MinigiocoFelicita: View {
                     .font(.custom("Mitr-regular", size: 30))
                 Spacer();
                 if messaggio == "Ben fatto!"{
-                    Button(action: {navManager.currentView = .canvas}) {
+                    Button(action: {navManager.currentView = .canvas(emozione: "Felicità 😀")}) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))
                             .foregroundColor(.white)

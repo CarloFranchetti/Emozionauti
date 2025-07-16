@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
+    @StateObject private var disegniModel = DisegniModel()
     
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
@@ -75,8 +76,9 @@ struct ContentView: View {
                         )
                     case .minigiocoTristezza:
                     MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!,coloreTristeOmbra: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
-                    case .canvas:
-                    ContentView1()
+                    case .canvas(let emozione):
+                    ContentView1(emozione: emozione)
+                        .environmentObject(disegniModel)
                     case .diario:
                         DiaryStatsView()
                             .environmentObject(diaryViewModel)
@@ -86,17 +88,19 @@ struct ContentView: View {
                         ParentDashboardView()
                             .environmentObject(navManager)
                             .environmentObject(diaryViewModel)
+                            .environmentObject(disegniModel)
                     case .parentAccess:
                         ParentAccessView()
                     case .gallery:
-                        GalleriaView()
+                        DrawingGalleryView()
                     
                 }
             }
             .toolbar {
+                if navManager.showBackButton{
                 // Aggiungi il pulsante back solo se serve
-                if navManager.showBackButton {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    
                         Button {
                             navManager.goBack()
                         } label: {
@@ -107,10 +111,12 @@ struct ContentView: View {
                         }
                     }
                 }
+                
             }
             .navigationBarBackButtonHidden(true) // Nasconde il back automatico
         }
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
+        .environmentObject(disegniModel)
     }
 }

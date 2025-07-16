@@ -3,6 +3,7 @@ import SwiftUI
 struct ParentDashboardView: View {
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
+    @EnvironmentObject var disegni: DisegniModel
     @State private var showResetAlert = false
 
     var body: some View {
@@ -35,6 +36,13 @@ struct ParentDashboardView: View {
                     navManager.currentView = .gallery
                 } label: {
                     Label("Galleria", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.blue)
+                }
+                
+                Button {
+                    disegni.resettaDisegni()
+                } label: {
+                    Label("Resetta disegni", systemImage: "x.circle.fill")
                         .foregroundColor(.red)
                 }
             }

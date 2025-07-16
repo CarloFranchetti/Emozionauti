@@ -48,7 +48,7 @@ struct MinigiocoNoia: View {
                         .transition(.opacity)
                     Spacer();
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(emozione: "Noia 😴")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 24))

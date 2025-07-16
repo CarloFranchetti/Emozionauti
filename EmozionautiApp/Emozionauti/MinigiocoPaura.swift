@@ -34,7 +34,7 @@ struct MinigiocoPaura: View {
                         .bold()
                     Spacer();
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(emozione: "Paura 😨")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))

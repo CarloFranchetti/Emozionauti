@@ -44,7 +44,7 @@ struct MinigiocoRabbia: View {
                         .scaledToFit()
                         .frame(width: 800, height: 800)
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(emozione: "Rabbia 😡")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
