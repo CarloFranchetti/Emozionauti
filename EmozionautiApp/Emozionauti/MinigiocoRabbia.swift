@@ -27,7 +27,7 @@ struct MinigiocoRabbia: View {
                         .scaledToFit()
                         .padding(.bottom, 0)
                         .frame(width: 800, height: 800)
-                        .position(x: 400, y: 200)
+                        //.position(x: 400, y: 200)
                         .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
                             content
                                 .scaleEffect(y: value.verticalTrasl, anchor: .bottom)
@@ -40,9 +40,10 @@ struct MinigiocoRabbia: View {
 
                     Image("Vulcano3sf")
                         .resizable()
-                        .position(x: 300, y: 260)
+                        //.position(x: 300, y: 260)
                         .scaledToFit()
                         .frame(width: 800, height: 800)
+                        .padding(30)
                     Button(action: {
                         navManager.currentView = .canvas
                     }) {
@@ -52,9 +53,9 @@ struct MinigiocoRabbia: View {
                             .frame(width: 200, height: 200)
                             .background(colore)
                             .cornerRadius(20)
+                            .padding()
                     }
                     .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
-                    .position(x: 400, y: 550)
                 }
             } else {
                 animazioneImmagini[indicecorrente]

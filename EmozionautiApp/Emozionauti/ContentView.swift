@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
-    
+    @State private var vaiAvanti = false
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
@@ -56,7 +56,7 @@ struct ContentView: View {
                             nextView: .minigiocoPaura
                         )
                     case .minigiocoPaura:
-                        MinigiocoPaura()
+                    MinigiocoPaura(colorePaura: colori["pauraombra"]!,colorePauraOmbra:colori["paura"]!)
                     case .animazioneNoia:
                         Animazione(
                             coloreEmozione: colori["noia"]!,
@@ -65,7 +65,7 @@ struct ContentView: View {
                             nextView: .minigiocoNoia
                         )
                     case .minigiocoNoia:
-                    MinigiocoNoia(coloreNoiaOmbra: colori["noiaombra"]!,coloreNoia:colori["noia"]!)
+                    MinigiocoNoia(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colori["noia"]!,coloreNoia:colori["noiaombra"]!)
                     case .animazioneTristezza:
                         Animazione(
                             coloreEmozione: colori["tristezza"]!,

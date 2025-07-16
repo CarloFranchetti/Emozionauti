@@ -108,14 +108,13 @@ struct ContentView1: View {
     @EnvironmentObject var navManager: NavigationManager
     @State private var drawing = PKDrawing()
     @State private var toolPickerShows = true
-
     var body: some View {
         VStack {
             CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Disegno")
+                Text("Disegna il motivo per cui sei in questo stato emotivo")
                     .font(.headline)
                     .foregroundColor(.blue)
             }
