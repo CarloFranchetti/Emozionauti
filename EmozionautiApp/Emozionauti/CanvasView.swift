@@ -75,6 +75,13 @@ class DisegniModel: ObservableObject {
         }
     }
     
+    func cancellaDisegno(_ disegno: Disegno){
+        if let indice = disegni.firstIndex(of: disegno) {
+                disegni.remove(at: indice)
+                salvaDisegni()
+            }
+    }
+    
     func resettaDisegni(){
         disegni.removeAll()
         salvaDisegni()

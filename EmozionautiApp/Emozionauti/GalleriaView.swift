@@ -27,6 +27,9 @@ struct GridView: View{
     @EnvironmentObject var disegniModel: DisegniModel
     @State private var selezionato: Disegno?
     @State private var emozioneSelezionata: String = "Nessun filtro"
+    @State private var dataSelezionata: String = "Nessun filtro"
+    @EnvironmentObject var navigationManager: NavigationManager
+
     private let emozioni = [
         "Nessun filtro",
         "Felicità",
@@ -35,21 +38,33 @@ struct GridView: View{
         "Rabbia",
         "Paura"
     ]
-
+    private var index = 0
     private static let columns = 4
-
+    
+    private var dateFiltrabili: [String] {
+        let allDates = disegniModel.disegni.map { $0.date.formatted(date: .numeric, time: .omitted)}
+        let uniqueDates = Set(allDates)
+        var array = Array(uniqueDates)
+        array.append("Nessun filtro")
+        return array
+    }
+    
     
     
     var body: some View{
         ZStack{
             VStack{
-                HStack{
-                    Text("Applica filtri:")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leadingFirstTextBaseline)
-                        .padding(20)
-                    DropDownMenu(title: "Emozione", options: emozioni, selezionatoE: $emozioneSelezionata)
+                ZStack{
+                    HStack{
+                        Text("Applica filtri:")
+                            .fontWeight(.bold)
+                            .padding([.leading],20)
+                        DropDownMenu(title: "Emozione", options: emozioni, selezionatoE: $emozioneSelezionata)
+                        DropDownMenu(title: "Data", options: dateFiltrabili, selezionatoE: $dataSelezionata)
+                    }
+                    .fixedSize(horizontal: false, vertical: false)
                 }
+                .zIndex(1)
                 ScrollView{
                     LazyVGrid(columns: [
                         GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10),
@@ -58,25 +73,48 @@ struct GridView: View{
                         GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10)
                     ],spacing: 10){
                         ForEach(disegniModel.disegni){ disegno in
-                                if disegno.emozione.hasPrefix(emozioneSelezionata){
-                                    GeometryReader{ geometry in
-                                        OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
-                                            .onTapGesture {
-                                                selezionato = disegno
-                                            }
-                                        
-                                    }.cornerRadius(8.0)
-                                        .aspectRatio(1,contentMode: .fit)
-                                }else if emozioneSelezionata == "Nessun filtro"{
-                                    GeometryReader{ geometry in
-                                        OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
-                                            .onTapGesture {
-                                                selezionato = disegno
+                            if disegno.emozione.hasPrefix(emozioneSelezionata) && dataSelezionata == "Nessun filtro"{
+                                GeometryReader{ geometry in
+                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                        .onTapGesture {
+                                            selezionato = disegno
+                                            navigationManager.dettaglioAperto = true
                                         }
                                     
                                 }.cornerRadius(8.0)
                                     .aspectRatio(1,contentMode: .fit)
-                                }
+                            }else if emozioneSelezionata == "Nessun filtro" && dataSelezionata == "Nessun filtro"{
+                                GeometryReader{ geometry in
+                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                        .onTapGesture {
+                                            selezionato = disegno
+                                            navigationManager.dettaglioAperto = true
+                                        }
+                                    
+                                }.cornerRadius(8.0)
+                                    .aspectRatio(1,contentMode: .fit)
+                            }else if emozioneSelezionata == "Nessun filtro" && dataSelezionata == disegno.date.formatted(date: .numeric, time: .omitted){
+                                GeometryReader{ geometry in
+                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                        .onTapGesture {
+                                            selezionato = disegno
+                                            navigationManager.dettaglioAperto = true
+                                        }
+                                    
+                                }.cornerRadius(8.0)
+                                    .aspectRatio(1,contentMode: .fit)
+                                
+                            }else if disegno.emozione.hasPrefix(emozioneSelezionata) && dataSelezionata == disegno.date.formatted(date: .numeric, time: .omitted){
+                                GeometryReader{ geometry in
+                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                        .onTapGesture {
+                                            selezionato = disegno
+                                            navigationManager.dettaglioAperto = true
+                                        }
+                                    
+                                }.cornerRadius(8.0)
+                                    .aspectRatio(1,contentMode: .fit)
+                            }
                             
                             
                         }
@@ -84,7 +122,7 @@ struct GridView: View{
                 }.padding(10)
             }
             
-
+            
             if let selezionato{
                 ZStack{
                     Color.white
@@ -94,22 +132,40 @@ struct GridView: View{
                         selezionato.disegno.toImage()
                             .onTapGesture {
                                 self.selezionato = nil
+                                navigationManager.dettaglioAperto = false
                             }
                         HStack{
                             Text("Emozione:")
                                 .fontWeight(.bold)
                             Text(selezionato.emozione)
                         }
-                        Text(selezionato.date.formatted(date: .complete, time: .shortened))
-                            .font(.system(size: 20))
-                    }
+                        HStack{
+                            Text("Data:")
+                                .fontWeight(.bold)
+                            Text(selezionato.date.formatted(Date.FormatStyle(date: .complete, time: .shortened) .locale(Locale(identifier: "it_IT"))))
+                                .font(.system(size: 20))
+                        }
+                        Spacer()
+                        Button(action:{
+                            disegniModel.cancellaDisegno(selezionato)
+                            self.selezionato = nil
+                        }){
+                            Image(systemName: "trash.fill")
+                                .foregroundColor(.red)
+                            Text("Cancella disegno")
+                                .foregroundColor(.red)
+                
+                        }.padding([.bottom],60)
+                        
+                    }.padding([.leading],10)
                 }
             }
-
+            
         }.navigationBarTitle("Galleria Emozioni")
-         .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)
         
     }
+    
 }
 
 
