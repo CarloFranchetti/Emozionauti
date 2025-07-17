@@ -21,11 +21,11 @@ struct MinigiocoRabbia: View {
                 .multilineTextAlignment(.center)
             
             if fineGioco {
-                VStack {
+                VStack (alignment: .center, spacing:70){
                     Image("BenFattoVulcano")
                         .resizable()
                         .scaledToFit()
-                        .padding(.bottom, 0)
+                        //.padding(.bottom, 0)
                         .frame(width: 800, height: 800)
                         //.position(x: 400, y: 200)
                         .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
@@ -43,7 +43,7 @@ struct MinigiocoRabbia: View {
                         //.position(x: 300, y: 260)
                         .scaledToFit()
                         .frame(width: 800, height: 800)
-                        .padding(30)
+                        //.padding(30)
                     Button(action: {
                         navManager.currentView = .canvas
                     }) {
@@ -53,7 +53,7 @@ struct MinigiocoRabbia: View {
                             .frame(width: 200, height: 200)
                             .background(colore)
                             .cornerRadius(20)
-                            .padding()
+                            //.padding()
                     }
                     .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
                 }
