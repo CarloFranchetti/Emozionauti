@@ -149,6 +149,7 @@ struct GridView: View{
                         Button(action:{
                             disegniModel.cancellaDisegno(selezionato)
                             self.selezionato = nil
+                            navigationManager.dettaglioAperto = false
                         }){
                             Image(systemName: "trash.fill")
                                 .foregroundColor(.red)

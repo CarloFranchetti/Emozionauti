@@ -4,6 +4,7 @@ struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
+    @State var rotazione: Double = 0.0
 
 
     var body: some View {
@@ -16,8 +17,16 @@ struct SchermataHome: View {
                     .aspectRatio(contentMode: .fill)
                 Image("pianeta")
                     .resizable()
-                    .position(x:400,y:1100)
+                    .frame(width:900, height:900)
                     .aspectRatio(contentMode: .fill)
+                    .rotationEffect(.degrees(rotazione), anchor: .center)
+                    .onAppear{
+                        withAnimation(.linear(duration: 1).speed(0.1).repeatForever(autoreverses: false)) {
+                            rotazione = 360.0
+                        }
+                    }
+                    .position(x:400,y:1100)
+
                 //Pulsante impostazioni
                 Button {
                     navManager.currentView = .parentalControl

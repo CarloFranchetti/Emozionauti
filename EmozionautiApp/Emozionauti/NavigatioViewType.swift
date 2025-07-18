@@ -11,7 +11,7 @@ enum NavigationViewType {
     case animazioneNoia
     case animazioneTristezza
     case minigiocoRabbia
-    case minigiocoFelicita
+    case minigiocoFelicita2
     case minigiocoPaura
     case minigiocoNoia
     case minigiocoTristezza

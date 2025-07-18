@@ -10,7 +10,7 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .minigiocoRabbia:
             currentView = .animazioneRabbia
-        case .minigiocoFelicita:
+        case .minigiocoFelicita2:
             currentView = .animazioneFelicita
         case .minigiocoPaura:
             currentView = .animazionePaura
