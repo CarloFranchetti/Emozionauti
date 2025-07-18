@@ -28,6 +28,7 @@ class MinigiocoFelicita2: SKScene {
     var tempoRimasto = 30
     var nomeTimer: SKLabelNode!
     var descrizioneGioco: SKLabelNode!
+    var messaggioFine: SKLabelNode!
     var timerGioco: Timer?
     var punteggio = 0
     var fineGiocoScritta: SKLabelNode!
@@ -154,16 +155,23 @@ class MinigiocoFelicita2: SKScene {
         nomeTimer.fontColor = .black
         
         fineGiocoScritta = SKLabelNode(text: "TEMPO SCADUTO!")
+        messaggioFine = SKLabelNode(text: "Sei stato fenomenale!")
         punteggioScritta = SKLabelNode(text: "Punteggio: \(punteggio)")
         fineGiocoScritta.fontColor = viewModel?.colorefelicita
         fineGiocoScritta.fontSize = 40
-        punteggioScritta.fontSize = 20
         fineGiocoScritta.fontName = "Modak"
         fineGiocoScritta.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(fineGiocoScritta)
+        punteggioScritta.fontSize = 20
         punteggioScritta.fontName = "Mitr-Regular"
-        punteggioScritta.position = CGPoint(x: size.width/2 - 30, y: size.height/2 - 30)
+        punteggioScritta.fontColor = .black
+        punteggioScritta.position = CGPoint(x: size.width/2 , y: size.height/2 - 30)
         addChild(punteggioScritta)
+        messaggioFine.fontSize = 30
+        messaggioFine.fontName = "Mitr-Regular"
+        messaggioFine.fontColor = .black
+        messaggioFine.position = CGPoint(x: size.width/2, y: size.height/2 - 70)
+        addChild(messaggioFine)
 
     }
     
