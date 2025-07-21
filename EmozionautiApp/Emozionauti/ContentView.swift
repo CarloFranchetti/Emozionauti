@@ -32,6 +32,7 @@ struct ContentView: View {
                             .environmentObject(diaryViewModel)
                     case .animazioneRabbia:
                         Animazione(
+                            animazione: "AnimazioneRabbia",
                             coloreEmozione: colori["rabbia"]!,
                             coloreOmbra: colori["rabbiaombra"]!,
                             text: "Quando ti senti arrabbiato...",
@@ -41,6 +42,7 @@ struct ContentView: View {
                     MinigiocoRabbia(colore: colori["rabbiaombra"]!,coloreOmbra: colori["rabbia"]!)
                     case .animazioneFelicita:
                         Animazione(
+                            animazione: "AnimazioneFelicità",
                             coloreEmozione: colori["felicita"]!,
                             coloreOmbra: colori["felicitaombra"]!,
                             text: "Quando ti senti felice...",
@@ -50,6 +52,7 @@ struct ContentView: View {
                     MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!)
                     case .animazionePaura:
                         Animazione(
+                            animazione: "AnimazionePaura",
                             coloreEmozione: colori["paura"]!,
                             coloreOmbra: colori["pauraombra"]!,
                             text: "Quando hai paura...",
@@ -59,6 +62,7 @@ struct ContentView: View {
                     MinigiocoPaura(colorePaura: colori["pauraombra"]!,colorePauraOmbra:colori["paura"]!)
                     case .animazioneNoia:
                         Animazione(
+                            animazione: "AnimazioneNoia",
                             coloreEmozione: colori["noia"]!,
                             coloreOmbra: colori["noiaombra"]!,
                             text: "Quando sei annoiato...",
@@ -68,6 +72,7 @@ struct ContentView: View {
                     MinigiocoNoia(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colori["noia"]!,coloreNoia:colori["noiaombra"]!)
                     case .animazioneTristezza:
                         Animazione(
+                            animazione: "AnimazioneTristezza",
                             coloreEmozione: colori["tristezza"]!,
                             coloreOmbra: colori["tristezzaombra"]!,
                             text: "Quando ti senti triste...",

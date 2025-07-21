@@ -10,12 +10,21 @@ import AVKit
 struct VideoPlayerView: UIViewControllerRepresentable {
     let videoName: String
     let videoType:String="mp4"
+    @Binding var isVideoFinished: Bool
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let controller = AVPlayerViewController()
         if let path = Bundle.main.path(forResource: videoName, ofType: videoType) {
             let player = AVPlayer(url:URL(fileURLWithPath: path))
             controller.player=player
             controller.showsPlaybackControls=false
+            player.actionAtItemEnd = .none
+            NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { _ in
+                isVideoFinished = true
+        }
             player.play()
         }
         else {
