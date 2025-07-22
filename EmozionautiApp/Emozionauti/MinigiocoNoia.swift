@@ -28,7 +28,7 @@ struct MinigiocoNoia: View {
                 .ignoresSafeArea()
             if vaiAvanti{
                 Button(action: {
-                    navManager.currentView = .canvas
+                    navManager.currentView = .canvas (text: "Disegna cosa ti ha reso annoiato...", emozione: "Noia 😴")
                 }) {
                     Text("Avanti")
                         .font(.custom("Mitr-Regular", size: 30))
