@@ -2,6 +2,7 @@ import SwiftUI
 
 class NavigationManager: ObservableObject {
     @Published var currentView: NavigationViewType = .splash
+    @Published var dettaglioAperto: Bool = false
 
     func goBack() {
         switch currentView {
@@ -9,7 +10,7 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .minigiocoRabbia:
             currentView = .animazioneRabbia
-        case .minigiocoFelicita:
+        case .minigiocoFelicita2:
             currentView = .animazioneFelicita
         case .minigiocoPaura:
             currentView = .animazionePaura
@@ -21,12 +22,17 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .diario:
             currentView = .parentDashboard
+        case .gallery:
+            currentView = .parentDashboard
         default:
             break
         }
     }
 
     var showBackButton: Bool {
+        if dettaglioAperto{
+            return false
+        }
         switch currentView {
         case .home, .splash, .canvas, .parentalControl:
             return false

@@ -14,7 +14,6 @@ import Foundation
 class RilevaSoffio: NSObject, ObservableObject{
     var registratore: AVAudioRecorder!
     var timer: Timer?
-    @Published var risultatopassaBasso: Double = 0.0
     let a: Double = 0.05
     
     //avvia la registrazione, tramite il costruttore
@@ -68,7 +67,7 @@ class RilevaSoffio: NSObject, ObservableObject{
       func aggiornaVol() -> Bool{
         registratore.updateMeters()
         let potenza = registratore.averagePower(forChannel: 0)
-          if potenza >= -16.0 && potenza <= 20.0{
+          if potenza >= -25.0 && potenza <= 10.0{
              return true
          }
           else{
