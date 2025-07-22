@@ -32,15 +32,6 @@ struct ParentDashboardView: View {
                     Label("Reset emozioni", systemImage: "trash.fill")
                         .foregroundColor(.red)
                 }
-
-                Button {
-                    navManager.currentView = .home
-                } label: {
-                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
-                        .foregroundColor(.red)
-                }
-                
-
                 
                 Button {
                     showResetDisegniAlert = true
@@ -52,6 +43,13 @@ struct ParentDashboardView: View {
                 .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDisegniAlert){
                     Button("Cancella", role: .cancel){}
                     Button("OK", role: .destructive){disegni.resettaDisegni()}
+                }
+
+                Button {
+                    navManager.currentView = .home
+                } label: {
+                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.red)
                 }
             }
         }

@@ -95,15 +95,9 @@ struct ContentView: View {
                         ParentDashboardView()
                             .environmentObject(navManager)
                             .environmentObject(diaryViewModel)
-<<<<<<< HEAD
-=======
-                            .environmentObject(disegniModel)
-                    case .parentAccess:
-                        ParentAccessView()
+                            .environmentObject(disegniModel)                  
                     case .gallery:
-                        DrawingGalleryView()
-                    
->>>>>>> main
+                        DrawingGalleryView()                
                 }
             }
             .toolbar {

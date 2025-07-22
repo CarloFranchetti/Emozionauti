@@ -22,13 +22,10 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .diario:
             currentView = .parentDashboard
-<<<<<<< HEAD
         case .parentalControl:
                 currentView = .home
-=======
         case .gallery:
             currentView = .parentDashboard
->>>>>>> main
         default:
             break
         }
