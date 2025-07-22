@@ -37,7 +37,7 @@ struct SchermataIcona: View {
         }
         .onReceive(timer) { _ in
             if progress < 1.0 {
-                progress += 0.04
+                progress += 0.05
             } else {
                 progress = 1.0
                 navManager.currentView = .home
