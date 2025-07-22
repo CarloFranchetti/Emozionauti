@@ -61,8 +61,8 @@ class SfondoAnimato: SKScene {
         
         
         pianeta = SKSpriteNode(imageNamed: "pianeta")
-        pianeta.position = CGPoint(x: size.width/2 , y: size.height - pianeta.size.height * 2.6 )
-        pianeta.size = CGSize(width: size.width * 1.2, height: size.width * 1.2)
+        pianeta.position = CGPoint(x: size.width/2 , y: size.height - pianeta.size.height * 2.7 )
+        pianeta.size = CGSize(width: size.width * 1.1, height: size.width * 1.1)
         addChild(pianeta)
         let rotazione = SKAction.rotate(byAngle: CGFloat.pi, duration: 20)
         let rotazioneLoop = SKAction.repeatForever(rotazione)
