@@ -11,12 +11,13 @@ enum NavigationViewType {
     case animazioneNoia
     case animazioneTristezza
     case minigiocoRabbia
-    case minigiocoFelicita
+    case minigiocoFelicita2
     case minigiocoPaura
     case minigiocoNoia
     case minigiocoTristezza
-    case canvas
+    case canvas(text: String, emozione: String)
     case diario
     case parentDashboard
     case parentAccess
+    case gallery
 }

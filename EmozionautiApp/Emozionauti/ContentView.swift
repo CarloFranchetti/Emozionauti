@@ -3,7 +3,13 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
+<<<<<<< HEAD
     @State private var vaiAvanti = false
+=======
+    @StateObject private var disegniModel = DisegniModel()
+    @State private var fineGiocoFelicita = false
+    
+>>>>>>> Mic
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
@@ -18,7 +24,8 @@ struct ContentView: View {
         "felicitaombra": Color(red:12/255,green:165/255,blue:7/255),
         "pauraombra": Color(red:125/255,green:27/255,blue:191/255),
         "noiaombra": Color(red:66/255,green:64/255,blue:56/255),
-        "tristezzaombra": Color(red:19/255,green:43/255,blue:137/255)
+        "tristezzaombra": Color(red:19/255,green:43/255,blue:137/255),
+        "sfondo": Color(red: 12/255, green: 10/255, blue: 96/255)
     ]
 
     var body: some View {
@@ -46,10 +53,10 @@ struct ContentView: View {
                             coloreEmozione: colori["felicita"]!,
                             coloreOmbra: colori["felicitaombra"]!,
                             text: "Quando ti senti felice...",
-                            nextView: .minigiocoFelicita
+                            nextView: .minigiocoFelicita2
                         )
-                    case .minigiocoFelicita:
-                    MinigiocoFelicita(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!)
+                    case .minigiocoFelicita2:
+                        MinigiocoFelicitaView(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!, coloreS: colori["sfondo"]!)
                     case .animazionePaura:
                         Animazione(
                             animazione: "AnimazionePaura",
@@ -80,8 +87,9 @@ struct ContentView: View {
                         )
                     case .minigiocoTristezza:
                     MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!,coloreTristeOmbra: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
-                    case .canvas:
-                        ContentView1()
+                    case .canvas(let text, let emozione):
+                    ContentView1(text: text, emozione: emozione)
+                        .environmentObject(disegniModel)
                     case .diario:
                         DiaryStatsView()
                             .environmentObject(diaryViewModel)
@@ -91,14 +99,19 @@ struct ContentView: View {
                         ParentDashboardView()
                             .environmentObject(navManager)
                             .environmentObject(diaryViewModel)
+                            .environmentObject(disegniModel)
                     case .parentAccess:
                         ParentAccessView()
+                    case .gallery:
+                        DrawingGalleryView()
+                    
                 }
             }
             .toolbar {
+                if navManager.showBackButton{
                 // Aggiungi il pulsante back solo se serve
-                if navManager.showBackButton {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    
                         Button {
                             navManager.goBack()
                         } label: {
@@ -109,10 +122,12 @@ struct ContentView: View {
                         }
                     }
                 }
+                
             }
             .navigationBarBackButtonHidden(true) // Nasconde il back automatico
         }
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
+        .environmentObject(disegniModel)
     }
 }

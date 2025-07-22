@@ -35,7 +35,7 @@ struct MinigiocoPaura: View {
                         .bold()
                     Spacer();
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emozione: "Paura 😨")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))
@@ -109,3 +109,4 @@ struct MinigiocoPaura: View {
         AudioServicesPlaySystemSound(1023)
     }
 }
+
