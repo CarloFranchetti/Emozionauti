@@ -4,13 +4,16 @@ import AudioToolbox
 struct MinigiocoPaura: View {
     @EnvironmentObject var navManager: NavigationManager
 
-    @State private var numbers = Array(1...7).shuffled()
-    @State private var nextNumber = 1
-    @State private var selectedNumbers: Set<Int> = []
-    @State private var showError = false
-    @State private var showSuccess = false
+    @State private var numeri = Array(1...7).shuffled()
+    @State private var proxNumero = 1
+    @State private var numeriSelezionati: Set<Int> = []
+    @State private var errore = false
+    @State private var corretto = false
+    @State var rotazione = 0.0
     var colorePaura: Color
     var colorePauraOmbra: Color
+    @State private var timer: Timer?
+    
     var body: some View {
         VStack(spacing: 30) {
             Text("Metti in ordine i numeri!")
@@ -20,19 +23,18 @@ struct MinigiocoPaura: View {
                 .foregroundColor(.black)
                 .padding(.top, 30)
 
-            if showError {
+            if errore {
                 Text("Oops! Riprova!")
                     .foregroundColor(.red)
                     .bold()
                     .transition(.opacity)
             }
 
-            if showSuccess {
+            if corretto {
                 VStack(spacing: 20) {
-                    Text("Ben fatto!")
-                        .foregroundColor(.green)
-                        .font(.title)
-                        .bold()
+                    Text("BEN FATTO!")
+                        .foregroundColor(colorePaura)
+                        .font(.custom("Modak", size: 50))
                     Spacer();
                     Button(action: {
                         navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emozione: "Paura 😨")
@@ -49,64 +51,75 @@ struct MinigiocoPaura: View {
             }
 
             ZStack {
-                ForEach(Array(numbers.enumerated()), id: \.element) { index, number in
-                    if !selectedNumbers.contains(number) {
-                        let angle = Double(index) / Double(numbers.count) * 2 * .pi
-                        let radius: CGFloat = 220
-
+                ForEach(Array(numeri.enumerated()), id: \.element) { index, numero in
+                    if !numeriSelezionati.contains(numero) {
+                        let angolo = (Double(index) / Double(numeri.count) * 360 + rotazione).truncatingRemainder(dividingBy: 360)
+                        let raggio: CGFloat = 220
+                        let rad = angolo * .pi / 180
+                        
                         Button(action: {
-                            handleTap(number)
+                            handleTap(numero)
                         }) {
-                            Text("\(number)")
+                            Text("\(numero)")
                                 .font(Font.custom("Mitr-Regular", size: 100))
                                 .frame(width: 100, height: 100)
                                 .background(.white)
                                 .foregroundColor(Color(red: 117/255, green: 48/255, blue: 212/255))
                                 .clipShape(Circle())
                         }
-                        .offset(x: cos(angle) * radius, y: sin(angle) * radius)
+                        .offset(x: cos(rad) * raggio, y: sin(rad) * raggio)
+                        .rotationEffect(.degrees(-rotazione))
                     }
                 }
             }
             .frame(height: 650)
+            .rotationEffect(.degrees(rotazione), anchor: .center)
+            .onAppear {
+                timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
+                    rotazione += 1
+                    if rotazione >= 360 {
+                        rotazione = 0
+                    }
+                }
+            }
+            .onDisappear {
+                timer?.invalidate()
+            }
+            
 
             Spacer()
         }
         .padding()
-        .animation(.easeInOut, value: selectedNumbers)
+        .animation(.easeInOut, value: numeriSelezionati)
     }
 
-    func handleTap(_ number: Int) {
-        if number == nextNumber {
-            playSuccessSound()
-            selectedNumbers.insert(number)
-            nextNumber += 1
+    func handleTap(_ numero: Int) {
+        if numero == proxNumero {
+            suonoCorretto()
+            numeriSelezionati.insert(numero)
+            proxNumero += 1
 
-            if nextNumber > 7 {
-                showSuccess = true
+            if proxNumero > 7 {
+                corretto = true
             }
         } else {
-            playErrorSound()
-            showError = true
+            errore = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                showError = false
-                resetGame()
+                errore = false
+                resetGioco()
             }
         }
     }
 
-    func resetGame() {
-        numbers = Array(1...7).shuffled()
-        nextNumber = 1
-        selectedNumbers = []
+    func resetGioco() {
+        numeri = Array(1...7).shuffled()
+        proxNumero = 1
+        numeriSelezionati = []
     }
 
-    func playSuccessSound() {
+    func suonoCorretto() {
         AudioServicesPlaySystemSound(1104)
     }
 
-    func playErrorSound() {
-        AudioServicesPlaySystemSound(1023)
-    }
 }
 

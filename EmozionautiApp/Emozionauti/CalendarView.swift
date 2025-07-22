@@ -2,31 +2,31 @@
 import SwiftUI
 
 struct CalendarView: View {
-    @Binding var selectedDate: Date
+    @Binding var dataSelezionata: Date
     @EnvironmentObject var diaryViewModel: DiaryViewModel
 
-    @State private var currentMonthOffset: Int = 0
+    @State private var offsetMeseCorrente: Int = 0
     private let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
-    private var displayedMonth: Date {
-        Calendar.current.date(byAdding: .month, value: currentMonthOffset, to: Date()) ?? Date()
+    private var meseMostrato: Date {
+        Calendar.current.date(byAdding: .month, value: offsetMeseCorrente, to: Date()) ?? Date()
     }
 
-    private var monthYearTitle: String {
+    private var meseAnnoTitolo: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "LLLL yyyy"
-        return formatter.string(from: displayedMonth).capitalized
+        return formatter.string(from: meseMostrato).capitalized
     }
 
-    private var daysInDisplayedMonth: [Date] {
-        let calendar = Calendar.current
-        guard let range = calendar.range(of: .day, in: .month, for: displayedMonth),
-              let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: displayedMonth)) else {
+    private var giorniMeseMostrato: [Date] {
+        let calendario = Calendar.current
+        guard let range = calendario.range(of: .day, in: .month, for: meseMostrato),
+              let inizioMese = calendario.date(from: calendario.dateComponents([.year, .month], from: meseMostrato)) else {
             return []
         }
 
-        return range.compactMap { day in
-            calendar.date(byAdding: .day, value: day - 1, to: startOfMonth)
+        return range.compactMap { giorno in
+            calendario.date(byAdding: .day, value: giorno - 1, to: inizioMese)
         }
     }
 
@@ -36,7 +36,7 @@ struct CalendarView: View {
         })
     }
     
-    let emotionColors: [String: Color] = [
+    let coloriEmozioni: [String: Color] = [
         "felicita": Color(red:12/255,green:165/255,blue:7/255),
         "rabbia": Color(red:202/255,green:37/255,blue:22/255),
         "paura": Color(red:125/255,green:27/255,blue:191/255),
@@ -44,7 +44,7 @@ struct CalendarView: View {
         "noia": Color(red:171/255,green:173/255,blue:171/255)
     ]
     
-    let emotionImages: [String: Image] = [
+    let immaginiEmozioni: [String: Image] = [
         "felicita": Image("felicita"),
         "rabbia": Image("rabbia"),
         "paura": Image("paura"),
@@ -70,20 +70,20 @@ struct CalendarView: View {
             //Header con mese corrente e frecce
             HStack {
                 Button(action: {
-                    currentMonthOffset -= 1
+                    offsetMeseCorrente -= 1
                 }) {
                     Image(systemName: "chevron.left")
                 }
 
                 Spacer()
 
-                Text(monthYearTitle)
+                Text(meseAnnoTitolo)
                     .font(.headline)
 
                 Spacer()
 
                 Button(action: {
-                    currentMonthOffset += 1
+                    offsetMeseCorrente += 1
                 }) {
                     Image(systemName: "chevron.right")
                 }
@@ -100,26 +100,26 @@ struct CalendarView: View {
             }
 
             LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(daysInDisplayedMonth, id: \.self) { date in
-                    let isSelected = Calendar.current.isDate(date, inSameDayAs: selectedDate)
-                    let hasEmotion = daysWithEmotions.contains(Calendar.current.startOfDay(for: date))
-                    let isToday = Calendar.current.isDateInToday(date)
-                    let emotions = Array(Set(diaryViewModel.emotionsForDate(date))).prefix(5)
-                    let intensity = diaryViewModel.emotionIntensity(for: date)
-                    let heatColor = heatmapColor(for: intensity)
+                ForEach(giorniMeseMostrato, id: \.self) { date in
+                    let selezionato = Calendar.current.isDate(date, inSameDayAs: dataSelezionata)
+                    let haEmozioni = daysWithEmotions.contains(Calendar.current.startOfDay(for: date))
+                    let oggi = Calendar.current.isDateInToday(date)
+                    let emozioni = Array(Set(diaryViewModel.emotionsForDate(date))).prefix(5)
+                    let intensita = diaryViewModel.emotionIntensity(for: date)
+                    let coloreHeat = heatmapColor(for: intensita)
 
                     Button {
-                        selectedDate = date
+                        dataSelezionata = date
                     } label: {
                         CalendarDayCell(
                             date: date,
-                            isSelected: isSelected,
-                            isToday: isToday,
-                            hasEmotion: hasEmotion,
-                            emotions: Array(emotions),
-                            emotionImage: emotionImages,
-                            intensity: intensity,
-                            heatmapColor: heatColor
+                            selezionato: selezionato,
+                            oggi: oggi,
+                            haEmozioni: haEmozioni,
+                            emozioni: Array(emozioni),
+                            immaginiEmozioni: immaginiEmozioni,
+                            intensita: intensita,
+                            coloreHeatMap: coloreHeat
                         )
                     }
                     .buttonStyle(.plain)
@@ -131,20 +131,20 @@ struct CalendarView: View {
     
     struct CalendarDayCell: View {
         let date: Date
-        let isSelected: Bool
-        let isToday: Bool
-        let hasEmotion: Bool
-        let emotions: [String]
-        let emotionImage: [String: Image]
-        let intensity: Double
-        let heatmapColor: Color
+        let selezionato: Bool
+        let oggi: Bool
+        let haEmozioni: Bool
+        let emozioni: [String]
+        let immaginiEmozioni: [String: Image]
+        let intensita: Double
+        let coloreHeatMap: Color
 
         var body: some View {
             VStack(spacing: 4) {
-                if !emotions.isEmpty {
+                if !emozioni.isEmpty {
                     HStack(spacing: 2) {
-                        ForEach(emotions, id: \.self) { emotion in
-                            (emotionImage[emotion] ?? Image(systemName: "questionmark"))
+                        ForEach(emozioni, id: \.self) { emozione in
+                            (immaginiEmozioni[emozione] ?? Image(systemName: "questionmark"))
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 10, height: 10)
@@ -157,20 +157,20 @@ struct CalendarView: View {
                     .frame(width: 36, height: 36)
                     .background(
                         ZStack {
-                            if isSelected {
+                            if selezionato {
                                 Color.blue.opacity(0.8).clipShape(Circle())
-                            } else if intensity > 0 {
-                                Circle().fill(heatmapColor)
+                            } else if intensita > 0 {
+                                Circle().fill(coloreHeatMap)
                             }
 
-                            if isToday {
+                            if oggi {
                                 Circle().stroke(Color.blue, lineWidth: 2)
                             }
                         }
                     )
-                    .foregroundColor(hasEmotion ? .primary : .gray)
+                    .foregroundColor(haEmozioni ? .primary : .gray)
 
-                if hasEmotion {
+                if haEmozioni {
                     Circle()
                         .fill(Color.blue)
                         .frame(width: 6, height: 6)
