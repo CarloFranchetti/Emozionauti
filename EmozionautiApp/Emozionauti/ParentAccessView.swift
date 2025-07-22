@@ -17,12 +17,12 @@ struct ParentAccessView: View {
             if showError {
                 Text("Autenticazione fallita. Riprova.")
                     .foregroundColor(.red)
+                
+                Button("Riprova") {
+                    authenticate()
+                }
+                .buttonStyle(.borderedProminent)
             }
-
-            Button("Riprova") {
-                authenticate()
-            }
-            .buttonStyle(.borderedProminent)
 
             Spacer()
         }
