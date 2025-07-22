@@ -1,32 +1,34 @@
 import SwiftUI
+import SpriteKit
 
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
+    @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
+  
+    init(coloriEmozioni: [String : Color]) {
+        self.coloriEmozioni = coloriEmozioni
+        let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
+        _sfondoAnimato = StateObject(wrappedValue: sfondo)
+    }
     
     
     var body: some View {
         GeometryReader{ geometry in
             NavigationStack {
                 ZStack {
-                    Color(red:12/255, green:10/255, blue:96/255)
-                        .ignoresSafeArea()
-                    Image("sfondo")
-                        .resizable()
-                        .frame(width: geometry.size.width,height: geometry.size.height)
-                        .aspectRatio(contentMode: .fill)
-                    Image("pianeta")
-                        .resizable()
-                        .position(x:geometry.size.width/2,y:geometry.size.height)
-                        .aspectRatio(contentMode: .fill)
-                        .rotationEffect(.degrees(rotazione), anchor: .center)
-                        .onAppear{
-                            withAnimation(.linear(duration: 1).speed(0.1).repeatForever(autoreverses: false)) {
-                                rotazione = 360.0
-                            }
-                        }
+                  SpriteView(scene: {
+                        let scene = SfondoAnimato()
+                        scene.size = UIScreen.main.bounds.size
+                        scene.scaleMode = .resizeFill
+                        scene.viewModel = sfondoAnimato
+                        return scene
+                    }())
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                 
                     //Pulsante impostazioni
                     Button {
                         navManager.currentView = .parentalControl
