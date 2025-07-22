@@ -4,8 +4,6 @@ import PencilKit
 import UIKit
 import Foundation
 
-
-
 class Disegno: Identifiable, ObservableObject, Equatable, Codable{
     let id: UUID
     let date: Date

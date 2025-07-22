@@ -3,9 +3,9 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
+    @State private var vaiAvanti = false
     @StateObject private var disegniModel = DisegniModel()
     @State private var fineGiocoFelicita = false
-    
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
@@ -35,6 +35,7 @@ struct ContentView: View {
                             .environmentObject(diaryViewModel)
                     case .animazioneRabbia:
                         Animazione(
+                            animazione: "AnimazioneRabbia",
                             coloreEmozione: colori["rabbia"]!,
                             coloreOmbra: colori["rabbiaombra"]!,
                             text: "Quando ti senti arrabbiato...",
@@ -44,6 +45,7 @@ struct ContentView: View {
                     MinigiocoRabbia(colore: colori["rabbiaombra"]!,coloreOmbra: colori["rabbia"]!)
                     case .animazioneFelicita:
                         Animazione(
+                            animazione: "AnimazioneFelicità",
                             coloreEmozione: colori["felicita"]!,
                             coloreOmbra: colori["felicitaombra"]!,
                             text: "Quando ti senti felice...",
@@ -53,24 +55,27 @@ struct ContentView: View {
                         MinigiocoFelicitaView(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!, coloreS: colori["sfondo"]!)
                     case .animazionePaura:
                         Animazione(
+                            animazione: "AnimazionePaura",
                             coloreEmozione: colori["paura"]!,
                             coloreOmbra: colori["pauraombra"]!,
                             text: "Quando hai paura...",
                             nextView: .minigiocoPaura
                         )
                     case .minigiocoPaura:
-                        MinigiocoPaura()
+                    MinigiocoPaura(colorePaura: colori["pauraombra"]!,colorePauraOmbra:colori["paura"]!)
                     case .animazioneNoia:
                         Animazione(
+                            animazione: "AnimazioneNoia",
                             coloreEmozione: colori["noia"]!,
                             coloreOmbra: colori["noiaombra"]!,
                             text: "Quando sei annoiato...",
                             nextView: .minigiocoNoia
                         )
                     case .minigiocoNoia:
-                    MinigiocoNoia(coloreNoiaOmbra: colori["noiaombra"]!,coloreNoia:colori["noia"]!)
+                    MinigiocoNoia(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colori["noia"]!,coloreNoia:colori["noiaombra"]!)
                     case .animazioneTristezza:
                         Animazione(
+                            animazione: "AnimazioneTristezza",
                             coloreEmozione: colori["tristezza"]!,
                             coloreOmbra: colori["tristezzaombra"]!,
                             text: "Quando ti senti triste...",

@@ -53,6 +53,7 @@ struct MinigiocoRabbia: View {
                             .frame(width: 200, height: 60)
                             .background(colore)
                             .cornerRadius(20)
+                            //.padding()
                     }
                     .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
                     .padding([.bottom],20)
