@@ -3,6 +3,99 @@ import SwiftUI
 import PencilKit
 import UIKit
 import Foundation
+
+class Disegno: Identifiable, ObservableObject, Equatable, Codable{
+    let id: UUID
+    let date: Date
+    let emozione: String
+    let disegno: PKDrawing
+    let drawingbase64: String
+    
+    init(disegno: PKDrawing, emozione: String){
+        self.id = UUID()
+        self.disegno = disegno
+        self.drawingbase64 = disegno.dataRepresentation().base64EncodedString()
+        self.date = Date()
+        self.emozione = emozione
+    }
+    
+    var pkDrawing: PKDrawing {
+            (try? PKDrawing(data: Data(base64Encoded: drawingbase64) ?? Data())) ?? PKDrawing()
+    }
+    
+    static func ==(dis1: Disegno, dis2: Disegno)-> Bool {
+        return dis1.id == dis2.id
+    }
+    
+}
+
+extension PKDrawing {
+    func toImage(scale: CGFloat = 1.0) -> Image{
+        let uiImage = self.image(from: self.bounds, scale: scale)
+        return Image(uiImage: uiImage)
+    }
+}
+
+
+class DisegniModel: ObservableObject {
+    @Published var disegni: [Disegno] = []
+    var emozioneCorrente: String = ""
+    
+    private let fileURL: URL={
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("disegni.json")
+    }()
+    
+    init(){
+        caricaDisegni()
+    }
+    
+    func aggiungi(_ disegno: Disegno){
+        disegni.insert(disegno, at: 0)
+        salvaDisegni()
+    }
+    
+    func salvaDisegni(){
+        do{
+            let data = try JSONEncoder().encode(disegni)
+            try data.write(to: fileURL)
+        }catch{
+            print("Errore nel salvataggio!")
+        }
+    }
+    
+    func caricaDisegni(){
+        do{
+            let data = try Data(contentsOf: fileURL)
+            disegni = try JSONDecoder().decode([Disegno].self, from: data)
+        }catch{
+            print("Errore nel caricamento!")
+        }
+    }
+    
+    func cancellaDisegno(_ disegno: Disegno){
+        if let indice = disegni.firstIndex(of: disegno) {
+                disegni.remove(at: indice)
+                salvaDisegni()
+            }
+    }
+    
+    func resettaDisegni(){
+        disegni.removeAll()
+        salvaDisegni()
+    }
+    
+}
+
+extension URL{
+    var isImage: Bool{
+        let imageExtensions = ["jpg", "jpeg", "png", "gif", "heic"]
+        return imageExtensions.contains(self.pathExtension)
+    }
+}
+    
+
+
 //@Model
 class DesignModel {
     private var drawingData: Data
@@ -106,31 +199,38 @@ struct CanvasView: UIViewRepresentable {
     
 struct ContentView1: View {
     @EnvironmentObject var navManager: NavigationManager
-    @State private var drawing = PKDrawing()
+    @State private var disegno = PKDrawing()
     @State private var toolPickerShows = true
+    @EnvironmentObject var disegni: DisegniModel
+    var text: String
+    var emozione: String
 
     var body: some View {
         VStack {
-            CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
+            CanvasView(toolPickerShows: $toolPickerShows, drawing: $disegno)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Disegno")
-                    .font(.headline)
-                    .foregroundColor(.blue)
+                Text(text)
+                    .font(.custom("Mitr-regular",size:30))
+                    .foregroundColor(.black)
+                    .padding([.top],50)
             }
 
   
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    drawing.saveToPhotoLibrary()
+                    let nuovoDisegno = Disegno(disegno: disegno, emozione: emozione)
+                    disegni.aggiungi(nuovoDisegno)
                     toolPickerShows = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    DispatchQueue.main.asyncAfter(deadline:  .now() + 0.3) {
                         navManager.currentView = .home
                     }
-                }) {
-                    Image(systemName: "xmark.circle")
-                }
+                })
+                {
+                    Image(systemName: "x.circle.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50)                }
             }
         }
         .navigationBarBackButtonHidden(true)

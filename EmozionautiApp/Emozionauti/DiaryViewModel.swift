@@ -166,3 +166,5 @@ class DiaryViewModel: ObservableObject {
         return Double(count) / Double(maxCount)
     }
 }
+
+

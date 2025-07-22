@@ -9,7 +9,8 @@ struct MinigiocoPaura: View {
     @State private var selectedNumbers: Set<Int> = []
     @State private var showError = false
     @State private var showSuccess = false
-
+    var colorePaura: Color
+    var colorePauraOmbra: Color
     var body: some View {
         VStack(spacing: 30) {
             Text("Metti in ordine i numeri!")
@@ -34,15 +35,15 @@ struct MinigiocoPaura: View {
                         .bold()
                     Spacer();
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emozione: "Paura 😨")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))
                             .foregroundColor(.white)
                             .frame(width: 300, height: 100)
-                            .background(Color.green)
+                            .background(colorePaura)
                             .cornerRadius(25)
-                            .shadow(color: .brown, radius: 0, x: 10, y: 10)
+                            .shadow(color: colorePauraOmbra, radius: 0, x: 10, y: 10)
                     }
                 }
             }
@@ -108,3 +109,4 @@ struct MinigiocoPaura: View {
         AudioServicesPlaySystemSound(1023)
     }
 }
+

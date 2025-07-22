@@ -39,6 +39,7 @@ struct SchermataIcona: View {
             if progress < 1.0 {
                 progress += 0.05
             } else {
+                progress = 1.0
                 navManager.currentView = .home
                 // Ferma il timer una volta completato
                 timer.upstream.connect().cancel()

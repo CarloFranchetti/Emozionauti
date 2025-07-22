@@ -3,7 +3,9 @@ import SwiftUI
 struct ParentDashboardView: View {
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
+    @EnvironmentObject var disegni: DisegniModel
     @State private var showResetAlert = false
+    @State private var showResetDisegniAlert = false
 
     var body: some View {
         List {
@@ -12,6 +14,13 @@ struct ParentDashboardView: View {
                     navManager.currentView = .diario
                 } label: {
                     Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
+                }
+                
+                Button {
+                    navManager.currentView = .gallery
+                } label: {
+                    Label("Galleria", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.blue)
                 }
             }
 
@@ -29,6 +38,20 @@ struct ParentDashboardView: View {
                 } label: {
                     Label("Torna al menu principale", systemImage: "arrow.backward.circle")
                         .foregroundColor(.red)
+                }
+                
+
+                
+                Button {
+                    showResetDisegniAlert = true
+                    
+                } label: {
+                    Label("Resetta disegni", systemImage: "x.circle.fill")
+                        .foregroundColor(.red)
+                }
+                .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDisegniAlert){
+                    Button("Cancella", role: .cancel){}
+                    Button("OK", role: .destructive){disegni.resettaDisegni()}
                 }
             }
         }

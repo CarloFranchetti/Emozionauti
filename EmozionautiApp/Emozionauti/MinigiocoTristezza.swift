@@ -22,12 +22,12 @@ struct MinigiocoTristezza: View {
                         .foregroundColor(coloreTriste)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
-                    Image("sleepingAstronaut")
+                    Image("sleepingAstronaut2")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
+                        .scaledToFill()
+                        .frame(width: 500, height: 500)
                     Button(action: {
-                        navManager.currentView = .canvas
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso triste...", emozione: "Tristezza 😢")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
