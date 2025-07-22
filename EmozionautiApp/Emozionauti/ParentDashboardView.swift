@@ -19,7 +19,14 @@ struct ParentDashboardView: View {
                 Button {
                     navManager.currentView = .gallery
                 } label: {
-                    Label("Galleria", systemImage: "arrow.backward.circle")
+                    Label("Galleria", systemImage: "photo.stack")
+                        .foregroundColor(.blue)
+                }
+                
+                Button {
+                    navManager.currentView = .gallery
+                } label: {
+                    Label("Gestione Notifiche", systemImage: "bell.badge")
                         .foregroundColor(.blue)
                 }
             }
@@ -40,7 +47,7 @@ struct ParentDashboardView: View {
                     showResetEmozioniAlert = true
                     
                 } label: {
-                    Label("Resetta disegni", systemImage: "x.circle.fill")
+                    Label("Resetta disegni", systemImage: "eraser")
                         .foregroundColor(.red)
                 }
                 .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDisegniAlert){
