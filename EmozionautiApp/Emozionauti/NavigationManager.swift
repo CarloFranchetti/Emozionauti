@@ -22,6 +22,8 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .diario:
             currentView = .parentDashboard
+        case .parentalControl:
+                currentView = .home
         case .gallery:
             currentView = .parentDashboard
         default:
@@ -34,7 +36,7 @@ class NavigationManager: ObservableObject {
             return false
         }
         switch currentView {
-        case .home, .splash, .canvas, .parentalControl:
+        case .home, .splash, .canvas, .parentDashboard:
             return false
         default:
             return true

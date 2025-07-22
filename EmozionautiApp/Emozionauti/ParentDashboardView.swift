@@ -4,8 +4,8 @@ struct ParentDashboardView: View {
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     @EnvironmentObject var disegni: DisegniModel
-    @State private var showResetAlert = false
     @State private var showResetDisegniAlert = false
+    @State private var showResetEmozioniAlert = false
 
     var body: some View {
         List {
@@ -26,24 +26,18 @@ struct ParentDashboardView: View {
 
             Section {
                 Button {
-                    diaryViewModel.resetStats()
-                    showResetAlert = true
+                    showResetEmozioniAlert = true
                 } label: {
                     Label("Reset emozioni", systemImage: "trash.fill")
                         .foregroundColor(.red)
                 }
-
-                Button {
-                    navManager.currentView = .home
-                } label: {
-                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
-                        .foregroundColor(.red)
+                .alert("Sei sicuro di voler resettare le emozioni?", isPresented: $showResetEmozioniAlert){
+                    Button("Cancella", role: .cancel){}
+                    Button("OK", role: .destructive){diaryViewModel.resetStats()}
                 }
                 
-
-                
                 Button {
-                    showResetDisegniAlert = true
+                    showResetEmozioniAlert = true
                     
                 } label: {
                     Label("Resetta disegni", systemImage: "x.circle.fill")
@@ -53,12 +47,16 @@ struct ParentDashboardView: View {
                     Button("Cancella", role: .cancel){}
                     Button("OK", role: .destructive){disegni.resettaDisegni()}
                 }
+
+                Button {
+                    navManager.currentView = .home
+                } label: {
+                    Label("Torna al menu principale", systemImage: "arrow.backward.circle")
+                        .foregroundColor(.red)
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Area Genitori")
-        .alert("Emozioni resettate correttamente", isPresented: $showResetAlert) {
-            Button("OK", role: .cancel) { }
-        }
     }
 }
