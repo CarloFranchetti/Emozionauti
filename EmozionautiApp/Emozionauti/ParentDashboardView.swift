@@ -24,7 +24,7 @@ struct ParentDashboardView: View {
                 }
                 
                 Button {
-                    navManager.currentView = .gallery
+                    //navManager.currentView = .gallery
                 } label: {
                     Label("Gestione Notifiche", systemImage: "bell.badge")
                         .foregroundColor(.blue)

@@ -30,7 +30,7 @@ class AppDelegate:NSObject, UIApplicationDelegate{
         content.sound = .default
         var dateComponents = DateComponents()
         dateComponents.hour = 16
-        dateComponents.minute = 41
+        dateComponents.minute = 48
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: UUID().uuidString
                                              , content: content,
