@@ -48,7 +48,7 @@ struct SchermataHome: View {
                             // RABBIA
                             Button {
                                 diaryViewModel.recordEmotion("rabbia")
-                                navManager.currentView = .animazioneRabbia
+                                navManager.currentView = .saltaAnimazioneRabbia
                             } label: {
                                 Image("rabbia")
                                     .resizable()
@@ -63,7 +63,7 @@ struct SchermataHome: View {
                             // FELICITÀ
                             Button {
                                 diaryViewModel.recordEmotion("felicità")
-                                navManager.currentView = .animazioneFelicita
+                                navManager.currentView = .saltaAnimazioneFelicita
                             } label: {
                                 Image("felicita")
                                     .resizable()
@@ -78,7 +78,7 @@ struct SchermataHome: View {
                             // PAURA
                             Button {
                                 diaryViewModel.recordEmotion("paura")
-                                navManager.currentView = .animazionePaura
+                                navManager.currentView = .saltaAnimazionePaura
                             } label: {
                                 Image("paura")
                                     .resizable()
@@ -95,7 +95,7 @@ struct SchermataHome: View {
                             // NOIA
                             Button {
                                 diaryViewModel.recordEmotion("noia")
-                                navManager.currentView = .animazioneNoia
+                                navManager.currentView = .saltaAnimazioneNoia
                             } label: {
                                 Image("noia")
                                     .resizable()
@@ -110,7 +110,7 @@ struct SchermataHome: View {
                             // TRISTEZZA
                             Button {
                                 diaryViewModel.recordEmotion("tristezza")
-                                navManager.currentView = .animazioneTristezza
+                                navManager.currentView = .saltaAnimazioneTristezza
                             } label: {
                                 Image("tristezza")
                                     .resizable()

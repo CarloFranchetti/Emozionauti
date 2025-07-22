@@ -6,8 +6,16 @@ class NavigationManager: ObservableObject {
 
     func goBack() {
         switch currentView {
-        case .animazioneRabbia, .animazioneFelicita, .animazionePaura, .animazioneNoia, .animazioneTristezza:
-            currentView = .home
+        case .animazioneRabbia:
+            currentView = .saltaAnimazioneRabbia
+        case .animazioneFelicita:
+            currentView = .saltaAnimazioneFelicita
+        case .animazionePaura:
+            currentView = .saltaAnimazionePaura
+        case .animazioneNoia:
+            currentView = .saltaAnimazioneNoia
+        case .animazioneTristezza:
+            currentView = .saltaAnimazioneTristezza
         case .minigiocoRabbia:
             currentView = .animazioneRabbia
         case .minigiocoFelicita2:
@@ -26,6 +34,16 @@ class NavigationManager: ObservableObject {
                 currentView = .home
         case .gallery:
             currentView = .parentDashboard
+        case .saltaAnimazioneRabbia:
+            currentView = .home
+        case .saltaAnimazioneNoia:
+            currentView = .home
+        case .saltaAnimazioneTristezza:
+            currentView = .home
+        case .saltaAnimazioneFelicita:
+            currentView = .home
+        case .saltaAnimazionePaura:
+            currentView = .home
         default:
             break
         }

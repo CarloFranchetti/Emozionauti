@@ -19,4 +19,9 @@ enum NavigationViewType {
     case parentDashboard
     case canvas(text: String, emozione: String)
     case gallery
+    case saltaAnimazioneRabbia
+    case saltaAnimazioneFelicita
+    case saltaAnimazioneTristezza
+    case saltaAnimazioneNoia
+    case saltaAnimazionePaura   
 }

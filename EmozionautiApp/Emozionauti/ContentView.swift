@@ -97,7 +97,17 @@ struct ContentView: View {
                             .environmentObject(diaryViewModel)
                             .environmentObject(disegniModel)                  
                     case .gallery:
-                        DrawingGalleryView()                
+                        DrawingGalleryView()
+                    case .saltaAnimazioneRabbia:
+                        SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaOmbra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
+                    case .saltaAnimazioneTristezza:
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaOmbra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
+                    case .saltaAnimazioneNoia:
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaOmbra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
+                    case .saltaAnimazionePaura:
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraOmbra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
+                    case .saltaAnimazioneFelicita:
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaOmbra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
                 }
             }
             .toolbar {
