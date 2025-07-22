@@ -1,31 +1,31 @@
 import SwiftUI
+import SpriteKit
 
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
-
+    @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
+ 
+    init(coloriEmozioni: [String : Color]) {
+        self.coloriEmozioni = coloriEmozioni
+        let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
+        _sfondoAnimato = StateObject(wrappedValue: sfondo)
+    }
 
     var body: some View {
         NavigationStack { 
             ZStack {
-                Color(red:12/255, green:10/255, blue:96/255)
+                SpriteView(scene: {
+                        let scene = SfondoAnimato()
+                        scene.size = UIScreen.main.bounds.size
+                        scene.scaleMode = .resizeFill
+                        scene.viewModel = sfondoAnimato
+                        return scene
+                    }())
                     .ignoresSafeArea()
-                Image("sfondo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                Image("pianeta")
-                    .resizable()
-                    .frame(width:900, height:900)
-                    .aspectRatio(contentMode: .fill)
-                    .rotationEffect(.degrees(rotazione), anchor: .center)
-                    .onAppear{
-                        withAnimation(.linear(duration: 1).speed(0.1).repeatForever(autoreverses: false)) {
-                            rotazione = 360.0
-                        }
-                    }
-                    .position(x:400,y:1100)
+                    .allowsHitTesting(false)
 
                 //Pulsante impostazioni
                 Button {
