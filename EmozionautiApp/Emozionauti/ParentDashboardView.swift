@@ -17,7 +17,7 @@ struct ParentDashboardView: View {
 
             Section {
                 Button {
-                    diaryViewModel.resetStats() //
+                    diaryViewModel.resetStats()
                     showResetAlert = true
                 } label: {
                     Label("Reset emozioni", systemImage: "trash.fill")

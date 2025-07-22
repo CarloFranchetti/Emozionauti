@@ -53,7 +53,7 @@ struct SchermataHome: View {
 
                         // FELICITÀ
                         Button {
-                            diaryViewModel.recordEmotion("felicità")
+                            diaryViewModel.recordEmotion("felicita")
                             navManager.currentView = .animazioneFelicita
                         } label: {
                             Image("felicita")
