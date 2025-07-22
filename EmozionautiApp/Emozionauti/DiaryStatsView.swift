@@ -35,7 +35,7 @@ struct DiaryStatsView: View {
                     .padding(.top, 70)
 
                 // Calendario
-                CalendarView(selectedDate: $selectedDate)
+                CalendarView(dataSelezionata: $selectedDate)
                     .environmentObject(diaryViewModel)
                     .frame(height: geo.size.height * 0.45)
 
