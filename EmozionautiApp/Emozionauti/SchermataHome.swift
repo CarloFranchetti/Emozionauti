@@ -1,27 +1,10 @@
 import SwiftUI
 import SpriteKit
-class NotificationDelegate: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
-@Published var alert = false
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    completionHandler([.badge, .banner, .sound])
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-    if response.actionIdentifier == "RISPONDI" {
-        print("rispondi o fai qualcos'altro")
-        self.alert.toggle()
-    }
-    
-    completionHandler()
-    }
-}
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
-    @StateObject var delegate = NotificationDelegate()
     @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
   
     init(coloriEmozioni: [String : Color]) {
@@ -29,24 +12,6 @@ struct SchermataHome: View {
         let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
         _sfondoAnimato = StateObject(wrappedValue: sfondo)
     }
-    func createNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Emozionauti"
-        content.subtitle = "è ora di giocare"
-        content.categoryIdentifier = "AZIONI"
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "IN-APP", content: content, trigger: trigger)
-        
-        let close = UNNotificationAction(identifier: "CHIUDI", title: "Chiudi", options: .destructive)
-        let reply = UNNotificationAction(identifier: "RISPONDI", title: "Rispondi", options: .foreground)
-        
-        let category = UNNotificationCategory(identifier: "AZIONI", actions: [close, reply], intentIdentifiers: [])
-        
-        UNUserNotificationCenter.current().setNotificationCategories([category])
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-        }
-    
     
     var body: some View {
         GeometryReader{ geometry in
@@ -162,16 +127,7 @@ struct SchermataHome: View {
                 }
                 .navigationBarBackButtonHidden(true)
             }
-        }.onAppear {
-            createNotification()
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
-                    
         }
-            UNUserNotificationCenter.current().delegate = delegate
-            }
-            .alert(isPresented: $delegate.alert) {
-                Alert(title: Text("Messaggio"), message: Text("Il pulsante di risposta è stato premuto"), dismissButton: .destructive(Text("Ok")))
-            }
         
     }
 }

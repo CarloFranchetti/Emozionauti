@@ -1,5 +1,5 @@
 import SwiftUI
-
+import UserNotifications
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
@@ -122,5 +122,8 @@ struct ContentView: View {
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
         .environmentObject(disegniModel)
+        .onAppear{
+            AppDelegate.instance.requestAuthorization()
+        }
     }
 }
