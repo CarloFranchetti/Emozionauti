@@ -3,13 +3,9 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
-<<<<<<< HEAD
     @State private var vaiAvanti = false
-=======
     @StateObject private var disegniModel = DisegniModel()
     @State private var fineGiocoFelicita = false
-    
->>>>>>> Mic
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
