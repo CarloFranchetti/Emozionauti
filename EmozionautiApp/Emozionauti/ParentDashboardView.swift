@@ -51,6 +51,20 @@ struct ParentDashboardView: View {
                     Label("Torna al menu principale", systemImage: "arrow.backward.circle")
                         .foregroundColor(.red)
                 }
+                
+
+                
+                Button {
+                    showResetDisegniAlert = true
+                    
+                } label: {
+                    Label("Resetta disegni", systemImage: "x.circle.fill")
+                        .foregroundColor(.red)
+                }
+                .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDisegniAlert){
+                    Button("Cancella", role: .cancel){}
+                    Button("OK", role: .destructive){disegni.resettaDisegni()}
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
