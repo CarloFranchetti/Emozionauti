@@ -29,10 +29,9 @@ struct MinigiocoPaura: View {
 
             if showSuccess {
                 VStack(spacing: 20) {
-                    Text("Ben fatto!")
-                        .foregroundColor(.green)
-                        .font(.title)
-                        .bold()
+                    Text("BEN FATTO!")
+                        .foregroundColor(colorePaura)
+                        .font(.custom("Modak", size: 50))
                     Spacer();
                     Button(action: {
                         navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emozione: "Paura 😨")

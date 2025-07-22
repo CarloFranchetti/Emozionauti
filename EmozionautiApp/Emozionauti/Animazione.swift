@@ -14,9 +14,6 @@ struct Animazione: View {
                 .ignoresSafeArea()
                 .aspectRatio(contentMode: .fill)
             VStack() {
-                //Text(text)
-                //    .font(.custom("Mitr-regular", size: 50))
-               //     .foregroundColor(.white)
                 Spacer()
                 if fine{
                     Button(action: {
