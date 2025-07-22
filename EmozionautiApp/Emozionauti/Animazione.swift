@@ -1,13 +1,17 @@
 import SwiftUI
 import AVKit
+
+
 struct Animazione: View {
     @EnvironmentObject var navManager: NavigationManager
+    @State private var fine: Bool = false
     var animazione : String
     var coloreEmozione: Color
     var coloreOmbra: Color
     var text: String
     var nextView: NavigationViewType
-    @State private var fine: Bool = false
+
+    
     var body: some View {
         ZStack {
             VideoPlayerView(videoName: animazione, isVideoFinished: $fine)

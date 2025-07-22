@@ -95,7 +95,7 @@ struct MinigiocoPaura: View {
 
     func handleTap(_ numero: Int) {
         if numero == proxNumero {
-            playSuccessSound()
+            suonoCorretto()
             numeriSelezionati.insert(numero)
             proxNumero += 1
 
@@ -117,7 +117,7 @@ struct MinigiocoPaura: View {
         numeriSelezionati = []
     }
 
-    func playSuccessSound() {
+    func suonoCorretto() {
         AudioServicesPlaySystemSound(1104)
     }
 
