@@ -78,8 +78,8 @@ struct ContentView: View {
                         )
                     case .minigiocoTristezza:
                     MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!,coloreTristeOmbra: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
-                    case .canvas(let emozione):
-                    ContentView1(emozione: emozione)
+                    case .canvas(let text, let emozione):
+                    ContentView1(text: text, emozione: emozione)
                         .environmentObject(disegniModel)
                     case .diario:
                         DiaryStatsView()

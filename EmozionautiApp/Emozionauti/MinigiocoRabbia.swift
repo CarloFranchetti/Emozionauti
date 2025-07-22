@@ -22,39 +22,40 @@ struct MinigiocoRabbia: View {
             
             if fineGioco {
                 VStack {
-                    Image("BenFattoVulcano")
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.bottom, 0)
-                        .frame(width: 800, height: 800)
-                        .position(x: 400, y: 200)
-                        .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
-                            content
-                                .scaleEffect(y: value.verticalTrasl, anchor: .bottom)
-                                .offset(y: value.yTrasl)
-                        } keyframes: { _ in
-                            KeyframeTrack(\.verticalTrasl) {
-                                SpringKeyframe(0.9, duration: totaldur * 0.30)
+                    ZStack{
+                        Image("BenFattoVulcano")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 400)
+                            .offset(y: -100)
+                            .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
+                                content
+                                    .scaleEffect(y: value.verticalTrasl, anchor: .bottom)
+                                    .offset(y: value.yTrasl)
+                            } keyframes: { _ in
+                                KeyframeTrack(\.verticalTrasl) {
+                                    SpringKeyframe(0.9, duration: totaldur * 0.30)
+                                }
                             }
-                        }
-
-                    Image("Vulcano3sf")
-                        .resizable()
-                        .position(x: 300, y: 260)
-                        .scaledToFit()
-                        .frame(width: 800, height: 800)
+                        
+                        Image("Vulcano3sf")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 600)
+                    }
+                    .padding(.top, 30)
                     Button(action: {
-                        navManager.currentView = .canvas(emozione: "Rabbia 😡")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha fatto arrabbiare...",emozione: "Rabbia 😡")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
                             .foregroundColor(.white)
-                            .frame(width: 200, height: 200)
+                            .frame(width: 200, height: 60)
                             .background(colore)
                             .cornerRadius(20)
                     }
                     .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
-                    .position(x: 400, y: 550)
+                    .padding([.bottom],20)
                 }
             } else {
                 animazioneImmagini[indicecorrente]

@@ -204,6 +204,7 @@ struct ContentView1: View {
     @State private var disegno = PKDrawing()
     @State private var toolPickerShows = true
     @EnvironmentObject var disegni: DisegniModel
+    var text: String
     var emozione: String
 
     var body: some View {
@@ -212,9 +213,10 @@ struct ContentView1: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Disegno")
-                    .font(.headline)
-                    .foregroundColor(.blue)
+                Text(text)
+                    .font(.custom("Mitr-regular",size:30))
+                    .foregroundColor(.black)
+                    .padding([.top],50)
             }
 
   
@@ -229,7 +231,8 @@ struct ContentView1: View {
                 })
                 {
                     Image(systemName: "x.circle.fill")
-                }
+                    .resizable()
+                    .frame(width: 50, height: 50)                }
             }
         }
         .navigationBarBackButtonHidden(true)

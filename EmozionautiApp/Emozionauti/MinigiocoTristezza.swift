@@ -27,7 +27,7 @@ struct MinigiocoTristezza: View {
                         .scaledToFill()
                         .frame(width: 500, height: 500)
                     Button(action: {
-                        navManager.currentView = .canvas(emozione: "Tristezza 😢")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso triste...", emozione: "Tristezza 😢")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
