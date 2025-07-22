@@ -10,7 +10,9 @@ struct EmozionautiApp: App {
             ContentView(diaryViewModel: diaryViewModel)
                 .environmentObject(navManager)
                 .environmentObject(diaryViewModel)
-            
+                .onAppear {
+                    UIApplication.shared.applicationIconBadgeNumber = 0
+                }
         }
         
     }

@@ -37,6 +37,9 @@ class AppDelegate:NSObject, UIApplicationDelegate{
                                                 trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
+    func applicationDidBecomeActive(_ application: UIApplication) {
+            application.applicationIconBadgeNumber = 0
+        }
 }
 
     
