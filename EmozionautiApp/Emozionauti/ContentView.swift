@@ -86,8 +86,6 @@ struct ContentView: View {
                         ParentDashboardView()
                             .environmentObject(navManager)
                             .environmentObject(diaryViewModel)
-                    case .parentAccess:
-                        ParentAccessView()
                 }
             }
             .toolbar {

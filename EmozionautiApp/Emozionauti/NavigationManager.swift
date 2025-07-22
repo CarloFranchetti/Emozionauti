@@ -21,6 +21,8 @@ class NavigationManager: ObservableObject {
             currentView = .home
         case .diario:
             currentView = .parentDashboard
+        case .parentalControl:
+                currentView = .home
         default:
             break
         }
@@ -28,7 +30,7 @@ class NavigationManager: ObservableObject {
 
     var showBackButton: Bool {
         switch currentView {
-        case .home, .splash, .canvas, .parentalControl:
+        case .home, .splash, .canvas, .parentDashboard:
             return false
         default:
             return true
