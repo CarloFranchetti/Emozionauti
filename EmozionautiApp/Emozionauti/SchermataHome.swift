@@ -39,7 +39,7 @@ struct SchermataHome: View {
                             .padding()
                             .foregroundColor(.white)
                             .frame(width: geometry.size.width*0.1, height: geometry.size.height*0.1)
-                            .background(Color(red:12/255,green:10/255,blue:96/255))
+                            //.background(Color(red:12/255,green:10/255,blue:96/255))
                             .cornerRadius(20)
                             .padding(80)
                     }
