@@ -30,9 +30,9 @@ struct SaltaAnimazione: View {
     }
     func calcolaDisabilitazioni(sel: String) -> (disabilitaAnimazione: Bool, disabilitaMinigioco: Bool) {
         switch sel {
-        case "Mai":
-            return (false, true)
         case "Sempre":
+            return (false, true)
+        case "Mai":
             return (false, false)
         case "Una volta per ogni emozione":
             return (false, !salta())
