@@ -11,7 +11,6 @@ struct ContentView: View {
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
-    
     let colori: [String: Color] = [
         "rabbia": Color(red:255/255,green:102/255,blue:104/255),
         "felicita": Color(red:70/255,green:239/255,blue:48/255),
@@ -101,18 +100,29 @@ struct ContentView: View {
                     case .gallery:
                         DrawingGalleryView()
                     case .saltaAnimazioneRabbia:
-                        SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaombra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
+                    SaltaAnimazione(emozione: "rabbia", sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaombra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
+                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(diaryViewModel)
                     case .saltaAnimazioneTristezza:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaombra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
+                    SaltaAnimazione(emozione : "tristezza", sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaombra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
+                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(diaryViewModel)
                     case .saltaAnimazioneNoia:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaombra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
+                    SaltaAnimazione(emozione : "noia",sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaombra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
+                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(diaryViewModel)
                     case .saltaAnimazionePaura:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraombra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
+                    SaltaAnimazione(emozione : "paura",sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraombra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
+                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(diaryViewModel)
                     case .saltaAnimazioneFelicita:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaombra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
+                    SaltaAnimazione(emozione : "felicità",sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaombra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
+                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(diaryViewModel)
                     case .gestoreAnimazioni:
                         GestioneAnimazioniView()
                         .environmentObject(impostazioniAnimazione)
+                        
                 }
             }
             .toolbar {

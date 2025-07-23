@@ -6,7 +6,6 @@ struct SchermataHome: View {
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
     @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
-  
     init(coloriEmozioni: [String : Color]) {
         self.coloriEmozioni = coloriEmozioni
         let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
