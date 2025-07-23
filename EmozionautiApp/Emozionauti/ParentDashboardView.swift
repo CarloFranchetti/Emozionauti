@@ -29,6 +29,13 @@ struct ParentDashboardView: View {
                     Label("Gestione Notifiche", systemImage: "bell.badge")
                         .foregroundColor(.blue)
                 }
+                
+                Button {
+                    navManager.currentView = .gestoreAnimazioni
+                } label: {
+                    Label("Gestione Animazioni", systemImage: "video")
+                        .foregroundColor(.blue)
+                }
             }
 
             Section {

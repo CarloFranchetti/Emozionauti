@@ -60,7 +60,7 @@ struct DropDownMenu: View{
                                         }
                                 }
                             }.clipShape(RoundedRectangle(cornerRadius:10))
-                                .frame(width:130)
+                                .frame(minWidth: 130, maxWidth: .infinity, alignment: .leading)
 
                         }.zIndex(10)
                     }

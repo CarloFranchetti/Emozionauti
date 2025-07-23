@@ -6,6 +6,8 @@ struct ContentView: View {
     @State private var vaiAvanti = false
     @StateObject private var disegniModel = DisegniModel()
     @State private var fineGiocoFelicita = false
+    @StateObject private var impostazioniAnimazione = GestioneAnimazioniModel()
+    
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
@@ -108,6 +110,9 @@ struct ContentView: View {
                     SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraombra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
                     case .saltaAnimazioneFelicita:
                     SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaombra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
+                    case .gestoreAnimazioni:
+                        GestioneAnimazioniView()
+                        .environmentObject(impostazioniAnimazione)
                 }
             }
             .toolbar {
