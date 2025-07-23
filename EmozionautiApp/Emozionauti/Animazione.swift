@@ -25,10 +25,11 @@ struct Animazione: View {
                     }) {
                         Text("Inizia il minigioco")
                             .font(.custom("Mitr-regular", size: 45))
+                            .frame(width: 500, height: 100)
                             .background(coloreEmozione)
-                            .foregroundColor(.white)
-                            .frame(width: 500, height: 200)
                             .cornerRadius(20)
+                            .foregroundColor(.white)
+                            .padding()
                     }.shadow(color: coloreOmbra, radius: 0, x: 5, y:5)
             }
             

@@ -19,30 +19,29 @@ struct SaltaAnimazione: View {
             Color(sfondo)
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: 30){
-                Button {
-                    navManager.currentView = nextViewAnimazione
-                } label: {
-                    Text("Vai all'animazione")
-                        .frame(width: 300, height: 300)
+                Button (
+                    action: {navManager.currentView = nextViewAnimazione}
+                ){ Text("Vai all'animazione")
+                        .font(.custom("Mitr-regular", size: 45))
+                        .frame(width: 500, height: 100)
                         .background(colore)
                         .cornerRadius(20)
+                        .foregroundColor(.white)
                         .padding()
                 }
                 .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
-                Button {
-                    navManager.currentView = nextViewMinigioco
-                } label: {
-                    Image("Vai al minigioco")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 300, height: 300)
+                Button (
+                    action:{navManager.currentView = nextViewMinigioco}
+                ){ Text("Vai al minigioco")
+                        .font(.custom("Mitr-regular", size: 45))
+                        .frame(width: 500, height: 100)
                         .background(colore)
                         .cornerRadius(20)
+                        .foregroundColor(.white)
                         .padding()
                 }
-                .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
+                .shadow(color: coloreOmbra, radius: 0, x: 5, y:10)
             }
-            
-            }
+        }
     }
 }

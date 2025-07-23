@@ -99,15 +99,15 @@ struct ContentView: View {
                     case .gallery:
                         DrawingGalleryView()
                     case .saltaAnimazioneRabbia:
-                        SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaOmbra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
+                        SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaombra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
                     case .saltaAnimazioneTristezza:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaOmbra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaombra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
                     case .saltaAnimazioneNoia:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaOmbra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaombra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
                     case .saltaAnimazionePaura:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraOmbra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraombra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
                     case .saltaAnimazioneFelicita:
-                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaOmbra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
+                    SaltaAnimazione(sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaombra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
                 }
             }
             .toolbar {
