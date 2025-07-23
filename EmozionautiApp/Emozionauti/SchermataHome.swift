@@ -3,7 +3,6 @@ import SpriteKit
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
-    @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
     @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
     init(coloriEmozioni: [String : Color]) {
@@ -46,7 +45,6 @@ struct SchermataHome: View {
                         HStack(spacing:80) {
                             // RABBIA
                             Button {
-                                diaryViewModel.recordEmotion("rabbia")
                                 navManager.currentView = .saltaAnimazioneRabbia
                             } label: {
                                 Image("rabbia")
@@ -61,7 +59,6 @@ struct SchermataHome: View {
                             
                             // FELICITÀ
                             Button {
-                                diaryViewModel.recordEmotion("felicità")
                                 navManager.currentView = .saltaAnimazioneFelicita
                             } label: {
                                 Image("felicita")
@@ -76,7 +73,7 @@ struct SchermataHome: View {
                             
                             // PAURA
                             Button {
-                                diaryViewModel.recordEmotion("paura")
+                                
                                 navManager.currentView = .saltaAnimazionePaura
                             } label: {
                                 Image("paura")
@@ -93,7 +90,7 @@ struct SchermataHome: View {
                         HStack(spacing:80) {
                             // NOIA
                             Button {
-                                diaryViewModel.recordEmotion("noia")
+                                
                                 navManager.currentView = .saltaAnimazioneNoia
                             } label: {
                                 Image("noia")
@@ -108,7 +105,7 @@ struct SchermataHome: View {
                             
                             // TRISTEZZA
                             Button {
-                                diaryViewModel.recordEmotion("tristezza")
+                               
                                 navManager.currentView = .saltaAnimazioneTristezza
                             } label: {
                                 Image("tristezza")

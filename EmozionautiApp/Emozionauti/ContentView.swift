@@ -33,7 +33,6 @@ struct ContentView: View {
                         SchermataIcona()
                     case .home:
                         SchermataHome(coloriEmozioni: colori)
-                            .environmentObject(diaryViewModel)
                     case .animazioneRabbia:
                         Animazione(
                             animazione: "AnimazioneRabbia",

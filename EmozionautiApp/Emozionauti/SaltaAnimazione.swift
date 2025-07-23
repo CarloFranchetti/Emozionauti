@@ -14,13 +14,15 @@ struct SaltaAnimazione: View {
     var coloreOmbra: Color
     var disabilitaAnimazione : Bool = false
     var disabilitaMinigioco : Bool = false
-    var nextViewAnimazione: NavigationViewType
-    var nextViewMinigioco: NavigationViewType
+    @State var nextViewAnimazione: NavigationViewType
+    @State var nextViewMinigioco: NavigationViewType
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var impostazioneAnimazione : GestioneAnimazioniModel
     @EnvironmentObject var diaryViewModel: DiaryViewModel
+    
     func salta () -> (Bool){
         let oggi = Calendar.current.startOfDay(for: Date())
+        print(diaryViewModel.emotionHistory)
         return diaryViewModel.emotionHistory.contains{ item in
             Calendar.current.isDate(item.date, inSameDayAs: oggi) && item.emotion == emozione
         }
@@ -33,11 +35,7 @@ struct SaltaAnimazione: View {
         case "Sempre":
             return (false, false)
         case "Una volta per ogni emozione":
-            if salta() {
-                return (true, false)
-            } else {
-                return (false, true)
-                    }
+            return (false, !salta())
         default:
             return (false, false)
         }
@@ -51,7 +49,10 @@ struct SaltaAnimazione: View {
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: 30){
                 Button (
-                    action: {navManager.currentView = nextViewAnimazione}
+                    action: {
+                        diaryViewModel.recordEmotion(emozione)
+                        navManager.currentView = nextViewAnimazione
+                    }
                 ){ Text("Vai all'animazione")
                         .font(.custom("Mitr-regular", size: 45))
                         .frame(width: 500, height: 100)
@@ -64,16 +65,21 @@ struct SaltaAnimazione: View {
                 .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
                 .disabled(stato.disabilitaAnimazione)
                 Button (
-                    action:{navManager.currentView = nextViewMinigioco}
+                    action:{
+                        diaryViewModel.recordEmotion(emozione)
+                        navManager.currentView = nextViewMinigioco
+                    }
                 ){ Text("Vai al minigioco")
                         .font(.custom("Mitr-regular", size: 45))
                         .frame(width: 500, height: 100)
                         .background(colore)
                         .cornerRadius(20)
                         .foregroundColor(.white)
+                        .opacity(stato.disabilitaMinigioco ? 0.5 : 1)
                         .padding()
                 }
                 .shadow(color: coloreOmbra, radius: 0, x: 5, y:10)
+                .opacity(stato.disabilitaMinigioco ? 0 : 1) //decidere se mettere 0.5 o lasciare 0
                 .disabled(stato.disabilitaMinigioco)
             }
         }
