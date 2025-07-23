@@ -26,6 +26,8 @@ class NavigationManager: ObservableObject {
                 currentView = .home
         case .gallery:
             currentView = .parentDashboard
+        case .gestoreAnimazioni:
+            currentView = .parentDashboard
         default:
             break
         }

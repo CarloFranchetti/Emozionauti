@@ -6,6 +6,8 @@ struct ContentView: View {
     @State private var vaiAvanti = false
     @StateObject private var disegniModel = DisegniModel()
     @State private var fineGiocoFelicita = false
+    @StateObject private var impostazioniAnimazione = GestioneAnimazioniModel()
+    
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
@@ -97,7 +99,10 @@ struct ContentView: View {
                             .environmentObject(diaryViewModel)
                             .environmentObject(disegniModel)                  
                     case .gallery:
-                        DrawingGalleryView()                
+                        DrawingGalleryView()
+                    case .gestoreAnimazioni:
+                        GestioneAnimazioniView()
+                        .environmentObject(impostazioniAnimazione)
                 }
             }
             .toolbar {
