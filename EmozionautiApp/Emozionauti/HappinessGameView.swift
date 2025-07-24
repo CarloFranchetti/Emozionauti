@@ -31,11 +31,13 @@ struct HappinessGameView: View {
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-regular", size:30))
-                            .padding()
+                            .frame(width: 200, height: 60)
                             .background(happinessColor)
                             .foregroundColor(.white)
                             .cornerRadius(12)
+                            .padding()
                     }
+                    .shadow(color: happinessShadowColor, radius: 0, x: 5, y:10)
                     .padding(.bottom, 50)
                 }
             }

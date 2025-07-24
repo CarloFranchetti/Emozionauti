@@ -35,7 +35,7 @@ struct ContentView: View {
                     HomeScreen(emotionsColors: colors)
                 case .angerAnimation:
                     Animation(
-                        animation: "AnimazioneRabbia",
+                        animation: "AngerAnimation",
                         emotionColor: colors["anger"]!,
                         shadowColor: colors["angershadow"]!,
                         nextView: .angerGame
@@ -44,16 +44,16 @@ struct ContentView: View {
                     AngerGame(angerColor: colors["angershadow"]!,angerShadowColor: colors["anger"]!)
                 case .happinessAnimation:
                     Animation(
-                        animation: "AnimazioneFelicità",
+                        animation: "HappinessAnimation",
                         emotionColor: colors["happiness"]!,
-                        shadowColor: colors["happinessShadow"]!,
+                        shadowColor: colors["happinessshadow"]!,
                         nextView: .happinessGame
                     )
                 case .happinessGame:
                     HappinessGameView(happinessColor: colors["happinessshadow"]!, happinessShadowColor: colors["happiness"]!, backgroundC: colors["background"]!)
                 case .fearAnimation:
                     Animation(
-                        animation: "AnimazionePaura",
+                        animation: "FearAnimation",
                         emotionColor: colors["fear"]!,
                         shadowColor: colors["fearshadow"]!,
                         nextView: .fearGame
@@ -62,7 +62,7 @@ struct ContentView: View {
                     FearGame(fearColor: colors["fearshadow"]!,fearShadowColor:colors["fear"]!)
                 case .boredomAnimation:
                     Animation(
-                        animation: "AnimazioneNoia",
+                        animation: "BoredomAnimation",
                         emotionColor: colors["boredom"]!,
                         shadowColor: colors["boredomshadow"]!,
                         nextView: .boredomGame
@@ -71,13 +71,13 @@ struct ContentView: View {
                     BoredomView(ahead:$ahead,boredomShadowColor: colors["boredom"]!,boredomColor:colors["boredomshadow"]!)
                 case .sadnessAnimation:
                     Animation(
-                        animation: "AnimazioneTristezza",
+                        animation: "SadnessAnimation",
                         emotionColor: colors["sadness"]!,
                         shadowColor: colors["sadnessshadow"]!,
                         nextView: .sadnessGame
                     )
                 case .sadnessGame:
-                    SadnessGame(sadnessColor: colors["sadnessshadow"]!,sadnessShadowColor: colors["shadow"]!, song: "songysong", image:"dancingAlien")
+                    SadnessGame(sadnessColor: colors["sadnessshadow"]!,sadnessShadowColor: colors["sadness"]!, song: "songysong", image:"dancingAlien")
                 case .canvas(let text, let emotion):
                     ContentView1(text: text, emotion: emotion)
                         .environmentObject(drawingModel)

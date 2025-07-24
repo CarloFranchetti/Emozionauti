@@ -10,11 +10,11 @@ struct DiaryStatsView: View {
     @State private var selectedEmotion: String? = nil
 
     let emotionImages: [String: Image] = [
-        "anger": Image("rabbia"),
-        "fear": Image("paura"),
-        "happiness": Image("felicita"),
-        "sadness": Image("tristezza"),
-        "boredom": Image("noia")
+        "anger": Image("Anger"),
+        "fear": Image("Fear"),
+        "happiness": Image("Happiness"),
+        "sadness": Image("Sadness"),
+        "boredom": Image("Boredom")
     ]
     
     let emotionColors: [String: Color] = [

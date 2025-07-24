@@ -53,7 +53,7 @@ class AnimatedBackground: SKScene {
         }
         
         
-        planet = SKSpriteNode(imageNamed: "pianeta")
+        planet = SKSpriteNode(imageNamed: "planet")
         planet.position = CGPoint(x: size.width/2 , y: size.height - planet.size.height * 2.7 )
         planet.size = CGSize(width: size.width * 1.1, height: size.width * 1.1)
         addChild(planet)

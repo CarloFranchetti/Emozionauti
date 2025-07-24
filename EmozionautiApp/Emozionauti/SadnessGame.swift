@@ -54,7 +54,7 @@ struct SadnessGame: View {
                             Image(systemName: play ? "speaker.fill" : "speaker.slash.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 50, height: 50)
+                                .frame(width: 200, height: 60)
                                 .foregroundColor(.white)
                                 .padding()
                         }

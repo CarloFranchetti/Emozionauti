@@ -30,7 +30,7 @@ struct BoredomView: View {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
                             .foregroundColor(.white)
-                            .frame(width: 250, height: 100)
+                            .frame(width: 200, height: 60)
                             .background(boredomColor)
                             .cornerRadius(20)
                             .padding([.bottom],30)

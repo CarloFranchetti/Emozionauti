@@ -23,7 +23,7 @@ struct AngerGame: View {
             if endGame {
                 VStack {
                     ZStack{
-                        Image("BenFattoVulcano")
+                        Image("GoodJobVulcano")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 400)

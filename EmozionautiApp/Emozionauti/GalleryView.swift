@@ -51,7 +51,6 @@ struct GridView: View{
     var body: some View {
         ZStack{
             VStack{
-                ZStack{
                     HStack{
                         Text("Applica filtri:")
                             .fontWeight(.bold)
@@ -59,64 +58,12 @@ struct GridView: View{
                         DropDownMenu(title: "Emozione", options: emotions, selected: $selectedEmotion)
                         DropDownMenu(title: "Data", options: dateFilter, selected: $selectedDate)
                     }
-                    .fixedSize(horizontal: false, vertical: false)
-                }
-                .zIndex(1)
-                ScrollView{
-                    LazyVGrid(columns: [
-                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10),
-                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10),
-                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10),
-                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10)
-                    ],spacing: 10){
-                        ForEach(drawingModel.drawings){ drawing in
-                            if drawing.emotion.hasPrefix(selectedEmotion) && selectedDate == "Nessun filtro"{
-                                GeometryReader{ geometry in
-                                    GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
-                                        .onTapGesture {
-                                            selected = drawing
-                                            navigationManager.open = true
-                                        }
-                                    
-                                }.cornerRadius(8.0)
-                                    .aspectRatio(1,contentMode: .fit)
-                            }else if selectedEmotion == "Nessun filtro" && selectedDate == "Nessun filtro"{
-                                GeometryReader{ geometry in
-                                   GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
-                                        .onTapGesture {
-                                            selected = drawing
-                                            navigationManager.open = true
-                                        }
-                                    
-                                }.cornerRadius(8.0)
-                                    .aspectRatio(1,contentMode: .fit)
-                            }else if selectedEmotion == "Nessun filtro" && selectedDate == drawing.date.formatted(date: .numeric, time: .omitted){
-                                GeometryReader{ geometry in
-                                    GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
-                                        .onTapGesture {
-                                            selected = drawing
-                                            navigationManager.open = true
-                                        }
-                                    
-                                }.cornerRadius(8.0)
-                                    .aspectRatio(1,contentMode: .fit)
-                                
-                            }else if drawing.emotion.hasPrefix(selectedEmotion) && selectedDate == drawing.date.formatted(date: .numeric, time: .omitted){
-                                GeometryReader{ geometry in
-                                   GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
-                                        .onTapGesture {
-                                            selected = drawing
-                                            navigationManager.open = true
-                                        }
-                                    
-                                }.cornerRadius(8.0)
-                                    .aspectRatio(1,contentMode: .fit)
-                            }
-                            
-                            
-                        }
+                    ScrollGrid(
+                        selectedEmotion: selectedEmotion,
+                        selectedDate: selectedDate
+                    ) { drawing in
+                        selected = drawing
                     }
-                }.padding(10)
             }
             
             
@@ -146,7 +93,7 @@ struct GridView: View{
                         Button(action:{
                             drawingModel.deleteDrawing(selected)
                             self.selected = nil
-                            navigationManager.open = false
+                            //navigationManager.open = false
                         }){
                             Image(systemName: "trash.fill")
                                 .foregroundColor(.red)

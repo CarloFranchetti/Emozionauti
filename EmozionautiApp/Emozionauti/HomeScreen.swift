@@ -46,7 +46,7 @@ struct HomeScreen: View {
                             Button {
                                 navManager.currentView = .skipAngerAnimation
                             } label: {
-                                Image("anger")
+                                Image("Anger")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
@@ -60,7 +60,7 @@ struct HomeScreen: View {
                             Button {
                                 navManager.currentView = .skipHappinessAnimation
                             } label: {
-                                Image("happiness")
+                                Image("Happiness")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
@@ -75,7 +75,7 @@ struct HomeScreen: View {
                                 
                                 navManager.currentView = .skipFearAnimation
                             } label: {
-                                Image("fear")
+                                Image("Fear")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
@@ -92,7 +92,7 @@ struct HomeScreen: View {
                                 
                                 navManager.currentView = .skipBoredomAnimation
                             } label: {
-                                Image("boredom")
+                                Image("Boredom")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
@@ -107,7 +107,7 @@ struct HomeScreen: View {
                                
                                 navManager.currentView = .skipSadnessAnimation
                             } label: {
-                                Image("sadness")
+                                Image("Sadness")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)

@@ -15,8 +15,8 @@ class GameScene: SKScene {
         }
     }
     
-    let aliens: [ElementStruct] = [ElementStruct(id: 0, name: "AlienoController"), ElementStruct(id: 1, name: "AlienoLibro"), ElementStruct(id: 2, name: "AlienoGelato")]
-    let objects: [ElementStruct] = [ElementStruct(id: 0, name: "Controller"), ElementStruct(id: 1, name: "Libro"), ElementStruct(id: 2, name: "Gelato")]
+    let aliens: [ElementStruct] = [ElementStruct(id: 0, name: "AlienController"), ElementStruct(id: 1, name: "AlienBook"), ElementStruct(id: 2, name: "AlienIceCream")]
+    let objects: [ElementStruct] = [ElementStruct(id: 0, name: "Controller"), ElementStruct(id: 1, name: "Book"), ElementStruct(id: 2, name: "IceCream")]
     var aliensOriginalPositions: [SKSpriteNode: CGPoint] = [:]
     
     
@@ -87,7 +87,7 @@ class GameScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first, let alien = draggedNode else { return }
-        let posizione = touch.location(in: self)
+        let position = touch.location(in: self)
         
         for object in objectsGame {
             if object.contains(position) {

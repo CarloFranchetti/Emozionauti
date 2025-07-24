@@ -41,7 +41,7 @@ struct FearGame: View {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))
                             .foregroundColor(.white)
-                            .frame(width: 300, height: 100)
+                            .frame(width: 200, height: 60)
                             .background(fearColor)
                             .cornerRadius(25)
                             .shadow(color: fearShadowColor, radius: 0, x: 10, y: 10)
