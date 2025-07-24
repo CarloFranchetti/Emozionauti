@@ -25,7 +25,7 @@ struct BoredomView: View {
                 VStack{
                     Spacer()
                     Button(action: {
-                        navManager.currentView = .canvas (text: "Disegna cosa ti ha reso annoiato...", emozione: "Noia 😴")
+                        navManager.currentView = .canvas (text: "Disegna cosa ti ha reso annoiato...", emotion: "Noia 😴")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))

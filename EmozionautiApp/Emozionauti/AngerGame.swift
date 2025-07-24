@@ -45,7 +45,7 @@ struct AngerGame: View {
                     }
                     .padding(.top, 30)
                     Button(action: {
-                        navManager.currentView = .canvas(text: "Disegna cosa ti ha fatto arrabbiare...",emozione: "Rabbia 😡")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha fatto arrabbiare...",emotion: "Rabbia 😡")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))

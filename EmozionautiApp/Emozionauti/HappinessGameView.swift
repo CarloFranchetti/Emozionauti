@@ -27,7 +27,7 @@ struct HappinessGameView: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso felice...",emozione: "Felicità 😀")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso felice...",emotion: "Felicità 😀")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-regular", size:30))

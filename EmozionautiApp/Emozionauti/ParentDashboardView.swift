@@ -11,7 +11,7 @@ struct ParentDashboardView: View {
         List {
             Section(header: Text("Strumenti")) {
                 Button {
-                    navManager.currentView = .diario
+                    navManager.currentView = .diary
                 } label: {
                     Label("Statistiche Emozioni", systemImage: "chart.bar.fill")
                 }
@@ -31,7 +31,7 @@ struct ParentDashboardView: View {
                 }
                 
                 Button {
-                    navManager.currentView = .gestoreAnimazioni
+                    navManager.currentView = .animationManager
                 } label: {
                     Label("Gestione Animazioni", systemImage: "video")
                         .foregroundColor(.blue)

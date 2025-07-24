@@ -18,7 +18,6 @@ struct GridViewObject: View{
                 .resizable()
                 .scaledToFit()
                 .frame(width: size, height: size)
-
         }
     }
 }
@@ -42,7 +41,6 @@ struct GridView: View{
     
     private var index = 0
     private static let columns = 4
-    
     private var dateFilter: [String] {
         let allDates = drawingModel.drawings.map { $0.date.formatted(date: .numeric, time: .omitted)}
         let uniqueDates = Set(allDates)
@@ -50,10 +48,7 @@ struct GridView: View{
         array.append("Nessun filtro")
         return array
     }
-    
-    
-    
-    var body: some View{
+    var body: some View {
         ZStack{
             VStack{
                 ZStack{
@@ -179,9 +174,10 @@ struct DrawingGalleryView: View{
     var body: some View {
         NavigationStack{
             GridView()
+                .environmentObject(dataModel)
+                .navigationViewStyle(.stack)
         }
-            .environmentObject(dataModel)
-            .navigationViewStyle(.stack)
+            
         }
-    }
+}
 

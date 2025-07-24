@@ -36,7 +36,7 @@ struct FearGame: View {
                         .font(.custom("Modak", size: 50))
                     Spacer();
                     Button(action: {
-                        navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emozione: "Paura 😨")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha messo paura...",emotion: "Paura 😨")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 36))

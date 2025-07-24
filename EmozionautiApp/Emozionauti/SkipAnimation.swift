@@ -14,10 +14,10 @@ struct SkipAnimation: View {
     var animationShadowColor: Color
     var disableAnimation : Bool = false
     var disableGame : Bool = false
-    @State var nextViewAnimazione: NavigationViewType
-    @State var nextViewMinigioco: NavigationViewType
+    @State var nextViewAnimation: NavigationViewType
+    @State var nextViewGame: NavigationViewType
     @EnvironmentObject var navManager: NavigationManager
-    @EnvironmentObject var animationSetting : GestioneAnimazioniModel
+    @EnvironmentObject var animationSetting : AnimationManagementModel
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     
     func skip () -> (Bool){
@@ -42,7 +42,7 @@ struct SkipAnimation: View {
     }
 
     var body: some View {
-        let setting = animationSetting.impostazioneSel
+        let setting = animationSetting.selectedSetting
         let state = disableButtons(sel: setting)
         ZStack{
             Color(background)
@@ -51,7 +51,7 @@ struct SkipAnimation: View {
                 Button (
                     action: {
                         diaryViewModel.recordEmotion(emotion)
-                        navManager.currentView = nextViewAnimazione
+                        navManager.currentView = nextViewAnimation
                     }
                 ){ Text("Vai all'animazione")
                         .font(.custom("Mitr-regular", size: 45))
@@ -67,7 +67,7 @@ struct SkipAnimation: View {
                 Button (
                     action:{
                         diaryViewModel.recordEmotion(emotion)
-                        navManager.currentView = nextViewMinigioco
+                        navManager.currentView = nextViewGame
                     }
                 ){ Text("Vai al minigioco")
                         .font(.custom("Mitr-regular", size: 45))
