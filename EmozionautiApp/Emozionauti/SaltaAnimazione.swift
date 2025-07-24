@@ -28,6 +28,7 @@ struct SaltaAnimazione: View {
         }
     
     }
+    
     func calcolaDisabilitazioni(sel: String) -> (disabilitaAnimazione: Bool, disabilitaMinigioco: Bool) {
         switch sel {
         case "Sempre":
