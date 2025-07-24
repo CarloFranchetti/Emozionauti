@@ -140,7 +140,7 @@ class GameScene: SKScene {
     }
     
     func playSound(success: Bool) {
-        let soundID: SystemSoundID = success ? 1104 : 1023
+        let soundID: SystemSoundID = 1104
         AudioServicesPlaySystemSound(soundID)
     }
     

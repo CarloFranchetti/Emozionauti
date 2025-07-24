@@ -1,6 +1,13 @@
+//
+//  AppDelegate.swift
+//  Emozionauti
+//
+//  Created by Studente on 22/07/25.
+//
+import UserNotifications
 import SwiftUI
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate:NSObject, UIApplicationDelegate{
     static let instance = AppDelegate()
     
     func requestAuthorization() {
@@ -8,7 +15,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             if let error = error {
                 print("Errore: \(error)")
             } else {
-                print("Autorizzazione notifiche concessa")
+                print("Success")
+                DispatchQueue.main.async {
+                    self.scheduleNotification()
+                }
             }
         }
     }
@@ -28,18 +38,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         dateComponents.minute = minute
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(
-            identifier: "dailyReminder",
-            content: content,
-            trigger: trigger
-        )
-
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Errore nella programmazione della notifica: \(error.localizedDescription)")
-            } else {
-                print("Notifica programmata alle \(hour):\(String(format: "%02d", minute))")
-            }
-        }
+        let request = UNNotificationRequest(identifier: UUID().uuidString
+                                             , content: content,
+                                                trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
     }
+    func applicationDidBecomeActive(_ application: UIApplication) {
+            application.applicationIconBadgeNumber = 0
+        }
 }

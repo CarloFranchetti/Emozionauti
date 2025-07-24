@@ -18,6 +18,12 @@ enum NavigationViewType {
     case diario //Stats
     case parentDashboard
     case canvas(text: String, emozione: String)
+    case gestoreAnimazioni
     case gallery
     case notificationSettings
+    case saltaAnimazioneRabbia
+    case saltaAnimazioneFelicita
+    case saltaAnimazioneTristezza
+    case saltaAnimazioneNoia
+    case saltaAnimazionePaura   
 }

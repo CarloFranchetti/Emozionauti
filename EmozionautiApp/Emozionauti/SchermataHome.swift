@@ -3,10 +3,8 @@ import SpriteKit
 struct SchermataHome: View {
     let coloriEmozioni: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
-    @EnvironmentObject var diaryViewModel: DiaryViewModel
     @State var rotazione: Double = 0.0
     @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
-  
     init(coloriEmozioni: [String : Color]) {
         self.coloriEmozioni = coloriEmozioni
         let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
@@ -47,8 +45,7 @@ struct SchermataHome: View {
                         HStack(spacing:80) {
                             // RABBIA
                             Button {
-                                diaryViewModel.recordEmotion("rabbia")
-                                navManager.currentView = .animazioneRabbia
+                                navManager.currentView = .saltaAnimazioneRabbia
                             } label: {
                                 Image("rabbia")
                                     .resizable()
@@ -62,8 +59,7 @@ struct SchermataHome: View {
                             
                             // FELICITÀ
                             Button {
-                                diaryViewModel.recordEmotion("felicità")
-                                navManager.currentView = .animazioneFelicita
+                                navManager.currentView = .saltaAnimazioneFelicita
                             } label: {
                                 Image("felicita")
                                     .resizable()
@@ -77,8 +73,8 @@ struct SchermataHome: View {
                             
                             // PAURA
                             Button {
-                                diaryViewModel.recordEmotion("paura")
-                                navManager.currentView = .animazionePaura
+                                
+                                navManager.currentView = .saltaAnimazionePaura
                             } label: {
                                 Image("paura")
                                     .resizable()
@@ -94,8 +90,8 @@ struct SchermataHome: View {
                         HStack(spacing:80) {
                             // NOIA
                             Button {
-                                diaryViewModel.recordEmotion("noia")
-                                navManager.currentView = .animazioneNoia
+                                
+                                navManager.currentView = .saltaAnimazioneNoia
                             } label: {
                                 Image("noia")
                                     .resizable()
@@ -109,8 +105,8 @@ struct SchermataHome: View {
                             
                             // TRISTEZZA
                             Button {
-                                diaryViewModel.recordEmotion("tristezza")
-                                navManager.currentView = .animazioneTristezza
+                               
+                                navManager.currentView = .saltaAnimazioneTristezza
                             } label: {
                                 Image("tristezza")
                                     .resizable()
