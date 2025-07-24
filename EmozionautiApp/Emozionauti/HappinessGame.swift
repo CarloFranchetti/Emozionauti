@@ -126,9 +126,9 @@ class HappinessGame: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let tocco = touches.first else { return }
+        guard let touch = touches.first else { return }
 
-                let position = tocco.location(in: self)
+                let position = touch.location(in: self)
                 
                 if let touched = atPoint(position) as? SKSpriteNode, touched.name == "astronauta" {
                     score+=1
