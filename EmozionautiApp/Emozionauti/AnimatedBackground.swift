@@ -15,64 +15,64 @@
 import SpriteKit
 import SwiftUI
 
-class SfondoAnimatoViewModel: ObservableObject {
-    var coloreSfondo: UIColor
+class AnimatedBackgroundViewModel: ObservableObject {
+    var backgroundColor: UIColor
     
-    init(coloreSfondo: UIColor){
-        self.coloreSfondo = coloreSfondo
+    init(backgroundColor: UIColor){
+        self.backgroundColor = backgroundColor
     }
 }
 
 
 
-class SfondoAnimato: SKScene {
-    var sfondo: SKSpriteNode!
-    var stelle: [SKShapeNode] = []
-    var pianeta: SKSpriteNode!
-    var domanda: SKLabelNode!
-    var viewModel: SfondoAnimatoViewModel?
+class AnimatedBackground: SKScene {
+    var background: SKSpriteNode!
+    var stars: [SKShapeNode] = []
+    var planet: SKSpriteNode!
+    var question: SKLabelNode!
+    var viewModel: AnimatedBackgroundViewModel?
 
     
     override func didMove(to view: SKView){
-        if let coloreSfondo = viewModel?.coloreSfondo{
-            sfondo = SKSpriteNode(color: coloreSfondo, size:size)
-            sfondo.position = CGPoint(x: size.width/2, y: size.height/2)
-            sfondo.zPosition = -1
-            addChild(sfondo)
+        if let backgroundColor = viewModel?.backgroundColor{
+            background = SKSpriteNode(color: backgroundColor, size:size)
+            background.position = CGPoint(x: size.width/2, y: size.height/2)
+            background.zPosition = -1
+            addChild(background)
         }
         for _ in 0..<100 {
-            let stella = SKShapeNode(circleOfRadius: CGFloat.random(in: 1...3))
-            stella.fillColor = .yellow
-            stella.strokeColor = .clear
-            stella.position = CGPoint(x: CGFloat.random(in: 0...size.width),y: CGFloat.random(in: 0...size.height))
-            stella.alpha = 0
+            let star = SKShapeNode(circleOfRadius: CGFloat.random(in: 1...3))
+            star.fillColor = .yellow
+            star.strokeColor = .clear
+            star.position = CGPoint(x: CGFloat.random(in: 0...size.width),y: CGFloat.random(in: 0...size.height))
+            star.alpha = 0
             
-            addChild(stella)
-            stelle.append(stella)
+            addChild(star)
+            stars.append(star)
             
             let fadeIn = SKAction.fadeAlpha(to: 1, duration: Double.random(in: 0.5...2))
             let fadeOut = SKAction.fadeAlpha(to: 0, duration: Double.random(in: 0.5...2))
-            let attesa = SKAction.wait(forDuration: Double.random(in: 0...2))
-            let sequenzaBlink = SKAction.sequence([attesa, fadeIn, fadeOut])
-            let blinkLoop = SKAction.repeatForever(sequenzaBlink)
+            let wait = SKAction.wait(forDuration: Double.random(in: 0...2))
+            let blinkSequence = SKAction.sequence([wait, fadeIn, fadeOut])
+            let blinkLoop = SKAction.repeatForever(blinkSequence)
             
-            stella.run(blinkLoop)
+            star.run(blinkLoop)
         }
         
         
-        pianeta = SKSpriteNode(imageNamed: "pianeta")
-        pianeta.position = CGPoint(x: size.width/2 , y: size.height - pianeta.size.height * 2.7 )
-        pianeta.size = CGSize(width: size.width * 1.1, height: size.width * 1.1)
-        addChild(pianeta)
-        let rotazione = SKAction.rotate(byAngle: CGFloat.pi, duration: 20)
-        let rotazioneLoop = SKAction.repeatForever(rotazione)
-        pianeta.run(rotazioneLoop)
+        planet = SKSpriteNode(imageNamed: "pianeta")
+        planet.position = CGPoint(x: size.width/2 , y: size.height - planet.size.height * 2.7 )
+        planet.size = CGSize(width: size.width * 1.1, height: size.width * 1.1)
+        addChild(planet)
+        let rotation = SKAction.rotate(byAngle: CGFloat.pi, duration: 20)
+        let rotationLoop = SKAction.repeatForever(rotation)
+        planet.run(rotationLoop)
         
-        domanda = SKLabelNode(text: "COME TI SENTI?")
-        domanda.fontName = "Modak"
-        domanda.fontSize = 70
-        domanda.position = CGPoint(x: size.width/2, y: size.height/2 + 350)
-        addChild(domanda)
+        question = SKLabelNode(text: "COME TI SENTI?")
+        question.fontName = "Modak"
+        question.fontSize = 70
+        question.position = CGPoint(x: size.width/2, y: size.height/2 + 350)
+        addChild(question)
         
        
         }

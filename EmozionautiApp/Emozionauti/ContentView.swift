@@ -3,26 +3,26 @@ import UserNotifications
 struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
-    @State private var vaiAvanti = false
-    @StateObject private var disegniModel = DisegniModel()
-    @State private var fineGiocoFelicita = false
-    @StateObject private var impostazioniAnimazione = GestioneAnimazioniModel()
+    @State private var ahead = false
+    @StateObject private var drawingModel = DisegniModel()
+    @State private var endHappinessGame = false
+    @StateObject private var settingsAnimation = GestioneAnimazioniModel()
     
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
         }
-    let colori: [String: Color] = [
-        "rabbia": Color(red:255/255,green:102/255,blue:104/255),
-        "felicita": Color(red:70/255,green:239/255,blue:48/255),
-        "paura": Color(red:194/255,green:168/255,blue:230/255),
-        "noia": Color(red:171/255,green:173/255,blue:171/255),
-        "tristezza": Color(red:123/255,green:206/255,blue:248/255),
-        "rabbiaombra": Color(red:202/255,green:37/255,blue:22/255),
-        "felicitaombra": Color(red:12/255,green:165/255,blue:7/255),
-        "pauraombra": Color(red:125/255,green:27/255,blue:191/255),
-        "noiaombra": Color(red:66/255,green:64/255,blue:56/255),
-        "tristezzaombra": Color(red:19/255,green:43/255,blue:137/255),
-        "sfondo": Color(red: 12/255, green: 10/255, blue: 96/255)
+    let colors: [String: Color] = [
+        "anger": Color(red:255/255,green:102/255,blue:104/255),
+        "happiness": Color(red:70/255,green:239/255,blue:48/255),
+        "fear": Color(red:194/255,green:168/255,blue:230/255),
+        "boredom": Color(red:171/255,green:173/255,blue:171/255),
+        "sadness": Color(red:123/255,green:206/255,blue:248/255),
+        "angershadow": Color(red:202/255,green:37/255,blue:22/255),
+        "happinessshadow": Color(red:12/255,green:165/255,blue:7/255),
+        "fearshadow": Color(red:125/255,green:27/255,blue:191/255),
+        "boredomshadow": Color(red:66/255,green:64/255,blue:56/255),
+        "sadnessshadow": Color(red:19/255,green:43/255,blue:137/255),
+        "background": Color(red: 12/255, green: 10/255, blue: 96/255)
     ]
 
     var body: some View {
@@ -30,62 +30,57 @@ struct ContentView: View {
             ZStack {
                 switch navManager.currentView {
                     case .splash:
-                        SchermataIcona()
+                        IconScreen()
                     case .home:
-                        SchermataHome(coloriEmozioni: colori)
-                    case .animazioneRabbia:
-                        Animazione(
-                            animazione: "AnimazioneRabbia",
-                            coloreEmozione: colori["rabbia"]!,
-                            coloreOmbra: colori["rabbiaombra"]!,
-                            text: "Quando ti senti arrabbiato...",
-                            nextView: .minigiocoRabbia
+                        HomeScreen(emotionsColors: colors)
+                    case .angerAnimation:
+                        Animation(
+                            animation: "AnimazioneRabbia",
+                            emotionColor: colors["anger"]!,
+                            shadowColor: colors["angershadow"]!,
+                            nextView: .angerGame
                         )
-                    case .minigiocoRabbia:
-                    MinigiocoRabbia(colore: colori["rabbiaombra"]!,coloreOmbra: colori["rabbia"]!)
-                    case .animazioneFelicita:
-                        Animazione(
-                            animazione: "AnimazioneFelicità",
-                            coloreEmozione: colori["felicita"]!,
-                            coloreOmbra: colori["felicitaombra"]!,
-                            text: "Quando ti senti felice...",
-                            nextView: .minigiocoFelicita2
+                    case .angerGame:
+                    AngerGame(angerColor: colors["angershadow"]!,angerShadowColor: colori["anger"]!)
+                    case .happinessAnimation:
+                        Animation(
+                            animation: "AnimazioneFelicità",
+                            emotionColor: colors["happiness"]!,
+                            shadowColor: colors["happinessShadow"]!,
+                            nextView: .happinessGame
                         )
-                    case .minigiocoFelicita2:
-                        MinigiocoFelicitaView(coloreFelicita: colori["felicitaombra"]!, coloreFelicitaOmbra: colori["felicita"]!, coloreS: colori["sfondo"]!)
-                    case .animazionePaura:
-                        Animazione(
-                            animazione: "AnimazionePaura",
-                            coloreEmozione: colori["paura"]!,
-                            coloreOmbra: colori["pauraombra"]!,
-                            text: "Quando hai paura...",
-                            nextView: .minigiocoPaura
+                    case .happinessGame:
+                        HappinessGameView(coloreFelicita: colors["happinessshadow"]!, coloreFelicitaOmbra: colors["happiness"]!, coloreS: colors["background"]!)
+                    case .fearAnimation:
+                        Animation(
+                            animation: "AnimazionePaura",
+                            emotionColor: colors["fear"]!,
+                            shadowColor: colors["fearshadow"]!,
+                            nextView: .fearGame
                         )
-                    case .minigiocoPaura:
-                    MinigiocoPaura(colorePaura: colori["pauraombra"]!,colorePauraOmbra:colori["paura"]!)
-                    case .animazioneNoia:
-                        Animazione(
-                            animazione: "AnimazioneNoia",
-                            coloreEmozione: colori["noia"]!,
-                            coloreOmbra: colori["noiaombra"]!,
-                            text: "Quando sei annoiato...",
-                            nextView: .minigiocoNoia
+                    case .fearGame:
+                    FearGame(colorePaura: colors["fearshadow"]!,colorePauraOmbra:colori["fear"]!)
+                    case .boredomAnimation:
+                        Animation(
+                            animation: "AnimazioneNoia",
+                            emotionColor: colori["boredom"]!,
+                            shadowColor: colori["boredomshadow"]!,
+                            nextView: .boredomGame
                         )
-                    case .minigiocoNoia:
-                    MinigiocoNoia(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colori["noia"]!,coloreNoia:colori["noiaombra"]!)
-                    case .animazioneTristezza:
-                        Animazione(
-                            animazione: "AnimazioneTristezza",
-                            coloreEmozione: colori["tristezza"]!,
-                            coloreOmbra: colori["tristezzaombra"]!,
-                            text: "Quando ti senti triste...",
-                            nextView: .minigiocoTristezza
+                    case .boredomGame:
+                    BoredomGame(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colors["boredom"]!,coloreNoia:colors["boredomshadow"]!)
+                    case .sadnessAnimation:
+                        Animation(
+                            animation: "AnimazioneTristezza",
+                            emotionColor: colori["sadness"]!,
+                            shadowColor: colori["sadnessshadow"]!,
+                            nextView: .sadnessGame
                         )
-                    case .minigiocoTristezza:
-                    MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!,coloreTristeOmbra: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
+                    case .sadnessGame:
+                    SadnessGame(coloreTriste: colors["sadnessshadow"]!,coloreTristeOmbra: colors["shadow"]!, song: "songysong", image:"dancingAlien")
                     case .canvas(let text, let emozione):
                     ContentView1(text: text, emozione: emozione)
-                        .environmentObject(disegniModel)
+                        .environmentObject(drawingModel)
                     case .diario:
                         DiaryStatsView()
                             .environmentObject(diaryViewModel)
@@ -95,32 +90,32 @@ struct ContentView: View {
                         ParentDashboardView()
                             .environmentObject(navManager)
                             .environmentObject(diaryViewModel)
-                            .environmentObject(disegniModel)                  
+                            .environmentObject(drawingModel)                  
                     case .gallery:
                         DrawingGalleryView()
-                    case .saltaAnimazioneRabbia:
-                    SaltaAnimazione(emozione: "rabbia", sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaombra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
+                    case .skipAngerAnimation:
+                    SkipAnimation(emozione: "rabbia", sfondo: colori["sfondo"]!, colore: colori["rabbia"]!, coloreOmbra: colori["rabbiaombra"]!, nextViewAnimazione: .animazioneRabbia, nextViewMinigioco: .minigiocoRabbia)
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
-                    case .saltaAnimazioneTristezza:
+                    case .skipSadnessAnimation:
                     SaltaAnimazione(emozione : "tristezza", sfondo: colori["sfondo"]!, colore: colori["tristezza"]!, coloreOmbra: colori["tristezzaombra"]!, nextViewAnimazione: .animazioneTristezza, nextViewMinigioco: .minigiocoTristezza)
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
-                    case .saltaAnimazioneNoia:
+                    case .skipBoredomAnimation:
                     SaltaAnimazione(emozione : "noia",sfondo: colori["sfondo"]!, colore: colori["noia"]! , coloreOmbra: colori["noiaombra"]!, nextViewAnimazione: .animazioneNoia, nextViewMinigioco: .minigiocoNoia)
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
-                    case .saltaAnimazionePaura:
+                    case .skipFearAnimation:
                     SaltaAnimazione(emozione : "paura",sfondo: colori["sfondo"]!, colore:colori["paura"]!, coloreOmbra: colori["pauraombra"]!, nextViewAnimazione: .animazionePaura, nextViewMinigioco:.minigiocoPaura )
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
-                    case .saltaAnimazioneFelicita:
+                    case .skipHappinessAnimation:
                     SaltaAnimazione(emozione : "felicità",sfondo: colori["sfondo"]!, colore:colori["felicita"]! , coloreOmbra: colori["felicitaombra"]!, nextViewAnimazione: .animazioneFelicita, nextViewMinigioco: .minigiocoFelicita2)
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
-                    case .gestoreAnimazioni:
+                    case .animationManager:
                         GestioneAnimazioniView()
-                        .environmentObject(impostazioniAnimazione)
+                        .environmentObject(settingsAnimation)
                         
                 }
             }
@@ -145,7 +140,7 @@ struct ContentView: View {
         }
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
-        .environmentObject(disegniModel)
+        .environmentObject(drawingModel)
         .onAppear{
             AppDelegate.instance.requestAuthorization()
         }

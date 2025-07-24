@@ -1,14 +1,14 @@
 import SwiftUI
 import SpriteKit
-struct SchermataHome: View {
-    let coloriEmozioni: [String: Color]
+struct HomeScreen: View {
+    let emotionsColors: [String: Color]
     @EnvironmentObject var navManager: NavigationManager
-    @State var rotazione: Double = 0.0
-    @StateObject private var sfondoAnimato: SfondoAnimatoViewModel
-    init(coloriEmozioni: [String : Color]) {
-        self.coloriEmozioni = coloriEmozioni
-        let sfondo = SfondoAnimatoViewModel(coloreSfondo: UIColor(coloriEmozioni["sfondo"]!))
-        _sfondoAnimato = StateObject(wrappedValue: sfondo)
+    @State var rotation: Double = 0.0
+    @StateObject private var animatedBackground: AnimatedBackgroundViewModel
+    init(emotionsColors: [String : Color]) {
+        self.emotionsColors = emotionsColors
+        let background = AnimatedBackgroundViewModel(backgroundColor: UIColor(emotionsColors["background"]!))
+        _animatedBackground = StateObject(wrappedValue: background)
     }
     
     var body: some View {
@@ -16,10 +16,10 @@ struct SchermataHome: View {
             NavigationStack {
                 ZStack {
                   SpriteView(scene: {
-                        let scene = SfondoAnimato()
+                        let scene = AnimatedBackground()
                         scene.size = UIScreen.main.bounds.size
                         scene.scaleMode = .resizeFill
-                        scene.viewModel = sfondoAnimato
+                        scene.viewModel = animatedBackground
                         return scene
                     }())
                     .ignoresSafeArea()
@@ -35,7 +35,6 @@ struct SchermataHome: View {
                             .padding()
                             .foregroundColor(.white)
                             .frame(width: geometry.size.width*0.1, height: geometry.size.height*0.1)
-                            //.background(Color(red:12/255,green:10/255,blue:96/255))
                             .cornerRadius(20)
                             .padding(80)
                     }
@@ -45,78 +44,78 @@ struct SchermataHome: View {
                         HStack(spacing:80) {
                             // RABBIA
                             Button {
-                                navManager.currentView = .saltaAnimazioneRabbia
+                                navManager.currentView = .skipAngerAnimation
                             } label: {
-                                Image("rabbia")
+                                Image("anger")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
-                                    .background(coloriEmozioni["rabbia"])
+                                    .background(emotionsColors["anger"])
                                     .cornerRadius(20)
                                     .padding()
                             }
-                            .shadow(color: coloriEmozioni["rabbiaombra"]!, radius: 0, x: 5, y: 10)
+                            .shadow(color: emotionsColors["angershadow"]!, radius: 0, x: 5, y: 10)
                             
                             // FELICITÀ
                             Button {
-                                navManager.currentView = .saltaAnimazioneFelicita
+                                navManager.currentView = .skipHappinessAnimation
                             } label: {
-                                Image("felicita")
+                                Image("happiness")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
-                                    .background(coloriEmozioni["felicita"])
+                                    .background(emotionsColors["happiness"])
                                     .cornerRadius(20)
                                     .padding()
                             }
-                            .shadow(color: coloriEmozioni["felicitaombra"]!, radius: 0, x: 5, y: 10)
+                            .shadow(color: emotionsColors["happinessshadow"]!, radius: 0, x: 5, y: 10)
                             
                             // PAURA
                             Button {
                                 
-                                navManager.currentView = .saltaAnimazionePaura
+                                navManager.currentView = .skipFearAnimation
                             } label: {
-                                Image("paura")
+                                Image("fear")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
-                                    .background(coloriEmozioni["paura"])
+                                    .background(emotionsColors["fear"])
                                     .cornerRadius(20)
                                     .padding()
                             }
-                            .shadow(color: coloriEmozioni["pauraombra"]!, radius: 0, x: 5, y: 10)
+                            .shadow(color: emotionsColors["fearshadow"]!, radius: 0, x: 5, y: 10)
                         }
                         
                         HStack(spacing:80) {
                             // NOIA
                             Button {
                                 
-                                navManager.currentView = .saltaAnimazioneNoia
+                                navManager.currentView = .skipBoredomAnimation
                             } label: {
-                                Image("noia")
+                                Image("boredom")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
-                                    .background(coloriEmozioni["noia"])
+                                    .background(emotionsColors["boredom"])
                                     .cornerRadius(20)
                                     .padding()
                             }
-                            .shadow(color: coloriEmozioni["noiaombra"]!, radius: 0, x: 5, y: 10)
+                            .shadow(color: emotionsColors["boredomshadow"]!, radius: 0, x: 5, y: 10)
                             
                             // TRISTEZZA
                             Button {
                                
-                                navManager.currentView = .saltaAnimazioneTristezza
+                                navManager.currentView = .skipSadnessAnimation
                             } label: {
-                                Image("tristezza")
+                                Image("sadness")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: geometry.size.width*0.13, height: geometry.size.height*0.10)
-                                    .background(coloriEmozioni["tristezza"])
+                                    .background(emotionsColors["sadness"])
                                     .cornerRadius(20)
                                     .padding()
                             }
-                            .shadow(color: coloriEmozioni["tristezzaombra"]!, radius: 0, x: 5, y: 10)
+                            .shadow(color: emotionsColors["sadnessshadow"]!, radius: 0, x: 5, y: 10)
                         }
                     }
                     .position(x:geometry.size.width/2,y:geometry.size.height/2)

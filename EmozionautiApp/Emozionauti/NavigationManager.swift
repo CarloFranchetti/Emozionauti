@@ -6,45 +6,45 @@ class NavigationManager: ObservableObject {
 
     func goBack() {
         switch currentView {
-        case .animazioneRabbia:
-            currentView = .saltaAnimazioneRabbia
-        case .animazioneFelicita:
-            currentView = .saltaAnimazioneFelicita
-        case .animazionePaura:
-            currentView = .saltaAnimazionePaura
-        case .animazioneNoia:
-            currentView = .saltaAnimazioneNoia
-        case .animazioneTristezza:
-            currentView = .saltaAnimazioneTristezza
-        case .minigiocoRabbia:
-            currentView = .animazioneRabbia
-        case .minigiocoFelicita2:
-            currentView = .animazioneFelicita
-        case .minigiocoPaura:
-            currentView = .animazionePaura
-        case .minigiocoNoia:
-            currentView = .animazioneNoia
-        case .minigiocoTristezza:
-            currentView = .animazioneTristezza
+        case .angerAnimation:
+            currentView = .skipAngerAnimation
+        case .happinessAnimation:
+            currentView = .skipHappinessAnimation
+        case .fearAnimation:
+            currentView = .skipFearAnimation
+        case .boredomAnimation:
+            currentView = .skipBoredomAnimation
+        case .sadnessAnimation:
+            currentView = .skipSadnessAnimation
+        case .angerGame:
+            currentView = .angerAnimation
+        case .happinessGame:
+            currentView = .happinessAnimation
+        case .fearGame:
+            currentView = .fearAnimation
+        case .boredomGame:
+            currentView = .boredomAnimation
+        case .sadnessGame:
+            currentView = .sadnessAnimation
         case .canvas:
             currentView = .home
-        case .diario:
+        case .diary:
             currentView = .parentDashboard
         case .parentalControl:
                 currentView = .home
         case .gallery:
             currentView = .parentDashboard
-        case .saltaAnimazioneRabbia:
+        case .skipAngerAnimation:
             currentView = .home
-        case .saltaAnimazioneNoia:
+        case .skipBoredomAnimation:
             currentView = .home
-        case .saltaAnimazioneTristezza:
+        case .skipSadnessAnimation:
             currentView = .home
-        case .saltaAnimazioneFelicita:
+        case .skipHappinessAnimation:
             currentView = .home
-        case .saltaAnimazionePaura:
+        case .skipFearAnimation:
             currentView = .home
-        case .gestoreAnimazioni:
+        case .animationManager:
             currentView = .parentDashboard
         default:
             break

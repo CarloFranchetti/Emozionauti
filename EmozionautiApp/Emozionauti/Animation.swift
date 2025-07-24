@@ -2,35 +2,34 @@ import SwiftUI
 import AVKit
 
 
-struct Animazione: View {
+struct Animation: View {
     @EnvironmentObject var navManager: NavigationManager
-    @State private var fine: Bool = false
-    var animazione : String
-    var coloreEmozione: Color
-    var coloreOmbra: Color
-    var text: String
+    @State private var end: Bool = false
+    var animation : String
+    var emotionColor: Color
+    var shadowColor: Color
     var nextView: NavigationViewType
 
     
     var body: some View {
         ZStack {
-            VideoPlayerView(videoName: animazione, isVideoFinished: $fine)
+            VideoPlayerView(videoName: animation, isVideoFinished: $end)
                 .ignoresSafeArea()
                 .aspectRatio(contentMode: .fill)
             VStack() {
                 Spacer()
-                if fine{
+                if end{
                     Button(action: {
                         navManager.currentView = nextView
                     }) {
                         Text("Inizia il minigioco")
                             .font(.custom("Mitr-regular", size: 45))
                             .frame(width: 500, height: 100)
-                            .background(coloreEmozione)
+                            .background(emotionColor)
                             .cornerRadius(20)
                             .foregroundColor(.white)
                             .padding()
-                    }.shadow(color: coloreOmbra, radius: 0, x: 5, y:5)
+                    }.shadow(color: shadowColor, radius: 0, x: 5, y:5)
             }
             
             

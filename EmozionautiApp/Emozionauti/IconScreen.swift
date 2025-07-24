@@ -3,7 +3,7 @@ import SpriteKit
 import AVFoundation
 import AudioToolbox
 
-struct SchermataIcona: View {
+struct IconScreen: View {
     @EnvironmentObject var navManager: NavigationManager
     @State private var progress: Double = 0.0
     let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()

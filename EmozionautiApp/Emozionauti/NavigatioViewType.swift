@@ -5,24 +5,24 @@ enum NavigationViewType {
     case splash
     case home
     case parentalControl //Sfondo richiesta password
-    case animazioneRabbia
-    case animazioneFelicita
-    case animazionePaura
-    case animazioneNoia
-    case animazioneTristezza
-    case minigiocoRabbia
-    case minigiocoFelicita2
-    case minigiocoPaura
-    case minigiocoNoia
-    case minigiocoTristezza
-    case diario //Stats
+    case angerAnimation
+    case happinessAnimation
+    case fearAnimation
+    case boredomAnimation
+    case sadnessAnimation
+    case angerGame
+    case happinessGame
+    case fearGame
+    case boredomGame
+    case sadnessGame
+    case diary //Stats
     case parentDashboard
     case canvas(text: String, emozione: String)
-    case gestoreAnimazioni
+    case animationManager
     case gallery
-    case saltaAnimazioneRabbia
-    case saltaAnimazioneFelicita
-    case saltaAnimazioneTristezza
-    case saltaAnimazioneNoia
-    case saltaAnimazionePaura   
+    case skipAngerAnimation
+    case skipHappinessAnimation
+    case skipSadnessAnimation
+    case skipBoredomAnimation
+    case skipFearAnimation
 }
