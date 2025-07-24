@@ -1,25 +1,25 @@
 import SwiftUI
 import AVFoundation
 
-struct MinigiocoTristezza: View {
+struct SadnessGame: View {
     @EnvironmentObject var navManager: NavigationManager
-    var coloreTriste: Color
-    var coloreTristeOmbra: Color
+    var sadnessColor: Color
+    var sadnessShadowColor: Color
     @State var play: Bool = false
-    @State var messaggio: String = "Pausa"
+    @State var message: String = "Pausa"
     @State var player: AVAudioPlayer?
-    @State var fine: Bool = false
+    @State var end: Bool = false
     var song: String
     var image: String
 
     var body: some View {
         VStack(spacing: 40) {
-            if fine {
+            if end {
                 VStack {
                     Text("ORA RIPOSIAMOCI!")
                         .font(.custom("Modak", size: 60))
                         .padding(.horizontal, 20)
-                        .foregroundColor(coloreTriste)
+                        .foregroundColor(sadnessColor)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
                     Image("sleepingAstronaut2")
@@ -27,16 +27,16 @@ struct MinigiocoTristezza: View {
                         .scaledToFill()
                         .frame(width: 500, height: 500)
                     Button(action: {
-                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso triste...", emozione: "Tristezza 😢")
+                        navManager.currentView = .canvas(text: "Disegna cosa ti ha reso triste...", emotion: "Tristezza 😢")
                     }) {
                         Text("Avanti")
                             .font(.custom("Mitr-Regular", size: 30))
                             .foregroundColor(.white)
                             .frame(width: 250, height: 100)
-                            .background(coloreTriste)
+                            .background(sadnessColor)
                             .cornerRadius(20)
                             .padding(30)
-                    } .shadow(color: coloreTristeOmbra, radius: 0, x: 5, y: 10)
+                    } .shadow(color: sadnessShadowColor, radius: 0, x: 5, y: 10)
                 }
             } else {
                 VStack(spacing: 40) {
@@ -58,10 +58,10 @@ struct MinigiocoTristezza: View {
                                 .foregroundColor(.white)
                                 .padding()
                         }
-                        .background(coloreTriste)
+                        .background(sadnessColor)
                         .cornerRadius(100)
 
-                        Text(messaggio)
+                        Text(message)
                             .font(.custom("Mitr-Regular", size: 30))
                     }
 
@@ -74,7 +74,7 @@ struct MinigiocoTristezza: View {
 
     func playMusic() {
         play.toggle()
-        messaggio = play ? "Balliamo!" : "Pausa"
+        message = play ? "Balliamo!" : "Pausa"
 
         if play {
             if player == nil {
@@ -95,7 +95,7 @@ struct MinigiocoTristezza: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 play = false
                 player?.stop()
-                fine = true
+                end = true
             }
         } else {
             player?.pause()

@@ -17,7 +17,7 @@ enum NavigationViewType {
     case sadnessGame
     case diary //Stats
     case parentDashboard
-    case canvas(text: String, emozione: String)
+    case canvas(text: String, emotion: String)
     case animationManager
     case gallery
     case skipAngerAnimation
