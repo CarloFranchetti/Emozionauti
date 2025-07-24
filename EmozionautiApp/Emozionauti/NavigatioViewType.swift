@@ -24,5 +24,6 @@ enum NavigationViewType {
     case saltaAnimazioneFelicita
     case saltaAnimazioneTristezza
     case saltaAnimazioneNoia
-    case saltaAnimazionePaura   
+    case saltaAnimazionePaura
+    case notificationSettings
 }

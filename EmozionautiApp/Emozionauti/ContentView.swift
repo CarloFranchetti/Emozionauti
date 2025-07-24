@@ -121,6 +121,8 @@ struct ContentView: View {
                     case .gestoreAnimazioni:
                         GestioneAnimazioniView()
                         .environmentObject(impostazioniAnimazione)
+                    case .notificationSettings:
+                        NotificationSettingsView()
                         
                 }
             }

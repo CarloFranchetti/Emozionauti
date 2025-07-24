@@ -18,10 +18,14 @@ class AppDelegate:NSObject, UIApplicationDelegate{
                 print("Success")
                 DispatchQueue.main.async {
                     self.scheduleNotification()
+                    let hour = UserDefaults.standard.integer(forKey: "notificationHour")
+                    let minute = UserDefaults.standard.integer(forKey: "notificationMinute")
+                    self.scheduleNotification(atHour: hour, minute: minute)
                 }
             }
         }
     }
+    
     func scheduleNotification() {
         let content = UNMutableNotificationContent()
         content.title = "Emozionauti"
