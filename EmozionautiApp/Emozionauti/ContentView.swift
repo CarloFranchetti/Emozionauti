@@ -97,7 +97,9 @@ struct ContentView: View {
                             .environmentObject(diaryViewModel)
                             .environmentObject(disegniModel)                  
                     case .gallery:
-                        DrawingGalleryView()                
+                        DrawingGalleryView()
+                    case .notificationSettings:
+                        NotificationSettingsView()
                 }
             }
             .toolbar {
