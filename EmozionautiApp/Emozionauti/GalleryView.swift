@@ -1,19 +1,20 @@
 //
-//  GalleriaView.swift
+//  GalleryView.swift
 //  Emozionauti
 //
 //  Created by Studente on 10/07/25.
 //
+
 import SwiftUI
 
 
-struct OggettoGridView: View{
+struct GridViewObject: View{
     let size: Double
-    let disegnoSelect: Disegno
+    let selectedDrawing: Drawing
     
     var body: some View{
         ZStack(alignment: .topTrailing){
-            disegnoSelect.disegno.toImage()
+            selectedDrawing.drawing.toImage()
                 .resizable()
                 .scaledToFit()
                 .frame(width: size, height: size)
@@ -24,13 +25,13 @@ struct OggettoGridView: View{
 
 
 struct GridView: View{
-    @EnvironmentObject var disegniModel: DisegniModel
-    @State private var selezionato: Disegno?
-    @State private var emozioneSelezionata: String = "Nessun filtro"
-    @State private var dataSelezionata: String = "Nessun filtro"
+    @EnvironmentObject var drawingModel: DrawingModel
+    @State private var selected: Drawing?
+    @State private var selectedEmotion: String = "Nessun filtro"
+    @State private var selectedDate: String = "Nessun filtro"
     @EnvironmentObject var navigationManager: NavigationManager
 
-    private let emozioni = [
+    private let emotions = [
         "Nessun filtro",
         "Felicità",
         "Noia",
@@ -38,11 +39,12 @@ struct GridView: View{
         "Rabbia",
         "Paura"
     ]
+    
     private var index = 0
     private static let columns = 4
     
-    private var dateFiltrabili: [String] {
-        let allDates = disegniModel.disegni.map { $0.date.formatted(date: .numeric, time: .omitted)}
+    private var dateFilter: [String] {
+        let allDates = drawingModel.drawings.map { $0.date.formatted(date: .numeric, time: .omitted)}
         let uniqueDates = Set(allDates)
         var array = Array(uniqueDates)
         array.append("Nessun filtro")
@@ -59,8 +61,8 @@ struct GridView: View{
                         Text("Applica filtri:")
                             .fontWeight(.bold)
                             .padding([.leading],20)
-                        DropDownMenu(title: "Emozione", options: emozioni, selezionatoE: $emozioneSelezionata)
-                        DropDownMenu(title: "Data", options: dateFiltrabili, selezionatoE: $dataSelezionata)
+                        DropDownMenu(title: "Emozione", options: emotions, selected: $selectedEmotion)
+                        DropDownMenu(title: "Data", options: dateFilter, selected: $selectedDate)
                     }
                     .fixedSize(horizontal: false, vertical: false)
                 }
@@ -72,44 +74,44 @@ struct GridView: View{
                         GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10),
                         GridItem(.flexible(minimum: 100, maximum: 200),spacing: 10)
                     ],spacing: 10){
-                        ForEach(disegniModel.disegni){ disegno in
-                            if disegno.emozione.hasPrefix(emozioneSelezionata) && dataSelezionata == "Nessun filtro"{
+                        ForEach(drawingModel.drawings){ drawing in
+                            if drawing.emotion.hasPrefix(selectedEmotion) && selectedDate == "Nessun filtro"{
                                 GeometryReader{ geometry in
-                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                    GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
                                         .onTapGesture {
-                                            selezionato = disegno
-                                            navigationManager.dettaglioAperto = true
+                                            selected = drawing
+                                            navigationManager.open = true
                                         }
                                     
                                 }.cornerRadius(8.0)
                                     .aspectRatio(1,contentMode: .fit)
-                            }else if emozioneSelezionata == "Nessun filtro" && dataSelezionata == "Nessun filtro"{
+                            }else if selectedEmotion == "Nessun filtro" && selectedDate == "Nessun filtro"{
                                 GeometryReader{ geometry in
-                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                   GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
                                         .onTapGesture {
-                                            selezionato = disegno
-                                            navigationManager.dettaglioAperto = true
+                                            selected = drawing
+                                            navigationManager.open = true
                                         }
                                     
                                 }.cornerRadius(8.0)
                                     .aspectRatio(1,contentMode: .fit)
-                            }else if emozioneSelezionata == "Nessun filtro" && dataSelezionata == disegno.date.formatted(date: .numeric, time: .omitted){
+                            }else if selectedEmotion == "Nessun filtro" && selectedDate == drawing.date.formatted(date: .numeric, time: .omitted){
                                 GeometryReader{ geometry in
-                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                    GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
                                         .onTapGesture {
-                                            selezionato = disegno
-                                            navigationManager.dettaglioAperto = true
+                                            selected = drawing
+                                            navigationManager.open = true
                                         }
                                     
                                 }.cornerRadius(8.0)
                                     .aspectRatio(1,contentMode: .fit)
                                 
-                            }else if disegno.emozione.hasPrefix(emozioneSelezionata) && dataSelezionata == disegno.date.formatted(date: .numeric, time: .omitted){
+                            }else if drawing.emotion.hasPrefix(selectedEmotion) && selectedDate == drawing.date.formatted(date: .numeric, time: .omitted){
                                 GeometryReader{ geometry in
-                                    OggettoGridView(size: geometry.size.width, disegnoSelect: disegno)
+                                   GridViewObject(size: geometry.size.width, selectedDrawing: drawing)
                                         .onTapGesture {
-                                            selezionato = disegno
-                                            navigationManager.dettaglioAperto = true
+                                            selected = drawing
+                                            navigationManager.open = true
                                         }
                                     
                                 }.cornerRadius(8.0)
@@ -123,33 +125,33 @@ struct GridView: View{
             }
             
             
-            if let selezionato{
+            if let selected{
                 ZStack{
                     Color.white
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                     VStack{
-                        selezionato.disegno.toImage()
+                        selected.drawing.toImage()
                             .onTapGesture {
-                                self.selezionato = nil
+                                self.selected = nil
                                 navigationManager.dettaglioAperto = false
                             }
                         HStack{
                             Text("Emozione:")
                                 .fontWeight(.bold)
-                            Text(selezionato.emozione)
+                            Text(selected.emotion)
                         }
                         HStack{
                             Text("Data:")
                                 .fontWeight(.bold)
-                            Text(selezionato.date.formatted(Date.FormatStyle(date: .complete, time: .shortened) .locale(Locale(identifier: "it_IT"))))
+                            Text(selected.date.formatted(Date.FormatStyle(date: .complete, time: .shortened) .locale(Locale(identifier: "it_IT"))))
                                 .font(.system(size: 20))
                         }
                         Spacer()
                         Button(action:{
-                            disegniModel.cancellaDisegno(selezionato)
-                            self.selezionato = nil
-                            navigationManager.dettaglioAperto = false
+                            drawingModel.deleteDrawing(selected)
+                            self.selected = nil
+                            navigationManager.open = false
                         }){
                             Image(systemName: "trash.fill")
                                 .foregroundColor(.red)
@@ -172,7 +174,7 @@ struct GridView: View{
 
 
 struct DrawingGalleryView: View{
-    @StateObject var dataModel = DisegniModel()
+    @StateObject var dataModel = DrawingModel()
     
     var body: some View {
         NavigationStack{
@@ -182,10 +184,4 @@ struct DrawingGalleryView: View{
             .navigationViewStyle(.stack)
         }
     }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrawingGalleryView()
-    }
-}
 

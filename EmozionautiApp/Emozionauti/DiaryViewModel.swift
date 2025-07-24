@@ -31,13 +31,9 @@ class DiaryViewModel: ObservableObject {
 
     func emotionStats(for date: Date) -> [String: Int] {
         let day = Calendar.current.startOfDay(for: date)
-        
-        // Filtra solo le emozioni registrate nella data specifica
         let emotionsForDate = emotionHistory
             .filter { Calendar.current.isDate($0.date, inSameDayAs: day) }
             .map { $0.emotion }
-
-        // Conta le occorrenze per tipo di emozione
         return Dictionary(grouping: emotionsForDate, by: { $0 })
             .mapValues { $0.count }
     }
@@ -66,23 +62,17 @@ class DiaryViewModel: ObservableObject {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         var counts: [Date: Int] = [:]
-
-        // Ultimi 7 giorni
         for dayOffset in 0..<7 {
             if let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) {
                 counts[date] = 0
             }
         }
-
-        // Conta le emozioni
         for entry in emotionHistory {
             let entryDate = calendar.startOfDay(for: entry.date)
             if counts.keys.contains(entryDate) {
                 counts[entryDate, default: 0] += 1
             }
         }
-
-        // Ordina per data crescente
         return counts.map { EmotionCount(date: $0.key, count: $0.value) }
             .sorted { $0.date < $1.date }
     }
@@ -93,7 +83,6 @@ class DiaryViewModel: ObservableObject {
         let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: today))!
         var counts: [Date: Int] = [:]
 
-        // Inizializza tutti i giorni del mese a 0
         if let range = calendar.range(of: .day, in: .month, for: today) {
             for day in range {
                 if let date = calendar.date(byAdding: .day, value: day - 1, to: startOfMonth) {
@@ -102,7 +91,6 @@ class DiaryViewModel: ObservableObject {
             }
         }
 
-        // Conta le emozioni per giorno
         for entry in emotionHistory {
             let day = calendar.startOfDay(for: entry.date)
             if calendar.isDate(day, equalTo: today, toGranularity: .month) {

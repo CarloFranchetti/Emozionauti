@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct MinigiocoRabbia: View {
+struct AngerGame: View {
     @EnvironmentObject var navManager: NavigationManager
-    @State var indicecorrente: Int =  0
-    @State var conta: Int = 0
-    @State var fineGioco: Bool = false
-    var colore: Color
-    var coloreOmbra: Color
-    let rilevatore = RilevaSoffio()
+    @State var currentIndex: Int =  0
+    @State var count: Int = 0
+    @State var endGame: Bool = false
+    var angerColor: Color
+    var angerShadowColor: Color
+    let blowDetector = BlowDetector()
     
     var body: some View {
-        let animazioneImmagini = [Image("Vulcano1"), Image("Vulcano2")]
-        let totaldur = 3.0
+        let animationImages = [Image("Vulcano1"), Image("Vulcano2")]
+        let totalDuration = 3.0
         VStack{
             Text("Soffia sul microfono per spegnere il vulcano!")
                 .font(.custom("Mitr-Regular",size:50))
@@ -20,7 +20,7 @@ struct MinigiocoRabbia: View {
                 .foregroundColor(.black)
                 .multilineTextAlignment(.center)
             
-            if fineGioco {
+            if endGame {
                 VStack {
                     ZStack{
                         Image("BenFattoVulcano")
@@ -28,13 +28,13 @@ struct MinigiocoRabbia: View {
                             .scaledToFit()
                             .frame(maxWidth: 400)
                             .offset(y: -100)
-                            .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
+                            .keyframeAnimator(initialValue: AnimationProps(), repeating: true) { content, value in
                                 content
                                     .scaleEffect(y: value.verticalTrasl, anchor: .bottom)
                                     .offset(y: value.yTrasl)
                             } keyframes: { _ in
                                 KeyframeTrack(\.verticalTrasl) {
-                                    SpringKeyframe(0.9, duration: totaldur * 0.30)
+                                    SpringKeyframe(0.9, duration: totalDuration * 0.30)
                                 }
                             }
                         
@@ -51,26 +51,25 @@ struct MinigiocoRabbia: View {
                             .font(.custom("Mitr-Regular", size: 30))
                             .foregroundColor(.white)
                             .frame(width: 200, height: 60)
-                            .background(colore)
+                            .background(angerColor)
                             .cornerRadius(20)
-                            //.padding()
                     }
-                    .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
+                    .shadow(color: angerShadowColor, radius: 0, x: 5, y: 10)
                     .padding([.bottom],20)
                 }
             } else {
-                animazioneImmagini[indicecorrente]
+                animationImages[currentIndex]
                     .resizable()
                     .scaledToFit()
                     .padding(.bottom, 0)
                     .position(x: 400, y: 460)
-                    .keyframeAnimator(initialValue: AnimazioneProps(), repeating: true) { content, value in
+                    .keyframeAnimator(initialValue: AnimationProps(), repeating: true) { content, value in
                         content
                             .scaleEffect(y: value.verticalTrasl, anchor: .bottom)
                             .offset(y: value.yTrasl)
                     } keyframes: { _ in
                         KeyframeTrack(\.verticalTrasl) {
-                            SpringKeyframe(0.9, duration: totaldur * 0.30)
+                            SpringKeyframe(0.9, duration: totalDuration * 0.30)
                         }
                     }
             }
@@ -78,27 +77,27 @@ struct MinigiocoRabbia: View {
             Spacer()
         }
         .onAppear {
-            VulcanoAnimazione()
+            VulcanoAnimation()
         }
     }
 
-    func VulcanoAnimazione() {
+    func VulcanoAnimation() {
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { timer in
-            if (rilevatore.aggiornaVol() == true && indicecorrente == 0) || indicecorrente == 1 {
-                indicecorrente = (indicecorrente + 1) % 2
-                if indicecorrente == 0 {
-                    conta += 1
+            if (blowDetector.updateMeasures() == true && currentIndex == 0) || currentIndex == 1 {
+                currentIndex = (currentIndex + 1) % 2
+                if currentIndex == 0 {
+                    count += 1
                 }
-                if conta >= 3 {
+                if count >= 3 {
                     timer.invalidate()
-                    fineGioco = true
+                    endGame = true
                 }
             }
         }
     }
 }
 
-struct AnimazioneProps {
+struct AnimationProps {
     var yTrasl = 0.0
     var verticalTrasl = 1.0
 }

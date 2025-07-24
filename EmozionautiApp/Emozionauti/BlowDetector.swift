@@ -1,37 +1,34 @@
 //
-//  RilevaSoffio.swift
+//  BlowDetector.swift
 //  Emozionauti
 //
 //  Created by Studente on 04/07/25.
 //
 
-/*La classe permette di attivare il microfono, misurare il volume dell'audio e
- *riconsocere il soffio tramite un filtro passa-basso*/
 
 import AVFAudio
 import Foundation
 
-class RilevaSoffio: NSObject, ObservableObject{
-    var registratore: AVAudioRecorder!
+class BlowDetector: NSObject, ObservableObject{
+    var recorder: AVAudioRecorder!
     var timer: Timer?
     let a: Double = 0.05
     
-    //avvia la registrazione, tramite il costruttore
+
     override init(){
         super.init()
-        avviaRegistratore()
+        startRecording()
     }
     
-    //richiesta permessi
-    private func avviaRegistratore(){
-        let sessioneAudioSession = AVAudioSession.sharedInstance()
+
+    private func startRecording(){
+        let audioSession = AVAudioSession.sharedInstance()
         do{
-            try sessioneAudioSession.setCategory(.playAndRecord, mode: .default)
-            try sessioneAudioSession.setActive(true)
-            //DispatchQueue.main è un thread asincrono
+            try audioSession.setCategory(.playAndRecord, mode: .default)
+            try audioSession.setActive(true)
             AVAudioApplication.requestRecordPermission{ [weak self] allowed in DispatchQueue.main.async{
                 if allowed{
-                    self?.inizializzaRec()
+                    self?.initializeRecording()
                 }else{
                     print("Permesso al microfono negato")
                 }
@@ -42,8 +39,8 @@ class RilevaSoffio: NSObject, ObservableObject{
         }
     }
     
-    private func inizializzaRec(){
-        let impostazioni: [String: Any] = [
+    private func initializeRecording(){
+        let settings: [String: Any] = [
             AVFormatIDKey: Int(kAudioFormatAppleLossless),
             AVSampleRateKey: 44100.0,
             AVNumberOfChannelsKey:1,
@@ -52,22 +49,22 @@ class RilevaSoffio: NSObject, ObservableObject{
         //il file audio non viene salvato
         let url = URL(fileURLWithPath: "/dev/null")
         do{
-            registratore = try AVAudioRecorder(url: url, settings: impostazioni)
-            registratore.isMeteringEnabled = true
-            registratore.record()
+            recorder = try AVAudioRecorder(url: url, settings: settings)
+            recorder.isMeteringEnabled = true
+            recorder.record()
             
             timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true){ [self] _ in
-                self.aggiornaVol()
+                self.updateMeasures()
             }
         }catch{
             print("Errore nell'inizializzazione")
         }
     }
     
-      func aggiornaVol() -> Bool{
-        registratore.updateMeters()
-        let potenza = registratore.averagePower(forChannel: 0)
-          if potenza >= -25.0 && potenza <= 10.0{
+      func updateMeasures() -> Bool{
+        recorder.updateMeters()
+        let power = recorder.averagePower(forChannel: 0)
+          if power >= -25.0 && power <= 10.0{
              return true
          }
           else{
@@ -75,8 +72,8 @@ class RilevaSoffio: NSObject, ObservableObject{
           }
     }
     
-    func ferma(){
-        registratore?.stop()
+    func stop(){
+        recorder?.stop()
         timer?.invalidate()
         timer = nil
     }
