@@ -1,22 +1,23 @@
 //
-//  GestioneAnimazioni.swift
+//  AnimationManager.swift
 //  Emozionauti
 //
-//  Created by Studente on 22/07/25.
+//  Created by Studente on 24/07/25.
 //
+
 
 import SwiftUI
 
 
-class GestioneAnimazioniModel: ObservableObject{
-    @Published var impostazioneSel: String = "Mai"
+class AnimationManagementModel: ObservableObject{
+    @Published var selectedSetting: String = "Mai"
 }
 
-struct GestioneAnimazioniView: View{
-    @EnvironmentObject private var impostazioni: GestioneAnimazioniModel
+struct AnimationManagementView: View{
+    @EnvironmentObject private var settings: AnimationManagementModel
     @EnvironmentObject var navigationManager: NavigationManager
 
-    private let frequenze = [
+    private let frequencies = [
         "Mai",
         "Una volta per ogni emozione",
         "Sempre"
@@ -33,12 +34,12 @@ struct GestioneAnimazioniView: View{
                     {
                             ZStack{
                                 VStack{
-                                    ForEach(frequenze, id:\.self){ frequenza in
+                                    ForEach(frequencies, id:\.self){ frequency in
                                         HStack{
-                                            Text(frequenza)
-                                                .foregroundStyle(impostazioni.impostazioneSel == frequenza ? Color.primary : .gray)
+                                            Text(frequency)
+                                                .foregroundStyle(settings.selectedSetting == frequency ? Color.primary : .gray)
                                             Spacer()
-                                            if impostazioni.impostazioneSel  == frequenza{
+                                            if settings.selectedSetting  == frequency{
                                                 Image(systemName: "checkmark")
                                                     .font(.subheadline)
                                             }
@@ -46,7 +47,7 @@ struct GestioneAnimazioniView: View{
                                             .padding(.horizontal)
                                             .onTapGesture{
                                                 withAnimation(.snappy){
-                                                    impostazioni.impostazioneSel  = frequenza
+                                                   settings.selectedSetting  = frequency
                                                 }
                                             }
                                     }

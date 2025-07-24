@@ -4,27 +4,27 @@ import PencilKit
 import UIKit
 import Foundation
 
-class Disegno: Identifiable, ObservableObject, Equatable, Codable{
+class Drawing: Identifiable, ObservableObject, Equatable, Codable{
     let id: UUID
     let date: Date
-    let emozione: String
-    let disegno: PKDrawing
+    let emotion: String
+    let drawing: PKDrawing
     let drawingbase64: String
     
-    init(disegno: PKDrawing, emozione: String){
+    init(drawing: PKDrawing, emotion: String){
         self.id = UUID()
-        self.disegno = disegno
-        self.drawingbase64 = disegno.dataRepresentation().base64EncodedString()
+        self.drawing = drawing
+        self.drawingbase64 = drawing.dataRepresentation().base64EncodedString()
         self.date = Date()
-        self.emozione = emozione
+        self.emotion = emotion
     }
     
     var pkDrawing: PKDrawing {
             (try? PKDrawing(data: Data(base64Encoded: drawingbase64) ?? Data())) ?? PKDrawing()
     }
     
-    static func ==(dis1: Disegno, dis2: Disegno)-> Bool {
-        return dis1.id == dis2.id
+    static func ==(draw1: Drawing, draw2: Drawing)-> Bool {
+        return draw1.id == draw2.id
     }
     
 }
@@ -37,9 +37,9 @@ extension PKDrawing {
 }
 
 
-class DisegniModel: ObservableObject {
-    @Published var disegni: [Disegno] = []
-    var emozioneCorrente: String = ""
+class DrawingModel: ObservableObject {
+    @Published var drawings: [Drawing] = []
+    var currentEmotion: String = ""
     
     private let fileURL: URL={
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -47,42 +47,42 @@ class DisegniModel: ObservableObject {
     }()
     
     init(){
-        caricaDisegni()
+        uploadDrawings()
     }
     
-    func aggiungi(_ disegno: Disegno){
-        disegni.insert(disegno, at: 0)
-        salvaDisegni()
+    func add(_ drawing: Drawing){
+        drawings.insert(drawing, at: 0)
+        saveDrawings()
     }
     
-    func salvaDisegni(){
+    func saveDrawings(){
         do{
-            let data = try JSONEncoder().encode(disegni)
+            let data = try JSONEncoder().encode(drawings)
             try data.write(to: fileURL)
         }catch{
             print("Errore nel salvataggio!")
         }
     }
     
-    func caricaDisegni(){
+    func uploadDrawings(){
         do{
             let data = try Data(contentsOf: fileURL)
-            disegni = try JSONDecoder().decode([Disegno].self, from: data)
+            drawings = try JSONDecoder().decode([Drawing].self, from: data)
         }catch{
             print("Errore nel caricamento!")
         }
     }
     
-    func cancellaDisegno(_ disegno: Disegno){
-        if let indice = disegni.firstIndex(of: disegno) {
-                disegni.remove(at: indice)
-                salvaDisegni()
+    func deleteDrawing(_ drawing: Drawing){
+        if let index = drawings.firstIndex(of: drawing) {
+                drawings.remove(at: index)
+                saveDrawings()
             }
     }
     
-    func resettaDisegni(){
-        disegni.removeAll()
-        salvaDisegni()
+    func resetDrawings(){
+        drawings.removeAll()
+        saveDrawings()
     }
     
 }
@@ -96,7 +96,7 @@ extension URL{
     
 
 
-//@Model
+
 class DesignModel {
     private var drawingData: Data
     var drawing: PKDrawing {
@@ -122,17 +122,8 @@ class DesignModel {
         drawingData = Data()
     }
 }
-extension PKDrawing {
-    
-    func saveToPhotoLibrary() {
-        // Generate a UIImage from the drawing (since only UIImages can be saved to photo library):
-        let uiImage = self.image(from: self.bounds, scale: 1)
-        
-        // Call a UIKit method to save an image
-        UIImageWriteToSavedPhotosAlbum(uiImage, nil, nil, nil)
-    }
-    
-}
+
+
 struct CanvasView: UIViewRepresentable {
     @Binding var toolPickerShows: Bool
     @Binding var drawing: PKDrawing
@@ -140,21 +131,16 @@ struct CanvasView: UIViewRepresentable {
     private let toolPicker = PKToolPicker()
     
     func makeUIView(context: Context) -> PKCanvasView {
-        // Allow finger drawing
         canvasView.drawingPolicy = .anyInput
         canvasView.delegate = context.coordinator
-        // Make the tool picker visible or invisible depending on toolPickerShows
         toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
-        // Make the canvas respond to tool changes
         toolPicker.addObserver(canvasView)
         if let window = UIApplication.shared.windows.first {
-                   // Prendi la tool picker condivisa
                    let toolPicker = PKToolPicker.shared(for: window)
                    context.coordinator.toolPicker = toolPicker
                    toolPicker?.setVisible(toolPickerShows, forFirstResponder: canvasView)
                    toolPicker?.addObserver(canvasView)
                }
-        // Make the canvas active -- first responder
         if toolPickerShows {
             canvasView.becomeFirstResponder()
         }
@@ -163,11 +149,7 @@ struct CanvasView: UIViewRepresentable {
     }
     
     func updateUIView(_ canvasView: PKCanvasView, context: Context) {
-        // Called when SwiftUI updates the view, (makeUIView(context:) called when creating the view.)
-        // For example, called when toolPickerShows is toggled:
-        // so hide or show tool picker
         canvasView.drawing = drawing
-
         if toolPickerShows {
             toolPicker.setVisible(true, forFirstResponder: canvasView)
             toolPicker.addObserver(canvasView)
@@ -178,9 +160,11 @@ struct CanvasView: UIViewRepresentable {
             canvasView.resignFirstResponder()
         }
     }
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(drawing: $drawing)
     }
+    
     class Coordinator: NSObject, PKCanvasViewDelegate {
             var drawing: Binding<PKDrawing>
             var toolPicker: PKToolPicker?
@@ -193,21 +177,19 @@ struct CanvasView: UIViewRepresentable {
                 drawing.wrappedValue = canvasView.drawing
             }
         }
-    
-    
 }
     
 struct ContentView1: View {
     @EnvironmentObject var navManager: NavigationManager
-    @State private var disegno = PKDrawing()
+    @State private var drawing = PKDrawing()
     @State private var toolPickerShows = true
-    @EnvironmentObject var disegni: DisegniModel
+    @EnvironmentObject var drawings: DrawingModel
     var text: String
-    var emozione: String
+    var emotion: String
 
     var body: some View {
         VStack {
-            CanvasView(toolPickerShows: $toolPickerShows, drawing: $disegno)
+            CanvasView(toolPickerShows: $toolPickerShows, drawing: $drawing)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -220,8 +202,8 @@ struct ContentView1: View {
   
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    let nuovoDisegno = Disegno(disegno: disegno, emozione: emozione)
-                    disegni.aggiungi(nuovoDisegno)
+                    let newDrawing = Drawing(drawing: drawing, emotion: emotion)
+                    drawings.add(newDrawing)
                     toolPickerShows = false
                     DispatchQueue.main.asyncAfter(deadline:  .now() + 0.3) {
                         navManager.currentView = .home

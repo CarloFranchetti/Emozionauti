@@ -2,13 +2,13 @@
 import SwiftUI
 import SpriteKit
 
-struct MinigiocoNoia: View {
+struct BoredomView: View {
     @EnvironmentObject var navManager: NavigationManager
-    @Binding var vaiAvanti: Bool
-    var coloreNoiaOmbra: Color
-    var coloreNoia: Color
+    @Binding var ahead: Bool
+    var boredomShadowColor: Color
+    var boredomColor: Color
     
-    @State private var giocoNoia: GameScene = {
+    @State private var boredomGame: GameScene = {
         let scene = GameScene()
         scene.size = CGSize(width: 1024, height: 768)
         scene.scaleMode = .resizeFill
@@ -18,10 +18,11 @@ struct MinigiocoNoia: View {
     var body: some View {
         ZStack {
             SpriteView(scene: {
-                giocoNoia.vaiAvanti = $vaiAvanti
-                return giocoNoia}())
+                boredomGame.ahead = $ahead
+                return boredomGame
+                }())
                 .ignoresSafeArea()
-            if vaiAvanti{
+            if ahead{
                 VStack{
                     Spacer()
                     Button(action: {
@@ -31,10 +32,10 @@ struct MinigiocoNoia: View {
                             .font(.custom("Mitr-Regular", size: 30))
                             .foregroundColor(.white)
                             .frame(width: 250, height: 100)
-                            .background(coloreNoia)
+                            .background(boredomColor)
                             .cornerRadius(20)
                             .padding([.bottom],30)
-                    } .shadow(color: coloreNoiaOmbra, radius: 0, x: 5, y: 10)
+                    } .shadow(color: boredomShadowColor, radius: 0, x: 5, y: 10)
                 }
             }
                 

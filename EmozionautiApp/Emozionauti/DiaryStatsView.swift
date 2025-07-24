@@ -10,39 +10,34 @@ struct DiaryStatsView: View {
     @State private var selectedEmotion: String? = nil
 
     let emotionImages: [String: Image] = [
-        "rabbia": Image("rabbia"),
-        "paura": Image("paura"),
-        "felicita": Image("felicita"),
-        "tristezza": Image("tristezza"),
-        "noia": Image("noia")
+        "anger": Image("rabbia"),
+        "fear": Image("paura"),
+        "happiness": Image("felicita"),
+        "sadness": Image("tristezza"),
+        "boredom": Image("noia")
     ]
     
     let emotionColors: [String: Color] = [
-        "felicita": Color(red:12/255,green:165/255,blue:7/255),
-        "rabbia": Color(red:202/255,green:37/255,blue:22/255),
-        "paura": Color(red:125/255,green:27/255,blue:191/255),
-        "tristezza": Color(red:19/255,green:43/255,blue:137/255),
-        "noia": Color(red:171/255,green:173/255,blue:171/255)
+        "happiness": Color(red:12/255,green:165/255,blue:7/255),
+        "anger": Color(red:202/255,green:37/255,blue:22/255),
+        "fear": Color(red:125/255,green:27/255,blue:191/255),
+        "sadness": Color(red:19/255,green:43/255,blue:137/255),
+        "boredom": Color(red:171/255,green:173/255,blue:171/255)
     ]
 
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
-                // Titolo
                 Text("Calendario delle Emozioni")
                     .font(.title3)
                     .bold()
                     .padding(.top, 70)
 
-                // Calendario
-                CalendarView(dataSelezionata: $selectedDate)
+                CalendarView(selectedDate: $selectedDate)
                     .environmentObject(diaryViewModel)
                     .frame(height: geo.size.height * 0.45)
-
                 Divider()
-
                 let stats = diaryViewModel.emotionStats(for: selectedDate)
-
                 if stats.isEmpty {
                     Spacer()
                     Text("Nessuna emozione registrata per questa data.")
@@ -51,18 +46,13 @@ struct DiaryStatsView: View {
                     Spacer()
                 } else {
                     Spacer()
-
-                    // Grafico a torta centrato
                     HStack(alignment: .center, spacing: 24) {
-                        // Grafico a torta
                         EmotionPieChartView(
                             emotionStats: stats,
                             emotionColors: emotionColors,
                             trigger: $animatePie
                         )
                         .frame(width: 200, height: 200)
-
-                        // Legenda verticale
                         VStack(alignment: .leading, spacing: 8) {
                             ForEach(stats.sorted(by: { $0.value > $1.value }), id: \.key) { emotion, value in
                                 let percentage = Double(value) / Double(stats.values.reduce(0, +)) * 100
@@ -85,7 +75,7 @@ struct DiaryStatsView: View {
                     .padding(.horizontal)
                     Spacer()
 
-                    // Ring centrali in fondo
+
                     HStack(spacing: 24) {
                         ForEach(stats.sorted(by: { $0.key < $1.key }), id: \.key) { emotion in
                             let count = stats[emotion.key] ?? 0
@@ -102,7 +92,7 @@ struct DiaryStatsView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.bottom, 24) // ridotto rispetto a geo.safeAreaInsets
+                    .padding(.bottom, 24) 
                 }
             }
             .frame(width: geo.size.width, height: geo.size.height)

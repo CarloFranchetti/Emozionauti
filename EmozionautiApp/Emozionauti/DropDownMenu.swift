@@ -10,8 +10,8 @@ import SwiftUI
 struct DropDownMenu: View{
     let title: String
     let options: [String]
-    @Binding var selezionatoE: String
-    @State private var filtroEaperto = false
+    @Binding var selected: String
+    @State private var open = false
 
     
     var body: some View{
@@ -24,29 +24,29 @@ struct DropDownMenu: View{
                         .opacity(0.8)
                     VStack{
                         HStack{
-                            Text(selezionatoE)
+                            Text(selected)
                             Spacer()
                             Image(systemName: "chevron.down")
                                 .font(.subheadline)
                                 .foregroundStyle(.gray)
-                                .rotationEffect(.degrees(filtroEaperto ? -180 : 0))
+                                .rotationEffect(.degrees(open ? -180 : 0))
                         }.frame(height:40)
                             .padding(.horizontal)
                             .onTapGesture {
                                 withAnimation(.snappy){
-                                    filtroEaperto.toggle()
+                                    open.toggle()
                                 }
                             }
                     }
-                    if filtroEaperto{
+                    if open{
                         ZStack{
                             VStack{
                                 ForEach(options, id:\.self){ option in
                                     HStack{
                                         Text(option)
-                                            .foregroundStyle(selezionatoE == option ? Color.primary : .gray)
+                                            .foregroundStyle(selected == option ? Color.primary : .gray)
                                         Spacer()
-                                        if selezionatoE == option{
+                                        if selected == option{
                                             Image(systemName: "checkmark")
                                                 .font(.subheadline)
                                         }
@@ -54,8 +54,8 @@ struct DropDownMenu: View{
                                         .padding(.horizontal)
                                         .onTapGesture{
                                             withAnimation(.snappy){
-                                                selezionatoE = option
-                                                filtroEaperto.toggle()
+                                                selected = option
+                                                open.toggle()
                                             }
                                         }
                                 }
@@ -70,7 +70,3 @@ struct DropDownMenu: View{
         }
         }
 }
-
-/*#Preview {
-    DropDownMenu(selezionatoE: .constant("Felicità"));
-}*/

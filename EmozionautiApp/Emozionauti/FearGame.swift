@@ -1,17 +1,16 @@
 import SwiftUI
 import AudioToolbox
 
-struct MinigiocoPaura: View {
+struct FearGame: View {
     @EnvironmentObject var navManager: NavigationManager
-
-    @State private var numeri = Array(1...7).shuffled()
-    @State private var proxNumero = 1
-    @State private var numeriSelezionati: Set<Int> = []
-    @State private var errore = false
-    @State private var corretto = false
-    @State var rotazione = 0.0
-    var colorePaura: Color
-    var colorePauraOmbra: Color
+    @State private var numbers = Array(1...7).shuffled()
+    @State private var nextNumber = 1
+    @State private var selectedNumbers: Set<Int> = []
+    @State private var error = false
+    @State private var correct = false
+    @State var rotation = 0.0
+    var fearColor: Color
+    var fearShadowColor: Color
     @State private var timer: Timer?
     
     var body: some View {
@@ -23,17 +22,17 @@ struct MinigiocoPaura: View {
                 .foregroundColor(.black)
                 .padding(.top, 30)
 
-            if errore {
+            if error {
                 Text("Oops! Riprova!")
                     .foregroundColor(.red)
                     .bold()
                     .transition(.opacity)
             }
 
-            if corretto {
+            if correct {
                 VStack(spacing: 20) {
                     Text("BEN FATTO!")
-                        .foregroundColor(colorePaura)
+                        .foregroundColor(fearColor)
                         .font(.custom("Modak", size: 50))
                     Spacer();
                     Button(action: {
@@ -43,42 +42,42 @@ struct MinigiocoPaura: View {
                             .font(.custom("Mitr-Regular", size: 36))
                             .foregroundColor(.white)
                             .frame(width: 300, height: 100)
-                            .background(colorePaura)
+                            .background(fearColor)
                             .cornerRadius(25)
-                            .shadow(color: colorePauraOmbra, radius: 0, x: 10, y: 10)
+                            .shadow(color: fearShadowColor, radius: 0, x: 10, y: 10)
                     }
                 }
             }
 
             ZStack {
-                ForEach(Array(numeri.enumerated()), id: \.element) { index, numero in
-                    if !numeriSelezionati.contains(numero) {
-                        let angolo = (Double(index) / Double(numeri.count) * 360 + rotazione).truncatingRemainder(dividingBy: 360)
-                        let raggio: CGFloat = 220
-                        let rad = angolo * .pi / 180
+                ForEach(Array(numbers.enumerated()), id: \.element) { index, number in
+                    if !selectedNumbers.contains(number) {
+                        let angle = (Double(index) / Double(numbers.count) * 360 + rotation).truncatingRemainder(dividingBy: 360)
+                        let radius: CGFloat = 220
+                        let rad = angle * .pi / 180
                         
                         Button(action: {
-                            handleTap(numero)
+                            handleTap(number)
                         }) {
-                            Text("\(numero)")
+                            Text("\(number)")
                                 .font(Font.custom("Mitr-Regular", size: 100))
                                 .frame(width: 100, height: 100)
                                 .background(.white)
                                 .foregroundColor(Color(red: 117/255, green: 48/255, blue: 212/255))
                                 .clipShape(Circle())
                         }
-                        .offset(x: cos(rad) * raggio, y: sin(rad) * raggio)
-                        .rotationEffect(.degrees(-rotazione))
+                        .offset(x: cos(rad) * radius, y: sin(rad) * radius)
+                        .rotationEffect(.degrees(-rotation))
                     }
                 }
             }
             .frame(height: 650)
-            .rotationEffect(.degrees(rotazione), anchor: .center)
+            .rotationEffect(.degrees(rotation), anchor: .center)
             .onAppear {
                 timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                    rotazione += 1
-                    if rotazione >= 360 {
-                        rotazione = 0
+                    rotation += 1
+                    if rotation >= 360 {
+                        rotation = 0
                     }
                 }
             }
@@ -90,34 +89,34 @@ struct MinigiocoPaura: View {
             Spacer()
         }
         .padding()
-        .animation(.easeInOut, value: numeriSelezionati)
+        .animation(.easeInOut, value: selectedNumbers)
     }
 
-    func handleTap(_ numero: Int) {
-        if numero == proxNumero {
-            suonoCorretto()
-            numeriSelezionati.insert(numero)
-            proxNumero += 1
+    func handleTap(_ number: Int) {
+        if number == nextNumber {
+            correctSound()
+            selectedNumbers.insert(number)
+            nextNumber += 1
 
-            if proxNumero > 7 {
-                corretto = true
+            if nextNumber > 7 {
+                correct = true
             }
         } else {
-            errore = true
+            error = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                errore = false
-                resetGioco()
+                error = false
+                resetGame()
             }
         }
     }
 
-    func resetGioco() {
-        numeri = Array(1...7).shuffled()
-        proxNumero = 1
-        numeriSelezionati = []
+    func resetGame() {
+        numbers = Array(1...7).shuffled()
+        nextNumber = 1
+        selectedNumbers = []
     }
 
-    func suonoCorretto() {
+    func correctSound() {
         AudioServicesPlaySystemSound(1104)
     }
 

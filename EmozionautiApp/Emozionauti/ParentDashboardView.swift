@@ -3,9 +3,9 @@ import SwiftUI
 struct ParentDashboardView: View {
     @EnvironmentObject var navManager: NavigationManager
     @EnvironmentObject var diaryViewModel: DiaryViewModel
-    @EnvironmentObject var disegni: DisegniModel
-    @State private var showResetDisegniAlert = false
-    @State private var showResetEmozioniAlert = false
+    @EnvironmentObject var drawings: DrawingModel
+    @State private var showResetDrawingsAlert = false
+    @State private var showResetEmotionsAlert = false
 
     var body: some View {
         List {
@@ -40,26 +40,26 @@ struct ParentDashboardView: View {
 
             Section {
                 Button {
-                    showResetEmozioniAlert = true
+                    showResetEmotionsAlert = true
                 } label: {
                     Label("Reset emozioni", systemImage: "trash.fill")
                         .foregroundColor(.red)
                 }
-                .alert("Sei sicuro di voler resettare le emozioni?", isPresented: $showResetEmozioniAlert){
+                .alert("Sei sicuro di voler resettare le emozioni?", isPresented: $showResetEmotionsAlert){
                     Button("Cancella", role: .cancel){}
                     Button("OK", role: .destructive){diaryViewModel.resetStats()}
                 }
                 
                 Button {
-                    showResetEmozioniAlert = true
+                    showResetEmotionsAlert = true
                     
                 } label: {
                     Label("Resetta disegni", systemImage: "eraser")
                         .foregroundColor(.red)
                 }
-                .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDisegniAlert){
+                .alert("Sei sicuro di voler resettare i disegni?", isPresented: $showResetDrawingsAlert){
                     Button("Cancella", role: .cancel){}
-                    Button("OK", role: .destructive){disegni.resettaDisegni()}
+                    Button("OK", role: .destructive){drawings.resetDrawings()}
                 }
 
                 Button {
