@@ -1,20 +1,20 @@
 import SwiftUI
 import SpriteKit
 
-struct MinigiocoFelicitaView: View {
-    var coloreFelicita: Color
-    var coloreFelicitaOmbra: Color
-    var coloreSfondo: Color
+struct HappinessGameView: View {
+    var happinessColor: Color
+    var happinessShadowColor: Color
+    var backgroundColor: Color
     
     @EnvironmentObject var navManager: NavigationManager
-    @StateObject private var minigioco: MinigiocoFelicitaViewModel
+    @StateObject private var game: HappinessGameViewModel
     
-    init(coloreFelicita: Color, coloreFelicitaOmbra: Color, coloreS: Color) {
-        self.coloreFelicita = coloreFelicita
-        self.coloreFelicitaOmbra = coloreFelicitaOmbra
-        self.coloreSfondo = coloreS
-        let viewModel = MinigiocoFelicitaViewModel(colore: UIColor(coloreFelicita), coloreSfondo: UIColor(coloreSfondo))
-        _minigioco = StateObject(wrappedValue: viewModel)
+    init(happinessColor: Color, happinessShadowColor: Color, backgroundC: Color) {
+        self.happinessColor = happinessColor
+        self.happinessShadowColor = happinessShadowColor
+        self.backgroundColor = backgroundC
+        let viewModel = HappinessGameViewModel(happinessColor: UIColor(happinessColor), backgroundColor: UIColor(backgroundColor))
+        _game = StateObject(wrappedValue: viewModel)
     }
 
 
@@ -23,7 +23,7 @@ struct MinigiocoFelicitaView: View {
             SpriteView(scene: makeScene())
                 .ignoresSafeArea()
             
-            if minigioco.giocoFinito{
+            if game.endGame{
                 VStack {
                     Spacer()
                     Button(action: {
@@ -32,7 +32,7 @@ struct MinigiocoFelicitaView: View {
                         Text("Avanti")
                             .font(.custom("Mitr-regular", size:30))
                             .padding()
-                            .background(coloreFelicita)
+                            .background(happinessColor)
                             .foregroundColor(.white)
                             .cornerRadius(12)
                     }
@@ -43,10 +43,10 @@ struct MinigiocoFelicitaView: View {
     }
 
     func makeScene() -> SKScene {
-        let scena = MinigiocoFelicita2(size: UIScreen.main.bounds.size)
-        scena.viewModel = minigioco
-        scena.scaleMode = .resizeFill
-        return scena
+        let scene = HappinessGame(size: UIScreen.main.bounds.size)
+        scene.viewModel = game
+        scene.scaleMode = .resizeFill
+        return scene
     }
 }
 

@@ -27,11 +27,7 @@ struct AnimationManagementView: View{
         ZStack{
             VStack{
                 List{
-                    Section (header: Text("Mostra animazioni:")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                                .foregroundColor(.black))
-                    {
+                    Section{
                             ZStack{
                                 VStack{
                                     ForEach(frequencies, id:\.self){ frequency in
@@ -58,12 +54,13 @@ struct AnimationManagementView: View{
                             
 
                         }
-                        .textCase(nil)
+                        
                     
                 }
                     
                 Spacer()
             }
-        }
+        }.navigationBarTitle("Mostra animazioni")
+        .navigationBarTitleDisplayMode(.inline)
         }
 }
