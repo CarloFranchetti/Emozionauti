@@ -28,7 +28,7 @@ struct VideoPlayerView: UIViewControllerRepresentable {
             player.play()
         }
         else {
-            print("Video not found")
+            print("Video non trovato")
         }
         return controller
     }
