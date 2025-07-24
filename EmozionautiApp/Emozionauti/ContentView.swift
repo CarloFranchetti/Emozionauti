@@ -116,6 +116,8 @@ struct ContentView: View {
                     case .animationManager:
                         GestioneAnimazioniView()
                         .environmentObject(settingsAnimation)
+                    case .notificationSettings:
+                        NotificationSettingsView()
                         
                 }
             }
@@ -141,7 +143,7 @@ struct ContentView: View {
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
         .environmentObject(drawingModel)
-        .onAppear{
+        .environmentObject(drawingModel)
             AppDelegate.instance.requestAuthorization()
         }
     }

@@ -40,9 +40,3 @@ struct GifImage: UIViewRepresentable {
     typealias UIViewType = WKWebView
 
 }
-
-struct GifImage_Previews: PreviewProvider{
-    static var previews: some View{
-        GifImage("dancingAlien")
-    }
-}

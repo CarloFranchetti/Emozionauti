@@ -25,4 +25,5 @@ enum NavigationViewType {
     case skipSadnessAnimation
     case skipBoredomAnimation
     case skipFearAnimation
+    case notificationSettings
 }

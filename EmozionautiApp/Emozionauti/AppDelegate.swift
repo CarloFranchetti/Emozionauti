@@ -17,26 +17,35 @@ class AppDelegate:NSObject, UIApplicationDelegate{
             } else {
                 print("Success")
                 DispatchQueue.main.async {
-                    self.scheduleNotification()
+                    let hour = UserDefaults.standard.integer(forKey: "notificationHour")
+                    let minute = UserDefaults.standard.integer(forKey: "notificationMinute")
+                    self.scheduleNotification(atHour: hour, minute: minute)
                 }
             }
         }
     }
-    func scheduleNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Emozionauti"
-        content.body = "Prenditi un momento per esprimere le tue emozioni"
-        content.badge = 1
-        content.sound = .default
-        var dateComponents = DateComponents()
-        dateComponents.hour = 16
-        dateComponents.minute = 48
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString
-                                             , content: content,
-                                                trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
-    }
+    
+    func scheduleNotification(atHour hour: Int, minute: Int) {
+            // Rimuovi notifiche precedenti
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Emozionauti"
+            content.body = "Prenditi un momento per esprimere le tue emozioni"
+            content.sound = .default
+            content.badge = 1
+
+            var dateComponents = DateComponents()
+            dateComponents.hour = hour
+            dateComponents.minute = minute
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            let request = UNNotificationRequest(identifier: UUID().uuidString
+                                                 , content: content,
+                                                    trigger: trigger)
+            UNUserNotificationCenter.current().add(request)
+        }
+
     func applicationDidBecomeActive(_ application: UIApplication) {
             application.applicationIconBadgeNumber = 0
         }

@@ -3,65 +3,65 @@ import AVFoundation
 import SwiftUI
 
 class GameScene: SKScene {
-    var vaiAvanti: Binding<Bool>?
+    var ahead: Binding<Bool>?
     
-    struct ElementoStruct {
-        let nome: String
+    struct ElementStruct {
+        let name: String
         let id: Int
         
-        init(id: Int, nome: String){
+        init(id: Int, name: String){
             self.id = id
-            self.nome = nome
+            self.name = name
         }
     }
     
-    let alieni: [ElementoStruct] = [ElementoStruct(id: 0, nome: "AlienoController"), ElementoStruct(id: 1, nome: "AlienoLibro"), ElementoStruct(id: 2, nome: "AlienoGelato")]
-    let oggetti: [ElementoStruct] = [ElementoStruct(id: 0, nome: "Controller"), ElementoStruct(id: 1, nome: "Libro"), ElementoStruct(id: 2, nome: "Gelato")]
-    var posizioniOriginaliA: [SKSpriteNode: CGPoint] = [:]
+    let aliens: [ElementStruct] = [ElementStruct(id: 0, name: "AlienoController"), ElementStruct(id: 1, name: "AlienoLibro"), ElementStruct(id: 2, name: "AlienoGelato")]
+    let objects: [ElementStruct] = [ElementStruct(id: 0, name: "Controller"), ElementStruct(id: 1, name: "Libro"), ElementStruct(id: 2, name: "Gelato")]
+    var aliensOriginalPositions: [SKSpriteNode: CGPoint] = [:]
     
     
-    var alieniGioco: [SKSpriteNode] = []
-    var oggettiGioco: [SKSpriteNode] = []
+    var aliensGame: [SKSpriteNode] = []
+    var objectsGame: [SKSpriteNode] = []
     var matches: [String: String] = [:]
-    var descrizione: SKLabelNode!
-    var nodoTrascinato: SKSpriteNode?
+    var gameDetail: SKLabelNode!
+    var draggedNode: SKSpriteNode?
     var touchOffset: CGPoint = .zero
     
     override func didMove(to view: SKView) {
-        descrizione = SKLabelNode(text: "Collega ogni alieno a ciò che lo rende felice!")
-        descrizione.fontName = "Mitr-Regular"
-        descrizione.fontSize = 30
-        descrizione.fontColor = .black
-        descrizione.position = CGPoint(x: size.width/2, y: size.height - 200)
-        descrizione.horizontalAlignmentMode = .center
-        addChild(descrizione)
+        gameDetail = SKLabelNode(text: "Collega ogni alieno a ciò che lo rende felice!")
+        gameDetail.fontName = "Mitr-Regular"
+        gameDetail.fontSize = 30
+        gameDetail.fontColor = .black
+        gameDetail.position = CGPoint(x: size.width/2, y: size.height - 200)
+        gameDetail.horizontalAlignmentMode = .center
+        addChild(gameDetail)
         
         backgroundColor = .white
-        inserisciAlieniEOggetti()
+        addAliensObjects()
     }
     
-    func inserisciAlieniEOggetti() {
-        let alieniMischiati = alieni.shuffled()
-        let oggettiMischiati = oggetti.shuffled()
+    func addAliensObjects() {
+        let shuffledAliens = aliens.shuffled()
+        let shuffledObjects = objects.shuffled()
         
-        let spaziatura: CGFloat = 180
-        let posVerticale = size.height - 400
-        for (index, el) in alieniMischiati.enumerated() {
-            let alieno = SKSpriteNode(imageNamed: el.nome)
-            alieno.size = CGSize(width: 150, height: 150)
-            alieno.position = CGPoint(x: size.width * 0.25 , y: posVerticale - (CGFloat(index) * spaziatura))
-            alieno.name = el.nome
-            addChild(alieno)
-            alieniGioco.append(alieno)
-            posizioniOriginaliA[alieno] = CGPoint(x: size.width*0.25, y:posVerticale - (CGFloat(index) * spaziatura))
+        let spacing: CGFloat = 180
+        let verticalPosition = size.height - 400
+        for (index, el) in shuffledAliens.enumerated() {
+            let alien = SKSpriteNode(imageNamed: el.name)
+            alien.size = CGSize(width: 150, height: 150)
+            alien.position = CGPoint(x: size.width * 0.25 , y: verticalPosition - (CGFloat(index) * spacing))
+            alien.name = el.name
+            addChild(alien)
+            aliensGame.append(alien)
+            aliensOriginalPositions[alien] = CGPoint(x: size.width*0.25, y:verticalPosition - (CGFloat(index) * spacing))
         }
-        for (index, el) in oggettiMischiati.enumerated() {
-            let oggetto = SKSpriteNode(imageNamed: el.nome)
-            oggetto.size = CGSize(width: 130, height: 130)
-            oggetto.position = CGPoint(x: size.width * 0.75, y: posVerticale - (CGFloat(index) * spaziatura))
-            oggetto.name = el.nome
-            addChild(oggetto)
-            oggettiGioco.append(oggetto)
+        for (index, el) in shuffledObjects.enumerated() {
+            let object = SKSpriteNode(imageNamed: el.name)
+            object.size = CGSize(width: 130, height: 130)
+            object.position = CGPoint(x: size.width * 0.75, y: verticalPosition - (CGFloat(index) * spacing))
+            object.name = el.name
+            addChild(object)
+            objectsGame.append(object)
         }
     }
     
@@ -69,10 +69,10 @@ class GameScene: SKScene {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
         
-        for alieno in alieniGioco{
-            if alieno.contains(location) {
-                nodoTrascinato = alieno
-                touchOffset = CGPoint(x: alieno.position.x - location.x, y: alieno.position.y - location.y)
+        for alien in aliensGame{
+            if alien.contains(location) {
+                draggedNode = alien
+                touchOffset = CGPoint(x: alien.position.x - location.x, y: alien.position.y - location.y)
                 break
             }
         }
@@ -80,62 +80,62 @@ class GameScene: SKScene {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first,
-              let nodo = nodoTrascinato else { return }
-        let posizione = touch.location(in: self)
-        nodo.position = CGPoint(x: posizione.x + touchOffset.x, y: posizione.y + touchOffset.y)
+              let node = draggedNode else { return }
+        let position = touch.location(in: self)
+        node.position = CGPoint(x: position.x + touchOffset.x, y: position.y + touchOffset.y)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first, let alieno = nodoTrascinato else { return }
+        guard let touch = touches.first, let alien = draggedNode else { return }
         let posizione = touch.location(in: self)
         
-        for oggetto in oggettiGioco {
-            if oggetto.contains(posizione) {
-                verifica(alienoSel: alieno, ogg: oggetto)
+        for object in objectsGame {
+            if object.contains(position) {
+                verify(selectedAlien: alien, obj: object)
                 break
             }
         }
         
-        nodoTrascinato = nil
+        draggedNode = nil
     }
     
-    func verifica(alienoSel: SKSpriteNode, ogg: SKSpriteNode) {
-        guard let alieno = alieni.first(where: { $0.nome == alienoSel.name }),
-            let oggetto = oggetti.first(where: {$0.nome == ogg.name})
+    func verify(selectedAlien: SKSpriteNode, obj: SKSpriteNode) {
+        guard let alien = aliens.first(where: { $0.name == selectedAlien.name }),
+            let object = objects.first(where: {$0.name == obj.name})
         else { return }
         
-        if alieno.id == oggetto.id {
-            matches[alieno.nome] = oggetto.nome
-            alienoSel.removeFromParent()
-            ogg.removeFromParent()
-            alieniGioco.removeAll { $0 == alienoSel }
-            oggettiGioco.removeAll { $0 == ogg }
+        if alien.id == object.id {
+            matches[alien.name] = object.name
+            selectedAlien.removeFromParent()
+            obj.removeFromParent()
+            aliensGame.removeAll { $0 == selectedAlien }
+            objectsGame.removeAll { $0 == obj }
             playSound(success: true)
-            verificaFine(selezionatoA: alienoSel, selezionatoO: ogg )
+            verifyEnd(selectedAlien: selectedAlien, selectedObj: obj )
         } else {
 
-            resetPosizione(alienoSel)
+            resetPosition(selectedAlien)
             playSound(success: false)
         }
     }
     
-    func verificaFine(selezionatoA: SKSpriteNode, selezionatoO: SKSpriteNode) {
-        if matches.count == alieni.count {
-            alieniGioco.removeAll()
-            oggettiGioco.removeAll()
-            fineGioco()
+    func verifyEnd(selectedAlien: SKSpriteNode, selectedObj: SKSpriteNode) {
+        if matches.count == aliens.count {
+            aliensGame.removeAll()
+            objectsGame.removeAll()
+            endGame()
             
         }
     }
     
-    func fineGioco() {
-        vaiAvanti?.wrappedValue = true
-        let fineMessaggio = SKLabelNode(text: "BEN FATTO!")
-        fineMessaggio.fontName = "Modak"
-        fineMessaggio.fontSize = 48
-        fineMessaggio.fontColor = .gray
-        fineMessaggio.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        addChild(fineMessaggio)
+    func endGame() {
+        ahead?.wrappedValue = true
+        let endText = SKLabelNode(text: "BEN FATTO!")
+        endText.fontName = "Modak"
+        endText.fontSize = 48
+        endText.fontColor = .gray
+        endText.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        addChild(endText)
         
     }
     
@@ -144,9 +144,9 @@ class GameScene: SKScene {
         AudioServicesPlaySystemSound(soundID)
     }
     
-    func resetPosizione(_ alieno: SKSpriteNode) {
-           if let posOriginale = posizioniOriginaliA[alieno] {
-               alieno.run(SKAction.move(to: posOriginale, duration: 0.2))
+    func resetPosition(_ alien: SKSpriteNode) {
+           if let originalPos = aliensOriginalPositions[alien] {
+               alien.run(SKAction.move(to: originalPos, duration: 0.2))
            }
        }
 }
