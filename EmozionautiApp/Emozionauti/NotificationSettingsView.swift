@@ -9,7 +9,7 @@ struct NotificationSettingsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Promemoria giornaliero")) {
+            Section () {
                 Toggle("Consenti notifiche", isOn: $notificationsEnabled)
                     .onChange(of: notificationsEnabled) { value in
                         if value {
@@ -30,13 +30,14 @@ struct NotificationSettingsView: View {
                     }
             }
         }
+        .navigationBarTitle("Notifiche")
+            .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             var components = DateComponents()
             components.hour = hour
             components.minute = minute
             selectedTime = Calendar.current.date(from: components) ?? Date()
         }
-        .navigationTitle("Notifiche")
     }
 
     func scheduleNotification() {

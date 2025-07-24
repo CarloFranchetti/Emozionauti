@@ -38,7 +38,7 @@ struct ParentDashboardView: View {
                 }
             }
 
-            Section {
+            Section (header: Text("Azioni")) {
                 Button {
                     showResetEmozioniAlert = true
                 } label: {
