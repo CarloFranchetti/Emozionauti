@@ -1,7 +1,7 @@
 import SwiftUI
 import AVFoundation
 
-struct MinigiocoTristezza: View {
+struct SadnessGame: View {
     @EnvironmentObject var navManager: NavigationManager
     var sadnessColor: Color
     var sadnessShadowColor: Color

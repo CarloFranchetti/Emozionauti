@@ -4,9 +4,9 @@ struct ContentView: View {
     @StateObject var navManager = NavigationManager()
     @StateObject private var diaryViewModel: DiaryViewModel
     @State private var vaiAvanti = false
-    @StateObject private var disegniModel = DisegniModel()
+    @StateObject private var disegniModel = DrawingModel()
     @State private var fineGiocoFelicita = false
-    @StateObject private var impostazioniAnimazione = GestioneAnimazioniModel()
+    @StateObject private var impostazioniAnimazione = AnimationManagementModel()
     
     init(diaryViewModel: DiaryViewModel) {
             _diaryViewModel = StateObject(wrappedValue: diaryViewModel)
@@ -30,7 +30,7 @@ struct ContentView: View {
             ZStack {
                 switch navManager.currentView {
                     case .splash:
-                        SchermataIcona()
+                        IconScreen()
                     case .home:
                         SchermataHome(coloriEmozioni: colori)
                     case .animazioneRabbia:
@@ -42,7 +42,7 @@ struct ContentView: View {
                             nextView: .minigiocoRabbia
                         )
                     case .minigiocoRabbia:
-                    MinigiocoRabbia(colore: colori["rabbiaombra"]!,coloreOmbra: colori["rabbia"]!)
+                    AngerGame(angerColor: colori["rabbiaombra"]!,angerShadowColor: colori["rabbia"]!)
                     case .animazioneFelicita:
                         Animazione(
                             animazione: "AnimazioneFelicità",
@@ -62,7 +62,7 @@ struct ContentView: View {
                             nextView: .minigiocoPaura
                         )
                     case .minigiocoPaura:
-                    MinigiocoPaura(colorePaura: colori["pauraombra"]!,colorePauraOmbra:colori["paura"]!)
+                    FearGame(fearColor: colori["pauraombra"]!,fearShadowColor:colori["paura"]!)
                     case .animazioneNoia:
                         Animazione(
                             animazione: "AnimazioneNoia",
@@ -72,7 +72,7 @@ struct ContentView: View {
                             nextView: .minigiocoNoia
                         )
                     case .minigiocoNoia:
-                    MinigiocoNoia(vaiAvanti:$vaiAvanti,coloreNoiaOmbra: colori["noia"]!,coloreNoia:colori["noiaombra"]!)
+                    BoredomView(ahead:$vaiAvanti,boredomShadowColor: colori["noia"]!,boredomColor:colori["noiaombra"]!)
                     case .animazioneTristezza:
                         Animazione(
                             animazione: "AnimazioneTristezza",
@@ -82,9 +82,9 @@ struct ContentView: View {
                             nextView: .minigiocoTristezza
                         )
                     case .minigiocoTristezza:
-                    MinigiocoTristezza(coloreTriste: colori["tristezzaombra"]!,coloreTristeOmbra: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
+                    SadnessGame(sadnessColor: colori["tristezzaombra"]!,sadnessShadowColor: colori["tristezza"]!, song: "songysong", image:"dancingAlien")
                     case .canvas(let text, let emozione):
-                    ContentView1(text: text, emozione: emozione)
+                    ContentView1(text: text, emotion: emozione)
                         .environmentObject(disegniModel)
                     case .diario:
                         DiaryStatsView()
@@ -119,7 +119,7 @@ struct ContentView: View {
                         .environmentObject(impostazioniAnimazione)
                         .environmentObject(diaryViewModel)
                     case .gestoreAnimazioni:
-                        GestioneAnimazioniView()
+                        AnimationManagementView()
                         .environmentObject(impostazioniAnimazione)
                         
                 }
