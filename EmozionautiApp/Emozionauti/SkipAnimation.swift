@@ -7,80 +7,80 @@
 
 import SwiftUI
 
-struct SaltaAnimazione: View {
-    var emozione : String
-    var sfondo: Color
-    var colore: Color
-    var coloreOmbra: Color
-    var disabilitaAnimazione : Bool = false
-    var disabilitaMinigioco : Bool = false
+struct SkipAnimation: View {
+    var emotion : String
+    var background: Color
+    var animationColor: Color
+    var animationShadowColor: Color
+    var disableAnimation : Bool = false
+    var disableGame : Bool = false
     @State var nextViewAnimazione: NavigationViewType
     @State var nextViewMinigioco: NavigationViewType
     @EnvironmentObject var navManager: NavigationManager
-    @EnvironmentObject var impostazioneAnimazione : GestioneAnimazioniModel
+    @EnvironmentObject var animationSetting : GestioneAnimazioniModel
     @EnvironmentObject var diaryViewModel: DiaryViewModel
     
-    func salta () -> (Bool){
-        let oggi = Calendar.current.startOfDay(for: Date())
+    func skip () -> (Bool){
+        let today = Calendar.current.startOfDay(for: Date())
         print(diaryViewModel.emotionHistory)
         return diaryViewModel.emotionHistory.contains{ item in
-            Calendar.current.isDate(item.date, inSameDayAs: oggi) && item.emotion == emozione
+            Calendar.current.isDate(item.date, inSameDayAs: today) && item.emotion == emotion
         }
     
     }
-    func calcolaDisabilitazioni(sel: String) -> (disabilitaAnimazione: Bool, disabilitaMinigioco: Bool) {
+    func disableButtons(sel: String) -> (disableAnimation: Bool, disableGame: Bool) {
         switch sel {
         case "Sempre":
             return (false, true)
         case "Mai":
             return (false, false)
         case "Una volta per ogni emozione":
-            return (false, !salta())
+            return (false, !skip())
         default:
             return (false, false)
         }
     }
 
     var body: some View {
-        let impostazione = impostazioneAnimazione.impostazioneSel
-        let stato = calcolaDisabilitazioni(sel: impostazione)
+        let setting = animationSetting.impostazioneSel
+        let state = disableButtons(sel: setting)
         ZStack{
-            Color(sfondo)
+            Color(background)
                 .ignoresSafeArea()
             VStack(alignment: .center, spacing: 30){
                 Button (
                     action: {
-                        diaryViewModel.recordEmotion(emozione)
+                        diaryViewModel.recordEmotion(emotion)
                         navManager.currentView = nextViewAnimazione
                     }
                 ){ Text("Vai all'animazione")
                         .font(.custom("Mitr-regular", size: 45))
                         .frame(width: 500, height: 100)
-                        .background(colore)
+                        .background(animationColor)
                         .cornerRadius(20)
                         .foregroundColor(.white)
                         .padding()
                         
                 }
-                .shadow(color: coloreOmbra, radius: 0, x: 5, y: 10)
-                .disabled(stato.disabilitaAnimazione)
+                .shadow(color: animationShadowColor, radius: 0, x: 5, y: 10)
+                .disabled(state.disableAnimation)
                 Button (
                     action:{
-                        diaryViewModel.recordEmotion(emozione)
+                        diaryViewModel.recordEmotion(emotion)
                         navManager.currentView = nextViewMinigioco
                     }
                 ){ Text("Vai al minigioco")
                         .font(.custom("Mitr-regular", size: 45))
                         .frame(width: 500, height: 100)
-                        .background(colore)
+                        .background(animationColor)
                         .cornerRadius(20)
                         .foregroundColor(.white)
-                        .opacity(stato.disabilitaMinigioco ? 0.5 : 1)
+                        .opacity(state.disableGame ? 0.5 : 1)
                         .padding()
                 }
-                .shadow(color: coloreOmbra, radius: 0, x: 5, y:10)
-                .opacity(stato.disabilitaMinigioco ? 0 : 1) //decidere se mettere 0.5 o lasciare 0
-                .disabled(stato.disabilitaMinigioco)
+                .shadow(color: animationShadowColor, radius: 0, x: 5, y:10)
+                .opacity(state.disableGame ? 0 : 1) //decidere se mettere 0.5 o lasciare 0
+                .disabled(state.disableGame)
             }
         }
     }
