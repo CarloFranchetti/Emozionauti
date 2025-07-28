@@ -7,7 +7,6 @@
 
 
 import SwiftUI
-import Charts
 
 struct DiaryStatsView: View {
     @EnvironmentObject var diaryViewModel: DiaryViewModel
