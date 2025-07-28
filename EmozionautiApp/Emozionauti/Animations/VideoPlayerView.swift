@@ -16,7 +16,7 @@ struct VideoPlayerView: UIViewControllerRepresentable {
         if let path = Bundle.main.path(forResource: videoName, ofType: videoType) {
             let player = AVPlayer(url:URL(fileURLWithPath: path))
             controller.player=player
-            controller.showsPlaybackControls = true
+            controller.showsPlaybackControls = false
             player.actionAtItemEnd = .none
             NotificationCenter.default.addObserver(
                 forName: .AVPlayerItemDidPlayToEndTime,

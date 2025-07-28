@@ -45,11 +45,11 @@ struct CalendarView: View {
     ]
     
     let emotionsImages: [String: Image] = [
-        "happiness": Image("felicita"),
-        "rage": Image("rabbia"),
-        "fear": Image("paura"),
-        "sadness": Image("tristezza"),
-        "boredom": Image("noia")
+        "happiness": Image("Happiness"),
+        "rage": Image("Anger"),
+        "fear": Image("Fear"),
+        "sadness": Image("Sadness"),
+        "boredom": Image("Boredom")
     ]
     
     func heatmapColor(for intensity: Double) -> Color {
@@ -67,7 +67,6 @@ struct CalendarView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            //Header con mese corrente e frecce
             HStack {
                 Button(action: {
                     offsetCurrMonth -= 1
@@ -144,7 +143,7 @@ struct CalendarView: View {
                 if !emotions.isEmpty {
                     HStack(spacing: 2) {
                         ForEach(emotions, id: \.self) { emotion in
-                            (emotionsImages[emotion] ?? Image(systemName: "questionmark"))
+                            (emotionsImages[emotion] ?? Image(systemName: "emoji.square"))
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 10, height: 10)
