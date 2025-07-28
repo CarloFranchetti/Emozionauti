@@ -4,6 +4,7 @@
 //
 //  Created by Studente on 22/07/25.
 //
+
 import UserNotifications
 import SwiftUI
 
@@ -26,7 +27,6 @@ class AppDelegate:NSObject, UIApplicationDelegate{
     }
     
     func scheduleNotification(atHour hour: Int, minute: Int) {
-            // Rimuovi notifiche precedenti
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             
             let content = UNMutableNotificationContent()

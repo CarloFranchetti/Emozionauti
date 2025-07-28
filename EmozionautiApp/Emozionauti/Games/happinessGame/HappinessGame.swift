@@ -1,8 +1,8 @@
 //
-//  MinigiocoFelicita2.swift
+//  HappinessGame.swift
 //  Emozionauti
 //
-//  Created by Studente on 17/07/25.
+//  Created by Studente on 7/07/25.
 //
 
 import SpriteKit

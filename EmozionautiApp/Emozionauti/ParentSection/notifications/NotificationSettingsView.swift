@@ -1,3 +1,10 @@
+//
+//  NotificationSettingsView.swift
+//  Emozionauti
+//
+//  Created by Studente on 22/07/25.
+//
+
 import SwiftUI
 
 struct NotificationSettingsView: View {

@@ -2,7 +2,7 @@
 //  VideoPlayerView.swift
 //  Emozionauti
 //
-//  Created by Studente on 17/07/25.
+//  Created by Studente on 22/07/25.
 //
 
 import SwiftUI

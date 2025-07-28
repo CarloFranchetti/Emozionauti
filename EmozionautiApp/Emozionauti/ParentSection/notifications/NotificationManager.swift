@@ -1,3 +1,10 @@
+//
+//  UserNotifications.swift
+//  Emozionauti
+//
+//  Created by Studente on 22/07/25.
+//
+
 import UserNotifications
 
 class NotificationManager {
@@ -16,7 +23,6 @@ class NotificationManager {
     }
 
     func scheduleDailyReminder(atHour hour: Int, minute: Int) {
-        // Cancella eventuali notifiche precedenti
         removeAllNotifications()
     }
 }

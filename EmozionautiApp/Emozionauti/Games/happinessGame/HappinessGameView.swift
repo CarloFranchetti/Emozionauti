@@ -1,3 +1,10 @@
+//
+//  HappinessGameView.swift
+//  Emozionauti
+//
+//  Created by Studente on 18/07/25.
+//
+
 import SwiftUI
 import SpriteKit
 

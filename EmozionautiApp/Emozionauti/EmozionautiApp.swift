@@ -1,3 +1,10 @@
+//
+//  EmozionautiApp.swift
+//  Emozionauti
+//
+//  Created by Studente on 4/07/25.
+//
+
 import SwiftUI
 
 @main

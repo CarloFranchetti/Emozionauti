@@ -1,3 +1,10 @@
+//
+//  SingleEmotionRingView.swift
+//  Emozionauti
+//
+//  Created by Studente on 10/07/25.
+//
+
 import SwiftUI
 
 struct SingleEmotionRingView: View {

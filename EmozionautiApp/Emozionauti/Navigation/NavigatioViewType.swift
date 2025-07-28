@@ -1,10 +1,16 @@
-//serve a gestire in modo centralizzato e chiaro la navigazione tra le schermate della tua app SwiftUI, senza usare NavigationLink
+//
+//  NavigatioViewType.swift
+//  Emozionauti
+//
+//  Created by Studente on 10/07/25.
+//
+
 import Foundation
 
 enum NavigationViewType {
     case splash
     case home
-    case parentalControl //Sfondo richiesta password
+    case parentalControl
     case angerAnimation
     case happinessAnimation
     case fearAnimation
@@ -15,7 +21,7 @@ enum NavigationViewType {
     case fearGame
     case boredomGame
     case sadnessGame
-    case diary //Stats
+    case diary
     case parentDashboard
     case canvas(text: String, emotion: String)
     case animationManager
