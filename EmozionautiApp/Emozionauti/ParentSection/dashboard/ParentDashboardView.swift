@@ -58,7 +58,7 @@ struct ParentDashboardView: View {
                 }
                 
                 Button {
-                    showResetEmotionsAlert = true
+                    showResetDrawingsAlert = true
                     
                 } label: {
                     Label("Resetta disegni", systemImage: "eraser")
