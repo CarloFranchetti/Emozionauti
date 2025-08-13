@@ -5,8 +5,6 @@
 //  Created by Studente on 10/07/25.
 //
 
-import Foundation
-
 enum NavigationViewType {
     case splash
     case home
