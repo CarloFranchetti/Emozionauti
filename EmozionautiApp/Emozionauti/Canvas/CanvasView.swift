@@ -80,7 +80,7 @@ class DrawingModel: ObservableObject {
     }
     
     func deleteDrawing(_ drawing: Drawing){
-        if let index = drawings.firstIndex(of: drawing) {
+        if let index = drawings.firstIndex(where:{ $0.id == drawing.id }) {
                 drawings.remove(at: index)
                 saveDrawings()
             }

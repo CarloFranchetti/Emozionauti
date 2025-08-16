@@ -29,6 +29,8 @@ struct GridView: View{
     @State private var selectedEmotion: String = "Nessun filtro"
     @State private var selectedDate: String = "Nessun filtro"
     @EnvironmentObject var navigationManager: NavigationManager
+    @State private var showAlert: Bool = false
+    @State private var drawingToDelete: Drawing? = nil
 
     private let emotions = [
         "Nessun filtro",
@@ -91,8 +93,9 @@ struct GridView: View{
                         }
                         Spacer()
                         Button(action:{
-                            drawingModel.deleteDrawing(selected)
+                            self.drawingToDelete = selected
                             self.selected = nil
+                            showAlert = true
                             //navigationManager.open = false
                         }){
                             Image(systemName: "trash.fill")
@@ -101,6 +104,7 @@ struct GridView: View{
                                 .foregroundColor(.red)
                 
                         }.padding([.bottom],60)
+
                         
                     }.padding([.leading],10)
                 }
@@ -108,6 +112,18 @@ struct GridView: View{
             
         }.navigationBarTitle("Galleria Emozioni")
             .navigationBarTitleDisplayMode(.inline)
+            .alert("Sei sicuro di voler cancellare il disegno?", isPresented: $showAlert) {
+                Button("Annulla", role: .cancel) {}
+                Button("Cancella", role: .destructive) {
+                    if let drawing = drawingToDelete {
+                        drawingModel.deleteDrawing(drawing)
+                        if selected?.id == drawing.id {
+                            selected = nil
+                        }
+                        drawingToDelete = nil
+                    }
+                }
+            }
         
     }
     
