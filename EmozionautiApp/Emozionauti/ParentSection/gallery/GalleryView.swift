@@ -96,7 +96,6 @@ struct GridView: View{
                             self.drawingToDelete = selected
                             self.selected = nil
                             showAlert = true
-                            //navigationManager.open = false
                         }){
                             Image(systemName: "trash.fill")
                                 .foregroundColor(.red)
