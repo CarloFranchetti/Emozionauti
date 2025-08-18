@@ -130,7 +130,6 @@ struct ContentView: View {
             }
             .toolbar {
                 if navManager.showBackButton{
-                    // Aggiungi il pulsante back solo se serve
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
                             navManager.goBack()
@@ -143,7 +142,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationBarBackButtonHidden(true) // Nasconde il back automatico
+            .navigationBarBackButtonHidden(true) 
         }
         .environmentObject(navManager)
         .environmentObject(diaryViewModel)
