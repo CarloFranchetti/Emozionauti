@@ -24,15 +24,15 @@ class NavigationManager: ObservableObject {
         case .sadnessAnimation:
             currentView = .skipSadnessAnimation
         case .angerGame:
-            currentView = .angerAnimation
+            currentView = .skipAngerAnimation
         case .happinessGame:
-            currentView = .happinessAnimation
+            currentView = .skipHappinessAnimation
         case .fearGame:
-            currentView = .fearAnimation
+            currentView = .skipFearAnimation
         case .boredomGame:
-            currentView = .boredomAnimation
+            currentView = .skipBoredomAnimation
         case .sadnessGame:
-            currentView = .sadnessAnimation
+            currentView = .skipSadnessAnimation
         case .canvas:
             currentView = .home
         case .diary:

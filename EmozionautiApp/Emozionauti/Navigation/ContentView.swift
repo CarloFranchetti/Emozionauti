@@ -66,7 +66,7 @@ struct ContentView: View {
                         nextView: .fearGame
                     )
                 case .fearGame:
-                    FearGame(fearColor: colors["fearshadow"]!,fearShadowColor:colors["fear"]!)
+                    FearGameView(fearColor: colors["fearshadow"]!,fearShadowColor:colors["fear"]!)
                 case .boredomAnimation:
                     Animation(
                         animation: "BoredomAnimation",
