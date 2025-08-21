@@ -46,7 +46,6 @@ class BlowDetector: NSObject, ObservableObject{
             AVNumberOfChannelsKey:1,
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
-        //il file audio non viene salvato
         let url = URL(fileURLWithPath: "/dev/null")
         do{
             recorder = try AVAudioRecorder(url: url, settings: settings)
@@ -64,7 +63,7 @@ class BlowDetector: NSObject, ObservableObject{
       func updateMeasures() -> Bool{
         recorder.updateMeters()
         let power = recorder.averagePower(forChannel: 0)
-          if power >= -25.0 && power <= 10.0{
+          if power >= -25.0{
              return true
          }
           else{
