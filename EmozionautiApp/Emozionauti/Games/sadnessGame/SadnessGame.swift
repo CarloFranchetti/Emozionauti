@@ -72,7 +72,7 @@ struct SadnessGame: View {
                             .font(.custom("Mitr-Regular", size: 30))
                     }
 
-                    GifImage(image) // Assicurati che GifImage esista nel progetto
+                    GifImage(image)
                     Spacer()
                 }
             }
@@ -99,7 +99,7 @@ struct SadnessGame: View {
 
             player?.play()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
                 play = false
                 player?.stop()
                 end = true

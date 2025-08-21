@@ -34,6 +34,7 @@ struct GifImage: UIViewRepresentable {
         
         return webView
     }
+    
     func updateUIView(_ uiView: WKWebView, context: Context) {
         uiView.reload()
     }
