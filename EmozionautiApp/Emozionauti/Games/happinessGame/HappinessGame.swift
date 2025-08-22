@@ -37,6 +37,7 @@ class HappinessGame: SKScene {
     var background: SKSpriteNode!
     var stars: [SKShapeNode] = []
     var planets: [SKSpriteNode] = []
+    var music: SKAudioNode!
 
     
     override func didMove(to view: SKView){
@@ -82,7 +83,11 @@ class HappinessGame: SKScene {
             let blinkLoop = SKAction.repeatForever(blink)
             
             planet.run(blinkLoop)
+            
+            let music = SKAudioNode(fileNamed: "spacesong.mp3")
+            addChild(music)
         }
+        
         timerName = SKLabelNode(text: "Tempo: 30")
         timerName.position = CGPoint(x: size.width - 100, y: size.height - 50)
         timerName.fontSize = 24
@@ -126,6 +131,8 @@ class HappinessGame: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let clickSound = SKAction.playSoundFileNamed("click.mp3", waitForCompletion: false)
+        run(clickSound)
         guard let touch = touches.first else { return }
 
                 let position = touch.location(in: self)

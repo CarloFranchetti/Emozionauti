@@ -34,7 +34,7 @@ struct ParentAccessView: View {
             Spacer()
         }
         .padding()
-        .navigationBarBackButtonHidden(true) //Nasconde il pulsante back
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             if !authenticationAttempted {
                 authenticationAttempted = true
