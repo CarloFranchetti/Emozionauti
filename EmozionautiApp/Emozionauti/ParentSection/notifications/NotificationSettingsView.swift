@@ -18,7 +18,7 @@ struct NotificationSettingsView: View {
         Form {
             Section () {
                 Toggle("Consenti notifiche", isOn: $notificationsEnabled)
-                    .onChange(of: notificationsEnabled) { value in
+                    .onChange(of: notificationsEnabled) { notificationsEnabled, value in
                         if value {
                             scheduleNotification()
                         } else {
@@ -27,7 +27,7 @@ struct NotificationSettingsView: View {
                     }
 
                 DatePicker("Imposta orario notifica", selection: $selectedTime, displayedComponents: .hourAndMinute)
-                    .onChange(of: selectedTime) { newValue in
+                    .onChange(of: selectedTime) { selectedTime, newValue in
                         let components = Calendar.current.dateComponents([.hour, .minute], from: newValue)
                         hour = components.hour ?? 14
                         minute = components.minute ?? 0

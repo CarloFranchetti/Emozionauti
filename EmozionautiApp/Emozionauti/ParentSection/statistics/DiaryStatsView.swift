@@ -106,7 +106,7 @@ struct DiaryStatsView: View {
                     animateRings = true
                 }
             }
-            .onChange(of: selectedDate) { _ in
+            .onChange(of: selectedDate) {
                 animateRings = false
                 animatePie = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {

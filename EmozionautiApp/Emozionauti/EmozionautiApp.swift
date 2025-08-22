@@ -18,7 +18,7 @@ struct EmozionautiApp: App {
                 .environmentObject(navManager)
                 .environmentObject(diaryViewModel)
                 .onAppear {
-                    UIApplication.shared.applicationIconBadgeNumber = 0
+                    UNUserNotificationCenter.current().setBadgeCount(0)
                 }
         }
         

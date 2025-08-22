@@ -41,7 +41,7 @@ struct ParentAccessView: View {
                 authenticate()
             }
         }
-        .onChange(of: accessGranted) { granted in
+        .onChange(of: accessGranted) { accessGranted, granted in
             if granted {
                 navManager.currentView = .parentDashboard
             }

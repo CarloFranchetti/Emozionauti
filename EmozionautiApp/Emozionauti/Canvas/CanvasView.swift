@@ -22,12 +22,13 @@ struct CanvasView: UIViewRepresentable {
         canvasView.delegate = context.coordinator
         toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
-        if let window = UIApplication.shared.windows.first {
-                   let toolPicker = PKToolPicker.shared(for: window)
-                   context.coordinator.toolPicker = toolPicker
-                   toolPicker?.setVisible(toolPickerShows, forFirstResponder: canvasView)
-                   toolPicker?.addObserver(canvasView)
-               }
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first {
+                let toolPicker = PKToolPicker()
+                context.coordinator.toolPicker = toolPicker
+                toolPicker.setVisible(toolPickerShows, forFirstResponder: canvasView)
+                toolPicker.addObserver(canvasView)
+            }
+        
         if toolPickerShows {
             canvasView.becomeFirstResponder()
         }
