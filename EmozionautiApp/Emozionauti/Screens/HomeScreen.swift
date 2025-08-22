@@ -24,8 +24,6 @@ struct HomeScreen: View {
                     }())
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
-                    
-                    //Pulsante impostazioni
                     Button {
                         navManager.currentView = .parentalControl
                     } label: {
@@ -42,7 +40,6 @@ struct HomeScreen: View {
                     
                     VStack(alignment: .center, spacing:70) {
                         HStack(spacing:80) {
-                            // RABBIA
                             Button {
                                 navManager.currentView = .skipAngerAnimation
                             } label: {
@@ -55,8 +52,6 @@ struct HomeScreen: View {
                                     .padding()
                             }
                             .shadow(color: emotionsColors["angershadow"]!, radius: 0, x: 5, y: 10)
-                            
-                            // FELICITÀ
                             Button {
                                 navManager.currentView = .skipHappinessAnimation
                             } label: {
@@ -69,8 +64,6 @@ struct HomeScreen: View {
                                     .padding()
                             }
                             .shadow(color: emotionsColors["happinessshadow"]!, radius: 0, x: 5, y: 10)
-                            
-                            // PAURA
                             Button {
                                 
                                 navManager.currentView = .skipFearAnimation
@@ -87,7 +80,6 @@ struct HomeScreen: View {
                         }
                         
                         HStack(spacing:80) {
-                            // NOIA
                             Button {
                                 
                                 navManager.currentView = .skipBoredomAnimation
@@ -101,8 +93,6 @@ struct HomeScreen: View {
                                     .padding()
                             }
                             .shadow(color: emotionsColors["boredomshadow"]!, radius: 0, x: 5, y: 10)
-                            
-                            // TRISTEZZA
                             Button {
                                
                                 navManager.currentView = .skipSadnessAnimation

@@ -79,7 +79,7 @@ struct SkipAnimation: View {
                         .padding()
                 }
                 .shadow(color: animationShadowColor, radius: 0, x: 5, y:10)
-                .opacity(state.disableGame ? 0 : 1) //decidere se mettere 0.5 o lasciare 0
+                .opacity(state.disableGame ? 0 : 1)
                 .disabled(state.disableGame)
             }
         }

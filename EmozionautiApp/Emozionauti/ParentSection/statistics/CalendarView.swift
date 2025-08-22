@@ -94,8 +94,6 @@ struct CalendarView: View {
                 }
             }
             .padding(.horizontal)
-
-
             HStack {
                 ForEach(["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"], id: \.self) { day in
                     Text(day)
